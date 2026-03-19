@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Experiences Guide — Curated Luxury, Worldwide</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brass:         #B08D57;
+      --brass-light:   #CBA96E;
+      --brass-bright:  #E2C47A;
+      --brass-dim:     #6B5430;
+      --obsidian:      #0D0E10;
+      --deep:          #121519;
+      --surface:       #191D22;
+      --surface-2:     #1F252B;
+      --surface-3:     #272E36;
+      --teal:          #1A2F34;
+      --ivory:         #F7F3EC;
+      --text:          #F0EBE1;
+      --text-muted:    #8A8780;
+      --text-faint:    #454340;
+      --gold:          var(--brass);
+      --gold-light:    var(--brass-light);
+      --gold-dim:      var(--brass-dim);
+      --serif:         'Playfair Display', Georgia, serif;
+      --sans:          'DM Sans', system-ui, sans-serif;
+      --ease-out:      cubic-bezier(0.16,1,0.3,1);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--obsidian); color: var(--text);
+      font-family: var(--sans); font-weight: 300;
+      letter-spacing: 0.015em; overflow-x: hidden; cursor: none;
+    }
+
+    /* CURSOR */
+    #cursor-dot {
+      position: fixed; top: 0; left: 0; z-index: 9999;
+      width: 8px; height: 8px; background: var(--brass-bright);
+      border-radius: 50%; pointer-events: none;
+      transform: translate(-50%,-50%); transition: transform 0.08s;
+    }
+    #cursor-ring {
+      position: fixed; top: 0; left: 0; z-index: 9998;
+      width: 36px; height: 36px; border: 1px solid rgba(203,169,110,0.5);
+      border-radius: 50%; pointer-events: none;
+      transform: translate(-50%,-50%);
+      transition: transform 0.25s var(--ease-out), width 0.3s, height 0.3s;
+    }
+    body.cursor-hover #cursor-ring { width: 58px; height: 58px; border-color: var(--brass-bright); }
+    body.cursor-hover #cursor-dot  { transform: translate(-50%,-50%) scale(1.5); }
+
+    /* GRAIN */
+    .grain::after {
+      content: ''; position: fixed; inset: -200%; width: 400%; height: 400%;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity: 0.024; pointer-events: none; z-index: 8000;
+      animation: grain 8s steps(10) infinite;
+    }
+    @keyframes grain {
+      0%,100%{transform:translate(0,0)}10%{transform:translate(-5%,-10%)}20%{transform:translate(-15%,5%)}
+      30%{transform:translate(7%,-25%)}40%{transform:translate(-5%,25%)}50%{transform:translate(-15%,10%)}
+      60%{transform:translate(15%,0)}70%{transform:translate(0,15%)}80%{transform:translate(3%,35%)}90%{transform:translate(-10%,10%)}
+    }
+
+    /* NAV */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 30px 60px; transition: background 0.5s, padding 0.4s;
+    }
+    nav.scrolled {
+      background: rgba(13,14,16,0.92); backdrop-filter: blur(20px);
+      padding: 18px 60px; border-bottom: 1px solid rgba(176,141,87,0.1);
+    }
+    .nav-logo {
+      font-family: var(--serif); font-size: 1.35rem; font-weight: 400;
+      letter-spacing: 0.12em; color: var(--brass-bright); text-decoration: none;
+    }
+    .nav-logo span {
+      color: var(--text-muted); font-size: 0.66rem; display: block;
+      letter-spacing: 0.38em; font-family: var(--sans); font-weight: 400;
+      margin-top: 3px; text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 44px; align-items: center; }
+    .nav-links a {
+      font-family: var(--sans); font-size: 0.67rem; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      text-decoration: none; color: var(--text-muted);
+      position: relative; transition: color 0.3s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -5px; left: 0;
+      width: 0; height: 1px; background: var(--brass-bright);
+      transition: width 0.4s var(--ease-out);
+    }
+    .nav-links a:hover { color: var(--brass-bright); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      font-family: var(--sans); font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      border: 1px solid var(--brass-dim); color: var(--brass-light);
+      padding: 10px 26px; text-decoration: none;
+      transition: background 0.3s, color 0.3s, border-color 0.3s;
+    }
+    .nav-cta:hover { background: var(--brass); color: var(--obsidian); border-color: var(--brass); }
+
+    /* ── HERO ── */
+    #hero {
+      position: relative; height: 100vh; min-height: 700px;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+
+    /* Real photo from Unsplash — overwater bungalow/luxury pool villa */
+    .hero-photo {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1800&q=85&auto=format&fit=crop&crop=center');
+      background-size: cover; background-position: center center;
+      transform: scale(1.06);
+      animation: heroZoom 22s ease-in-out infinite alternate;
+    }
+    @keyframes heroZoom {
+      from { transform: scale(1.06) translateX(0); }
+      to   { transform: scale(1.00) translateX(-1%); }
+    }
+
+    /* Cinematic layered overlays */
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(to top, var(--obsidian) 0%, rgba(13,14,16,0.82) 25%, rgba(13,14,16,0.3) 55%, rgba(13,14,16,0.1) 100%),
+        linear-gradient(100deg, rgba(13,14,16,0.72) 0%, rgba(13,14,16,0.3) 50%, transparent 80%),
+        linear-gradient(160deg, rgba(176,141,87,0.07) 0%, transparent 55%);
+    }
+
+    /* Corner decorator */
+    .hero-corner {
+      position: absolute; top: 110px; right: 60px; z-index: 3;
+      display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
+      opacity: 0; animation: fadeDown 1s 1.2s var(--ease-out) forwards;
+    }
+    .hero-corner-line { height: 1px; background: rgba(226,196,122,0.4); }
+    .hero-corner-text { font-size: 0.56rem; letter-spacing: 0.34em; text-transform: uppercase; color: rgba(226,196,122,0.6); }
+
+    /* Text block — bottom left */
+    .hero-content {
+      position: relative; z-index: 2;
+      padding: 0 60px 100px; max-width: 860px;
+    }
+    .hero-eyebrow {
+      font-family: var(--sans); font-size: 0.61rem; font-weight: 500;
+      letter-spacing: 0.42em; text-transform: uppercase; color: var(--brass-bright);
+      margin-bottom: 26px; display: flex; align-items: center; gap: 16px;
+      opacity: 0; animation: fadeUp 1s 0.2s var(--ease-out) forwards;
+    }
+    .hero-eyebrow::before { content: ''; width: 36px; height: 1px; background: var(--brass); flex-shrink: 0; }
+    .hero-title {
+      font-family: var(--serif);
+      font-size: clamp(3.5rem, 7.5vw, 7rem);
+      font-weight: 400; line-height: 1.06; letter-spacing: 0.01em;
+      color: var(--ivory); margin-bottom: 26px;
+      opacity: 0; animation: fadeUp 1.2s 0.38s var(--ease-out) forwards;
+      text-shadow: 0 6px 48px rgba(0,0,0,0.55);
+    }
+    .hero-title em { font-style: italic; color: var(--brass-bright); }
+    .hero-subtitle {
+      font-family: var(--sans); font-size: 0.82rem; font-weight: 300;
+      letter-spacing: 0.05em; color: rgba(240,235,225,0.72); line-height: 1.85;
+      max-width: 450px; margin-bottom: 46px;
+      opacity: 0; animation: fadeUp 1s 0.62s var(--ease-out) forwards;
+    }
+    .hero-actions {
+      display: flex; align-items: center; gap: 28px;
+      opacity: 0; animation: fadeUp 1s 0.84s var(--ease-out) forwards;
+    }
+    .btn-primary {
+      font-family: var(--sans); font-size: 0.64rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      background: var(--brass); color: var(--obsidian);
+      padding: 16px 40px; text-decoration: none;
+      position: relative; overflow: hidden; transition: background 0.3s;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.18); transform: translateX(-100%);
+      transition: transform 0.4s var(--ease-out);
+    }
+    .btn-primary:hover { background: var(--brass-bright); }
+    .btn-primary:hover::before { transform: translateX(0); }
+    .btn-secondary {
+      font-family: var(--sans); font-size: 0.64rem; font-weight: 400;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(240,235,225,0.68); text-decoration: none;
+      display: flex; align-items: center; gap: 10px; transition: color 0.3s;
+    }
+    .btn-secondary::after { content: '↓'; transition: transform 0.3s; }
+    .btn-secondary:hover { color: var(--brass-bright); }
+    .btn-secondary:hover::after { transform: translateY(4px); }
+
+    /* Stat pills — bottom right */
+    .hero-stats {
+      position: absolute; bottom: 90px; right: 60px; z-index: 3;
+      display: flex; flex-direction: column; gap: 1px;
+      opacity: 0; animation: fadeLeft 1s 1.0s var(--ease-out) forwards;
+    }
+    .hero-stat-pill {
+      background: rgba(13,14,16,0.72); backdrop-filter: blur(14px);
+      border: 1px solid rgba(176,141,87,0.2);
+      padding: 14px 22px; display: flex; align-items: baseline; gap: 8px;
+    }
+    .hsp-num { font-family: var(--serif); font-size: 1.55rem; font-weight: 400; color: var(--brass-bright); line-height: 1; }
+    .hsp-label { font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); }
+
+    /* Scroll line */
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%; transform: translateX(-50%); z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 10px;
+      opacity: 0; animation: fadeUp 1s 1.3s var(--ease-out) forwards;
+    }
+    .hero-scroll span { font-size: 0.53rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--text-faint); }
+    .scroll-bar { width: 1px; height: 52px; background: var(--text-faint); position: relative; overflow: hidden; }
+    .scroll-bar::after {
+      content: ''; position: absolute; top: -100%; left: 0;
+      width: 1px; height: 100%; background: var(--brass-bright);
+      animation: scrollBar 2.2s 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollBar { 0%{top:-100%}100%{top:200%} }
+    @keyframes fadeUp   { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeLeft { from{opacity:0;transform:translateX(28px)} to{opacity:1;transform:translateX(0)} }
+
+    /* MARQUEE */
+    .marquee-strip {
+      background: var(--surface);
+      border-top: 1px solid rgba(176,141,87,0.1);
+      border-bottom: 1px solid rgba(176,141,87,0.1);
+      padding: 22px 0; overflow: hidden;
+    }
+    .marquee-track {
+      display: flex; gap: 64px; white-space: nowrap;
+      animation: marquee 32s linear infinite; width: max-content;
+    }
+    .marquee-item {
+      font-family: var(--serif); font-size: 1.05rem; font-style: italic;
+      color: var(--text-muted); letter-spacing: 0.04em;
+      display: flex; align-items: center; gap: 64px;
+    }
+    .marquee-item::after { content: '✦'; color: var(--brass); font-style: normal; font-size: 0.55rem; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* SECTION BASE */
+    section { padding: 140px 60px; }
+    .section-label {
+      font-family: var(--sans); font-size: 0.57rem; font-weight: 500;
+      letter-spacing: 0.4em; text-transform: uppercase; color: var(--brass);
+      margin-bottom: 18px; display: flex; align-items: center; gap: 16px;
+    }
+    .section-label::before { content: ''; flex: 0 0 36px; height: 1px; background: var(--brass-dim); }
+    .section-title {
+      font-family: var(--serif); font-size: clamp(2.5rem, 4.5vw, 4rem);
+      font-weight: 400; line-height: 1.12; color: var(--text);
+    }
+    .section-title em { font-style: italic; color: var(--brass-light); }
+
+    /* EXPERIENCES */
+    #experiences { background: var(--deep); }
+    .exp-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 1px; margin-top: 80px;
+      border: 1px solid rgba(176,141,87,0.06);
+    }
+    .exp-card {
+      background: var(--surface); position: relative;
+      padding: 50px 42px; overflow: hidden;
+      transition: background 0.4s; cursor: none;
+    }
+    .exp-card:hover { background: var(--surface-2); }
+    .exp-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--brass-bright), transparent);
+      transform: scaleX(0); transition: transform 0.6s var(--ease-out);
+    }
+    .exp-card:hover::before { transform: scaleX(1); }
+    .exp-number {
+      font-family: var(--serif); font-size: 3.2rem; font-weight: 400;
+      color: rgba(176,141,87,0.07); line-height: 1; margin-bottom: 28px;
+    }
+    .exp-icon { font-size: 1.5rem; margin-bottom: 18px; display: block; }
+    .exp-title {
+      font-family: var(--serif); font-size: 1.45rem; font-weight: 400;
+      color: var(--text); margin-bottom: 14px; line-height: 1.3;
+    }
+    .exp-desc { font-size: 0.76rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 30px; }
+    .exp-link {
+      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--brass); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+      transition: gap 0.3s, color 0.3s;
+    }
+    .exp-link::after { content: '→'; }
+    .exp-card:hover .exp-link { gap: 16px; color: var(--brass-bright); }
+    .exp-card.featured { grid-column: span 2; background: var(--surface-2); }
+    .exp-card.featured .exp-title { font-size: 2.1rem; }
+    .exp-tag {
+      display: inline-block; font-size: 0.56rem; font-weight: 500;
+      letter-spacing: 0.22em; text-transform: uppercase;
+      border: 1px solid var(--brass-dim); color: var(--brass-light);
+      padding: 5px 14px; margin-bottom: 22px;
+    }
+
+    /* DESTINATIONS */
+    #destinations { background: var(--obsidian); }
+    .dest-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 80px; }
+    .dest-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
+      cursor: none; transition: padding-left 0.4s var(--ease-out); position: relative;
+    }
+    .dest-item::before {
+      content: ''; position: absolute; left: 0; top: 0; bottom: 0;
+      width: 0; background: rgba(176,141,87,0.04); transition: width 0.4s var(--ease-out);
+    }
+    .dest-item:hover { padding-left: 20px; }
+    .dest-item:hover::before { width: 100%; }
+    .dest-name { font-family: var(--serif); font-size: 1.45rem; font-weight: 400; color: var(--text); transition: color 0.3s; }
+    .dest-item:hover .dest-name { color: var(--brass-bright); }
+    .dest-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+    .dest-count { font-size: 0.6rem; letter-spacing: 0.2em; color: var(--brass); text-transform: uppercase; }
+    .dest-region { font-size: 0.6rem; letter-spacing: 0.15em; color: var(--text-faint); text-transform: uppercase; }
+    .dest-visual { position: sticky; top: 120px; }
+    .dest-frame {
+      aspect-ratio: 3/4; background: var(--surface);
+      border: 1px solid rgba(176,141,87,0.08);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+    }
+    .dest-frame-bg { position: absolute; inset: 0; background: radial-gradient(ellipse at 50% 30%, rgba(176,141,87,0.07), transparent 70%); }
+    .dest-frame-inner { text-align: center; padding: 40px; position: relative; z-index: 1; }
+    .dest-frame-city {
+      font-family: var(--serif); font-size: 2.8rem; font-weight: 400;
+      color: var(--text); opacity: 0.3; transition: opacity 0.4s; line-height: 1.1;
+    }
+    .dest-frame-tagline { font-size: 0.62rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brass); margin-top: 12px; }
+
+    /* PHILOSOPHY */
+    #philosophy { background: var(--surface); border-top: 1px solid rgba(176,141,87,0.06); border-bottom: 1px solid rgba(176,141,87,0.06); }
+    .phil-inner { display: grid; grid-template-columns: 1fr 1.4fr; gap: 100px; align-items: center; }
+    .phil-quote {
+      font-family: var(--serif); font-size: clamp(1.5rem, 2.8vw, 2.2rem);
+      font-weight: 400; font-style: italic; line-height: 1.6; color: var(--text);
+    }
+    .phil-quote cite {
+      display: block; margin-top: 26px; font-style: normal;
+      font-family: var(--sans); font-size: 0.6rem;
+      letter-spacing: 0.25em; text-transform: uppercase; color: var(--brass);
+    }
+    .phil-pillars { display: flex; flex-direction: column; gap: 34px; }
+    .pillar { display: flex; gap: 24px; }
+    .pillar-num { font-family: var(--serif); font-size: 2rem; font-weight: 400; color: var(--brass-dim); line-height: 1; flex-shrink: 0; padding-top: 2px; }
+    .pillar-title { font-family: var(--serif); font-size: 1.1rem; color: var(--text); margin-bottom: 8px; }
+    .pillar-text { font-size: 0.74rem; line-height: 1.9; color: var(--text-muted); }
+
+    /* STATS */
+    .stats-strip {
+      background: var(--teal); padding: 80px 60px;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 1px;
+      border-top: 1px solid rgba(176,141,87,0.08);
+    }
+    .stat-block { text-align: center; padding: 40px; border-right: 1px solid rgba(176,141,87,0.08); }
+    .stat-block:last-child { border-right: none; }
+    .stat-number {
+      font-family: var(--serif); font-size: 4rem; font-weight: 400;
+      color: var(--brass-bright); line-height: 1;
+      display: flex; align-items: flex-start; justify-content: center;
+    }
+    .stat-suffix { font-size: 1.7rem; margin-top: 6px; }
+    .stat-label { font-size: 0.57rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(240,235,225,0.45); margin-top: 12px; }
+
+    /* PROCESS */
+    #process { background: var(--obsidian); }
+    .process-steps { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; margin-top: 80px; }
+    .process-step { padding: 50px 34px; background: var(--surface); position: relative; overflow: hidden; }
+    .step-num { font-family: var(--serif); font-size: 4.5rem; font-weight: 400; color: rgba(176,141,87,0.06); line-height: 1; margin-bottom: 32px; }
+    .step-title { font-family: var(--serif); font-size: 1.2rem; color: var(--text); margin-bottom: 14px; }
+    .step-text { font-size: 0.73rem; line-height: 1.88; color: var(--text-muted); }
+    .step-connector { position: absolute; top: 50px; right: -1px; width: 1px; height: 38px; background: var(--brass-dim); z-index: 2; }
+
+    /* TESTIMONIALS */
+    #testimonials { background: var(--deep); }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 26px; margin-top: 80px; }
+    .testimonial-card { background: var(--surface); padding: 42px; border: 1px solid rgba(176,141,87,0.06); position: relative; }
+    .testimonial-card::before {
+      content: '\201C'; font-family: var(--serif); font-size: 5rem; font-weight: 400;
+      color: rgba(176,141,87,0.1); position: absolute; top: 18px; left: 34px; line-height: 1;
+    }
+    .testimonial-text { font-family: var(--serif); font-size: 1rem; font-style: italic; line-height: 1.72; color: var(--text); margin-bottom: 30px; margin-top: 18px; }
+    .testimonial-author { display: flex; align-items: center; gap: 14px; }
+    .author-avatar {
+      width: 42px; height: 42px; border-radius: 50%; background: var(--surface-3);
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--serif); font-size: 1.05rem; color: var(--brass); flex-shrink: 0;
+    }
+    .author-name { font-size: 0.74rem; font-weight: 500; letter-spacing: 0.05em; color: var(--text); }
+    .author-title { font-size: 0.6rem; letter-spacing: 0.1em; color: var(--text-muted); margin-top: 2px; }
+    .star-row { display: flex; gap: 3px; margin-bottom: 18px; }
+    .star { color: var(--brass); font-size: 0.68rem; }
+
+    /* CONTACT */
+    #contact { background: var(--surface); }
+    .contact-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 100px; align-items: start; }
+    .contact-info-block { display: flex; flex-direction: column; gap: 42px; }
+    .contact-tagline { font-family: var(--serif); font-size: 2.2rem; font-weight: 400; line-height: 1.32; color: var(--text); }
+    .contact-tagline em { font-style: italic; color: var(--brass-light); }
+    .contact-detail { display: flex; flex-direction: column; gap: 6px; }
+    .contact-detail-label { font-size: 0.55rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--brass); }
+    .contact-detail-value { font-family: var(--serif); font-size: 1.05rem; color: var(--text); }
+    .contact-form { display: flex; flex-direction: column; gap: 26px; }
+    .form-field { display: flex; flex-direction: column; gap: 8px; }
+    .form-field label { font-size: 0.57rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-muted); }
+    .form-field input, .form-field select, .form-field textarea {
+      background: transparent; border: none; border-bottom: 1px solid rgba(176,141,87,0.2);
+      color: var(--text); font-family: var(--sans); font-size: 0.82rem;
+      padding: 14px 0; outline: none; transition: border-color 0.3s; width: 100%; appearance: none; cursor: none;
+    }
+    .form-field input::placeholder, .form-field textarea::placeholder { color: var(--text-faint); }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-bottom-color: var(--brass-bright); }
+    .form-field textarea { resize: none; height: 118px; }
+    .form-field select {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M0 0l5 6 5-6z' fill='%23B08D57'/%3E%3C/svg%3E");
+      background-repeat: no-repeat; background-position: right 0 center;
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
+    .form-submit {
+      background: var(--brass); border: none; cursor: none;
+      font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--obsidian); padding: 17px 44px; align-self: flex-start;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .form-submit:hover { background: var(--brass-bright); transform: translateY(-1px); }
+    .form-submit.sent { background: #2d5a3a; color: #88dba0; }
+
+    /* FOOTER */
+    footer { background: var(--obsidian); padding: 80px 60px 40px; border-top: 1px solid rgba(176,141,87,0.08); }
+    .footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 60px; margin-bottom: 60px; }
+    .footer-logo { font-family: var(--serif); font-size: 1.35rem; font-weight: 400; color: var(--brass-bright); letter-spacing: 0.1em; margin-bottom: 14px; }
+    .footer-tagline { font-size: 0.72rem; line-height: 1.85; color: var(--text-muted); max-width: 260px; }
+    .footer-col-title { font-size: 0.57rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brass); margin-bottom: 20px; }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a { font-size: 0.74rem; color: var(--text-muted); text-decoration: none; transition: color 0.3s; }
+    .footer-links a:hover { color: var(--brass-bright); }
+    .footer-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 30px; border-top: 1px solid rgba(255,255,255,0.04); }
+    .footer-copy { font-size: 0.6rem; color: var(--text-faint); letter-spacing: 0.1em; }
+    .footer-socials { display: flex; gap: 22px; }
+    .footer-socials a { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--text-faint); text-decoration: none; transition: color 0.3s; }
+    .footer-socials a:hover { color: var(--brass); }
+
+    /* REVEAL */
+    .reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out); }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.22s; }
+    .reveal-delay-3 { transition-delay: 0.34s; }
+
+    /* MOBILE */
+    @media (max-width: 900px) {
+      nav { padding: 18px 28px; } .nav-links { display: none; }
+      section { padding: 80px 28px; }
+      .hero-content { padding: 0 28px 80px; } .hero-stats,.hero-corner { display: none; }
+      .exp-grid { grid-template-columns: 1fr; } .exp-card.featured { grid-column: span 1; }
+      .dest-layout { grid-template-columns: 1fr; } .dest-visual { display: none; }
+      .phil-inner { grid-template-columns: 1fr; gap: 50px; }
+      .stats-strip { grid-template-columns: repeat(2,1fr); padding: 40px 28px; }
+      .stat-block { border-right: none; border-bottom: 1px solid rgba(176,141,87,0.08); }
+      .process-steps { grid-template-columns: 1fr; }
+      .testimonial-grid { grid-template-columns: 1fr; }
+      .contact-inner { grid-template-columns: 1fr; gap: 50px; }
+      .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
+      #cursor-dot,#cursor-ring { display: none; } body { cursor: auto; }
+      .form-submit,.nav-cta,.btn-primary { cursor: pointer; }
+    }
+  </style>
+</head>
+<body class="grain">
+  <div id="cursor-dot"></div>
+  <div id="cursor-ring"></div>
+
+  <!-- NAV -->
+  <nav id="nav">
+    <a href="#" class="nav-logo">
+      Experiences Guide
+      <span>Luxury Curated Worldwide</span>
+    </a>
+    <div class="nav-links">
+      <a href="#experiences">Experiences</a>
+      <a href="#destinations">Destinations</a>
+      <a href="#philosophy">Philosophy</a>
+      <a href="#process">Process</a>
+      <a href="#contact" class="nav-cta">Request a Journey</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section id="hero">
+    <div class="hero-photo"></div>
+    <div class="hero-overlay"></div>
+
+    <div class="hero-corner">
+      <div class="hero-corner-line" style="width:80px"></div>
+      <div class="hero-corner-text">Est. 2004</div>
+      <div class="hero-corner-line" style="width:48px"></div>
+    </div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Curated Luxury Experiences</p>
+      <h1 class="hero-title">The World,<br><em>Perfectly Arranged.</em></h1>
+      <p class="hero-subtitle">We craft singular moments in the world's most extraordinary places — private, bespoke, and designed for those who seek the exceptional.</p>
+      <div class="hero-actions">
+        <a href="#experiences" class="btn-primary">Explore Experiences</a>
+        <a href="#contact" class="btn-secondary">Begin Your Journey</a>
+      </div>
+    </div>
+
+    <div class="hero-stats">
+      <div class="hero-stat-pill">
+        <span class="hsp-num">60<span style="font-size:1rem">+</span></span>
+        <span class="hsp-label">Countries</span>
+      </div>
+      <div class="hero-stat-pill">
+        <span class="hsp-num">300<span style="font-size:1rem">+</span></span>
+        <span class="hsp-label">Partner Properties</span>
+      </div>
+      <div class="hero-stat-pill">
+        <span class="hsp-num">98<span style="font-size:1rem">%</span></span>
+        <span class="hsp-label">Client Satisfaction</span>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Scroll</span>
+      <div class="scroll-bar"></div>
+    </div>
+  </section>
+
+  <!-- MARQUEE -->
+  <div class="marquee-strip">
+    <div class="marquee-track">
+      <span class="marquee-item">Private Villa Retreats</span><span class="marquee-item">Yacht Charters</span>
+      <span class="marquee-item">Michelin Dining</span><span class="marquee-item">Safari Expeditions</span>
+      <span class="marquee-item">Alpine Sanctuaries</span><span class="marquee-item">Cultural Immersions</span>
+      <span class="marquee-item">Superyacht Voyages</span><span class="marquee-item">Private Air Access</span>
+      <span class="marquee-item">Wellness Retreats</span>
+      <span class="marquee-item">Private Villa Retreats</span><span class="marquee-item">Yacht Charters</span>
+      <span class="marquee-item">Michelin Dining</span><span class="marquee-item">Safari Expeditions</span>
+      <span class="marquee-item">Alpine Sanctuaries</span><span class="marquee-item">Cultural Immersions</span>
+      <span class="marquee-item">Superyacht Voyages</span><span class="marquee-item">Private Air Access</span>
+      <span class="marquee-item">Wellness Retreats</span>
+    </div>
+  </div>
+
+  <!-- EXPERIENCES -->
+  <section id="experiences">
+    <div class="section-label reveal">Our Offerings</div>
+    <h2 class="section-title reveal">Extraordinary <em>Experiences</em></h2>
+    <div class="exp-grid">
+      <div class="exp-card featured reveal">
+        <div class="exp-tag">Signature</div><div class="exp-number">01</div>
+        <span class="exp-icon">🛥</span>
+        <h3 class="exp-title">Mediterranean Superyacht Voyage</h3>
+        <p class="exp-desc">Embark on an unparalleled journey across the Mediterranean aboard a private superyacht. From the Amalfi Coast to the Greek islands, each day is a new horizon — guided by your personal crew and a curated itinerary designed exclusively for you.</p>
+        <a href="#contact" class="exp-link">Inquire Now</a>
+      </div>
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-number">02</div><span class="exp-icon">🏔</span>
+        <h3 class="exp-title">Alpine Sanctuary</h3>
+        <p class="exp-desc">Private chalets, heli-skiing access, and world-class mountain cuisine in the Swiss Alps.</p>
+        <a href="#contact" class="exp-link">Inquire Now</a>
+      </div>
+      <div class="exp-card reveal reveal-delay-2">
+        <div class="exp-number">03</div><span class="exp-icon">🦁</span>
+        <h3 class="exp-title">Private Safari</h3>
+        <p class="exp-desc">Exclusive tented camps and conservation-led game drives across Botswana's Okavango Delta.</p>
+        <a href="#contact" class="exp-link">Inquire Now</a>
+      </div>
+      <div class="exp-card reveal reveal-delay-1">
+        <div class="exp-number">04</div><span class="exp-icon">🍽</span>
+        <h3 class="exp-title">Culinary Journeys</h3>
+        <p class="exp-desc">Private chef collaborations, Michelin tables, and market-to-table experiences in Lyon and Tokyo.</p>
+        <a href="#contact" class="exp-link">Inquire Now</a>
+      </div>
+      <div class="exp-card reveal reveal-delay-2">
+        <div class="exp-number">05</div><span class="exp-icon">🏯</span>
+        <h3 class="exp-title">Cultural Immersion</h3>
+        <p class="exp-desc">Private museum access, artist ateliers, and curated encounters with local masters of craft.</p>
+        <a href="#contact" class="exp-link">Inquire Now</a>
+      </div>
+      <div class="exp-card reveal reveal-delay-3">
+        <div class="exp-number">06</div><span class="exp-icon">🧘</span>
+        <h3 class="exp-title">Wellness Escapes</h3>
+        <p class="exp-desc">Bespoke retreats with world-renowned healers, thermal springs, and tailored wellness programmes.</p>
+        <a href="#contact" class="exp-link">Inquire Now</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTINATIONS -->
+  <section id="destinations">
+    <div class="section-label reveal">Where We Take You</div>
+    <h2 class="section-title reveal">Our <em>Destinations</em></h2>
+    <div class="dest-layout">
+      <div class="dest-list">
+        <div class="dest-item reveal" data-city="Amalfi Coast" data-tag="Southern Europe"><span class="dest-name">Amalfi Coast</span><div class="dest-meta"><span class="dest-count">12 Experiences</span><span class="dest-region">Italy</span></div></div>
+        <div class="dest-item reveal reveal-delay-1" data-city="Kyoto" data-tag="East Asia"><span class="dest-name">Kyoto</span><div class="dest-meta"><span class="dest-count">8 Experiences</span><span class="dest-region">Japan</span></div></div>
+        <div class="dest-item reveal reveal-delay-2" data-city="Maldives" data-tag="Indian Ocean"><span class="dest-name">Maldives</span><div class="dest-meta"><span class="dest-count">15 Experiences</span><span class="dest-region">Indian Ocean</span></div></div>
+        <div class="dest-item reveal reveal-delay-3" data-city="Patagonia" data-tag="South America"><span class="dest-name">Patagonia</span><div class="dest-meta"><span class="dest-count">6 Experiences</span><span class="dest-region">Chile</span></div></div>
+        <div class="dest-item reveal" data-city="Santorini" data-tag="The Aegean"><span class="dest-name">Santorini</span><div class="dest-meta"><span class="dest-count">10 Experiences</span><span class="dest-region">Greece</span></div></div>
+        <div class="dest-item reveal reveal-delay-1" data-city="Marrakech" data-tag="North Africa"><span class="dest-name">Marrakech</span><div class="dest-meta"><span class="dest-count">9 Experiences</span><span class="dest-region">Morocco</span></div></div>
+        <div class="dest-item reveal reveal-delay-2" data-city="Seychelles" data-tag="East Africa"><span class="dest-name">Seychelles</span><div class="dest-meta"><span class="dest-count">11 Experiences</span><span class="dest-region">Indian Ocean</span></div></div>
+        <div class="dest-item reveal reveal-delay-3" data-city="St. Moritz" data-tag="The Alps"><span class="dest-name">St. Moritz</span><div class="dest-meta"><span class="dest-count">7 Experiences</span><span class="dest-region">Switzerland</span></div></div>
+      </div>
+      <div class="dest-visual">
+        <div class="dest-frame">
+          <div class="dest-frame-bg"></div>
+          <div class="dest-frame-inner">
+            <div class="dest-frame-city" id="dest-display">Amalfi Coast</div>
+            <div class="dest-frame-tagline" id="dest-tag-display">Southern Europe</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section id="philosophy">
+    <div class="phil-inner">
+      <div>
+        <div class="section-label reveal">Our Ethos</div>
+        <blockquote class="phil-quote reveal">
+          "Luxury is not about the destination. It is about experiencing the extraordinary at every turn — the details others overlook, the moments money alone cannot arrange."
+          <cite>— Founders, Experiences Guide</cite>
+        </blockquote>
+      </div>
+      <div class="phil-pillars">
+        <div class="pillar reveal"><span class="pillar-num">I</span><div class="pillar-body"><h3 class="pillar-title">Absolute Exclusivity</h3><p class="pillar-text">Every experience is crafted for you alone. We work with a strictly limited clientele to ensure our undivided attention and access to venues and moments that simply cannot be booked.</p></div></div>
+        <div class="pillar reveal reveal-delay-1"><span class="pillar-num">II</span><div class="pillar-body"><h3 class="pillar-title">Obsessive Curation</h3><p class="pillar-text">Our network of 300+ world-class partners is built over two decades of relationship-building. Every villa, yacht, guide, and chef is known to us personally.</p></div></div>
+        <div class="pillar reveal reveal-delay-2"><span class="pillar-num">III</span><div class="pillar-body"><h3 class="pillar-title">Seamless Delivery</h3><p class="pillar-text">From the moment your journey begins to the moment it ends, every detail is anticipated. You experience the world. We manage everything else.</p></div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-block reveal"><div class="stat-number"><span class="counter" data-target="60">0</span><span class="stat-suffix">+</span></div><div class="stat-label">Countries of Operation</div></div>
+    <div class="stat-block reveal reveal-delay-1"><div class="stat-number"><span class="counter" data-target="300">0</span><span class="stat-suffix">+</span></div><div class="stat-label">Partner Properties</div></div>
+    <div class="stat-block reveal reveal-delay-2"><div class="stat-number"><span class="counter" data-target="20">0</span></div><div class="stat-label">Years of Excellence</div></div>
+    <div class="stat-block reveal reveal-delay-3"><div class="stat-number"><span class="counter" data-target="98">0</span><span class="stat-suffix">%</span></div><div class="stat-label">Client Satisfaction</div></div>
+  </div>
+
+  <!-- PROCESS -->
+  <section id="process">
+    <div class="section-label reveal">How It Works</div>
+    <h2 class="section-title reveal">Your Journey <em>Begins Here</em></h2>
+    <div class="process-steps">
+      <div class="process-step reveal"><div class="step-connector"></div><div class="step-num">01</div><h3 class="step-title">First Conversation</h3><p class="step-text">We begin with a private consultation — in person, by phone, or video — to understand your desires, timelines, and what makes a journey truly meaningful for you.</p></div>
+      <div class="process-step reveal reveal-delay-1"><div class="step-connector"></div><div class="step-num">02</div><h3 class="step-title">Bespoke Proposal</h3><p class="step-text">Within 72 hours, your dedicated advisor presents a tailored proposal — complete with handpicked properties, curated activities, and a narrative arc for your experience.</p></div>
+      <div class="process-step reveal reveal-delay-2"><div class="step-connector"></div><div class="step-num">03</div><h3 class="step-title">White-Glove Planning</h3><p class="step-text">Every element is arranged with precision. Transfers, reservations, staffing, surprises. We anticipate needs before they arise and remove every friction point.</p></div>
+      <div class="process-step reveal reveal-delay-3"><div class="step-num">04</div><h3 class="step-title">Arrive & Experience</h3><p class="step-text">You arrive. The world opens. Our on-the-ground concierge remains available 24 hours a day throughout your journey — invisible until needed.</p></div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section id="testimonials">
+    <div class="section-label reveal">What Clients Say</div>
+    <h2 class="section-title reveal">Voices of <em>Experience</em></h2>
+    <div class="testimonial-grid">
+      <div class="testimonial-card reveal"><div class="star-row"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">They arranged a private concert in a Renaissance palace in Florence for my wife's birthday. Guests are still talking about it two years later. Incomparable.</p><div class="testimonial-author"><div class="author-avatar">R</div><div><div class="author-name">Roberto M.</div><div class="author-title">CEO, Milan</div></div></div></div>
+      <div class="testimonial-card reveal reveal-delay-1"><div class="star-row"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">We asked for something nobody had ever done before. They found us a private island in the Seychelles with a personal marine biologist. Extraordinary.</p><div class="testimonial-author"><div class="author-avatar">S</div><div><div class="author-name">Sophia A.</div><div class="author-title">Entrepreneur, London</div></div></div></div>
+      <div class="testimonial-card reveal reveal-delay-2"><div class="star-row"><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span></div><p class="testimonial-text">The level of detail is unlike anything I've encountered. From the moment I land to the moment I leave, every hour is considered. They think of everything.</p><div class="testimonial-author"><div class="author-avatar">J</div><div><div class="author-name">James K.</div><div class="author-title">Private Equity, New York</div></div></div></div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="contact-inner">
+      <div class="contact-info-block">
+        <div><div class="section-label reveal">Get In Touch</div><h2 class="section-title reveal">Begin Your <em>Journey</em></h2></div>
+        <p class="contact-tagline reveal">Tell us where you wish to go. We will take care of <em>everything else.</em></p>
+        <div class="contact-detail reveal"><span class="contact-detail-label">Private Line</span><span class="contact-detail-value">+1 (888) 000 — EXP</span></div>
+        <div class="contact-detail reveal reveal-delay-1"><span class="contact-detail-label">Correspondence</span><span class="contact-detail-value">hello@experiencesguide.com</span></div>
+        <div class="contact-detail reveal reveal-delay-2"><span class="contact-detail-label">Response Time</span><span class="contact-detail-value">Within 24 hours, always.</span></div>
+      </div>
+      <form class="contact-form reveal" id="contact-form" onsubmit="handleSubmit(event)">
+        <div class="form-row">
+          <div class="form-field"><label>First Name</label><input type="text" placeholder="Alexandra" required /></div>
+          <div class="form-field"><label>Last Name</label><input type="text" placeholder="Fontaine" required /></div>
+        </div>
+        <div class="form-field"><label>Email Address</label><input type="email" placeholder="your@email.com" required /></div>
+        <div class="form-row">
+          <div class="form-field"><label>Experience Type</label><select><option value="">Select a category</option><option>Yacht Charter</option><option>Private Villa</option><option>Safari</option><option>Cultural Journey</option><option>Wellness Retreat</option><option>Culinary Experience</option><option>Bespoke — Tell us</option></select></div>
+          <div class="form-field"><label>Preferred Timeframe</label><select><option value="">When?</option><option>Next 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Flexible</option></select></div>
+        </div>
+        <div class="form-field"><label>Tell Us About Your Dream Experience</label><textarea placeholder="Describe your vision — we will make it a reality."></textarea></div>
+        <button type="submit" class="form-submit" id="submit-btn">Send Enquiry</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-top">
+      <div><div class="footer-logo">Experiences Guide</div><p class="footer-tagline">Curating the world's most extraordinary moments for discerning individuals since 2004.</p></div>
+      <div><div class="footer-col-title">Experiences</div><div class="footer-links"><a href="#experiences">Yacht Charters</a><a href="#experiences">Private Villas</a><a href="#experiences">Safaris</a><a href="#experiences">Culinary</a><a href="#experiences">Wellness</a></div></div>
+      <div><div class="footer-col-title">Destinations</div><div class="footer-links"><a href="#destinations">Mediterranean</a><a href="#destinations">Asia Pacific</a><a href="#destinations">Africa</a><a href="#destinations">The Americas</a><a href="#destinations">Indian Ocean</a></div></div>
+      <div><div class="footer-col-title">Company</div><div class="footer-links"><a href="#philosophy">Our Philosophy</a><a href="#process">How It Works</a><a href="#contact">Contact</a><a href="#">Privacy Policy</a><a href="#">Terms of Service</a></div></div>
+    </div>
+    <div class="footer-bottom">
+      <span class="footer-copy">© 2025 Experiences Guide. All rights reserved.</span>
+      <div class="footer-socials"><a href="#">Instagram</a><a href="#">LinkedIn</a><a href="#">WhatsApp</a></div>
+    </div>
+  </footer>
+
+  <script>
+    const dot=document.getElementById('cursor-dot'), ring=document.getElementById('cursor-ring');
+    let mx=0,my=0,rx=0,ry=0;
+    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
+    document.querySelectorAll('a,button,.exp-card,.dest-item').forEach(el=>{
+      el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+      el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+    });
+    (function anim(){
+      dot.style.left=mx+'px';dot.style.top=my+'px';
+      rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+      ring.style.left=rx+'px';ring.style.top=ry+'px';
+      requestAnimationFrame(anim);
+    })();
+
+    const nav=document.getElementById('nav');
+    window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>40));
+
+    const io=new IntersectionObserver(es=>{
+      es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
+    },{threshold:0.1});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    const cio=new IntersectionObserver(es=>{
+      es.forEach(e=>{if(e.isIntersecting){
+        const t=+e.target.dataset.target; let v=0;
+        const id=setInterval(()=>{v=Math.min(v+t/60,t);e.target.textContent=Math.round(v);if(v>=t)clearInterval(id);},20);
+        cio.unobserve(e.target);
+      }});
+    },{threshold:0.5});
+    document.querySelectorAll('.counter').forEach(el=>cio.observe(el));
+
+    const cityEl=document.getElementById('dest-display'), tagEl=document.getElementById('dest-tag-display');
+    document.querySelectorAll('.dest-item').forEach(item=>{
+      item.addEventListener('mouseenter',()=>{
+        cityEl.style.opacity='0';
+        setTimeout(()=>{cityEl.textContent=item.dataset.city;tagEl.textContent=item.dataset.tag;cityEl.style.opacity='0.3';},240);
+      });
+    });
+
+    function handleSubmit(e){
+      e.preventDefault();
+      const btn=document.getElementById('submit-btn');
+      btn.textContent='Sending…';btn.disabled=true;
+      setTimeout(()=>{btn.textContent='✓ Enquiry Received';btn.classList.add('sent');},1500);
+    }
+  </script>
+</body>
+</html>
