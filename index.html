@@ -86,7 +86,9 @@
       font-family: var(--serif); font-size: 1.35rem; font-weight: 400;
       letter-spacing: 0.12em; color: var(--brass-bright); text-decoration: none;
       flex-shrink: 0;
+      cursor: pointer;
     }
+    .nav-logo:hover { color: var(--brass-bright); }
     .nav-logo span {
       color: var(--text-muted); font-size: 0.66rem; display: block;
       letter-spacing: 0.38em; font-family: var(--sans); font-weight: 400;
@@ -135,8 +137,8 @@
       border: 1px solid rgba(176,141,87,0.15);
       border-top: 2px solid var(--brass);
       padding: 10px 0;
-      opacity: 0; visibility: hidden; pointer-events: none;
-      transform: translateY(-8px);
+      opacity: 0; visibility: hidden; pointer-events: auto;
+      transform: translateY(-2px);
       transition: opacity 0.3s var(--ease-out), transform 0.3s var(--ease-out), visibility 0.3s;
       z-index: 300;
     }
@@ -236,7 +238,7 @@
 
     /* Corner decorator */
     .hero-corner {
-      position: absolute; top: 110px; right: 60px; z-index: 3;
+      position: absolute; top: 150px; right: 60px; z-index: 3;
       display: flex; flex-direction: column; align-items: flex-end; gap: 10px;
       opacity: 0; animation: fadeDown 1s 1.2s var(--ease-out) forwards;
     }
@@ -247,6 +249,8 @@
     .hero-content {
       position: relative; z-index: 2;
       padding: 0 60px 100px; max-width: 860px;
+      /* Move the whole text block down so fixed nav doesn't cover it */
+      transform: translateY(72px);
     }
     .hero-eyebrow {
       font-family: var(--sans); font-size: 0.61rem; font-weight: 500;
@@ -409,6 +413,184 @@
       padding: 5px 14px; margin-bottom: 22px;
     }
 
+    /* CONTINENTS (Multi-page via URL view) */
+    .view-hidden { display: none !important; }
+    .view-panel { display: none; }
+    .view-panel.is-active { display: block; }
+    #view-continent { background: var(--obsidian); }
+
+    /* Vibrant background for the continents landing */
+    #view-continents {
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    #view-continents::before {
+      content: '';
+      position: absolute;
+      inset: -20px;
+      background-image:
+        url("https://source.unsplash.com/1600x900/?world,travel,globe,vibrant&sig=42");
+      background-size: cover;
+      background-position: center;
+      filter: saturate(1.25) brightness(1.05) contrast(1.05);
+      opacity: 0.92;
+      transform: scale(1.02);
+      z-index: 0;
+    }
+    #view-continents::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(1200px 420px at 20% 10%, rgba(176,141,87,0.22), transparent 60%),
+        linear-gradient(to bottom, rgba(13,14,16,0.35) 0%, rgba(13,14,16,0.78) 70%, rgba(13,14,16,0.92) 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    #view-continents > * {
+      position: relative;
+      z-index: 2;
+    }
+
+    .continent-intro {
+      font-family: var(--sans);
+      font-size: 0.82rem;
+      font-weight: 300;
+      letter-spacing: 0.04em;
+      color: rgba(240,235,225,0.72);
+      line-height: 1.85;
+      max-width: 720px;
+      margin-top: 18px;
+    }
+
+    .continent-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 18px;
+      margin-top: 70px;
+      border: none;
+      overflow: visible;
+    }
+
+    .continent-card {
+      background: var(--surface);
+      padding: 18px 18px 22px;
+      text-decoration: none;
+      color: inherit;
+      cursor: none;
+      transition: background 0.4s, transform 0.25s, border-color 0.3s;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 210px;
+      border: 1px solid rgba(176,141,87,0.18);
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    .continent-card:hover {
+      background: var(--surface-2);
+      border-color: rgba(226,196,122,0.33);
+      transform: translateY(-2px);
+    }
+
+    .continent-photo {
+      width: 100%;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 14px;
+      border: 1px solid rgba(176,141,87,0.12);
+      filter: brightness(0.92) contrast(1.05) saturate(1.1);
+      transform: translateZ(0);
+      transition: transform 0.55s var(--ease-out), filter 0.4s var(--ease-out);
+    }
+    .continent-card:hover .continent-photo {
+      transform: scale(1.03);
+      filter: brightness(0.98) contrast(1.08) saturate(1.15);
+    }
+
+    .continent-card .continent-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--sans);
+      font-size: 0.56rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brass-light);
+      border: 1px solid rgba(176,141,87,0.3);
+      background: rgba(176,141,87,0.06);
+      padding: 7px 14px;
+      width: fit-content;
+    }
+
+    .continent-card .continent-title {
+      font-family: var(--serif);
+      font-size: 1.6rem;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.15;
+    }
+
+    .continent-card .continent-sub {
+      font-family: var(--sans);
+      font-size: 0.78rem;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+      color: var(--text-muted);
+      line-height: 1.85;
+      margin-top: auto;
+    }
+
+    .continent-empty {
+      display: none;
+      margin-top: 40px;
+      font-family: var(--sans);
+      color: rgba(240,235,225,0.6);
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+    }
+
+    /* Back button inside continent views */
+    .continent-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      font-family: var(--sans);
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--brass-bright);
+      border: 1px solid rgba(176,141,87,0.35);
+      background: rgba(176,141,87,0.06);
+      padding: 10px 16px;
+      text-decoration: none;
+      margin-bottom: 22px;
+      transition: background 0.3s var(--ease-out), transform 0.2s var(--ease-out), color 0.3s var(--ease-out);
+      border-radius: 999px;
+    }
+    .continent-back::before {
+      content: '←';
+      font-size: 0.86rem;
+      color: var(--brass-bright);
+      letter-spacing: 0;
+    }
+    .continent-back:hover {
+      background: rgba(176,141,87,0.14);
+      transform: translateY(-1px);
+      color: var(--ivory);
+    }
+    .continent-back:focus-visible {
+      outline: 2px solid rgba(226,196,122,0.55);
+      outline-offset: 3px;
+    }
+
+    /* Adjust spacing of experience grid in the continent view */
+    #view-continent .exp-grid { margin-top: 56px; }
+
     /* DESTINATIONS */
     #destinations { background: var(--obsidian); }
     .dest-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 80px; }
@@ -570,7 +752,8 @@
     @media (max-width: 900px) {
       nav { padding: 18px 28px; } .nav-links { display: none; }
       section { padding: 80px 28px; }
-      .hero-content { padding: 0 28px 80px; } .hero-stats,.hero-corner { display: none; }
+      .hero-content { padding: 0 28px 80px; transform: translateY(54px); } .hero-stats,.hero-corner { display: none; }
+      .continent-grid { grid-template-columns: 1fr; }
       .exp-grid { grid-template-columns: 1fr; } .exp-card.featured { grid-column: span 1; }
       .dest-layout { grid-template-columns: 1fr; } .dest-visual { display: none; }
       .phil-inner { grid-template-columns: 1fr; gap: 50px; }
@@ -582,6 +765,7 @@
       .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
       #cursor-dot,#cursor-ring { display: none; } body { cursor: auto; }
       .form-submit,.nav-cta,.btn-primary { cursor: pointer; }
+      .continent-back { margin-bottom: 16px; }
     }
   
     /* ═══════════════════════════════════════════════════
@@ -777,7 +961,7 @@
 
   <!-- NAV -->
   <nav id="nav">
-    <a href="#" class="nav-logo">
+    <a href="index.html" class="nav-logo" role="button" aria-label="Go to home">
       Experiences Guide
       <span>Luxury Curated Worldwide</span>
     </a>
@@ -786,15 +970,14 @@
 
       <!-- Continents dropdown -->
       <div class="nav-item">
-        <a href="#destinations" class="nav-link">Continents <span class="chev">&#9660;</span></a>
+        <a href="index.html?view=continents" class="nav-link">Continents <span class="chev">&#9660;</span></a>
         <div class="nav-dropdown">
           <span class="nav-dropdown-label">Explore by Region</span>
-          <a href="#destinations"><span class="dd-icon">🌍</span><span>Europe<span class="dd-sub">Amalfi, Santorini, St. Moritz</span></span></a>
-          <a href="#destinations"><span class="dd-icon">🌍</span><span>Africa<span class="dd-sub">Safaris, Seychelles, Morocco</span></span></a>
-          <a href="#destinations"><span class="dd-icon">🌏</span><span>Asia Pacific<span class="dd-sub">Kyoto, Maldives, Bali</span></span></a>
-          <a href="#destinations"><span class="dd-icon">🌎</span><span>The Americas<span class="dd-sub">Patagonia, Caribbean, Peru</span></span></a>
-          <a href="#destinations"><span class="dd-icon">🌊</span><span>Indian Ocean<span class="dd-sub">Maldives, Seychelles</span></span></a>
-          <a href="#destinations"><span class="dd-icon">❄️</span><span>Arctic &amp; Antarctica<span class="dd-sub">Expedition voyages</span></span></a>
+          <a href="index.html?view=continent&continent=europe"><span class="dd-icon">🌍</span><span>Europe<span class="dd-sub">Mediterranean & Alps</span></span></a>
+          <a href="index.html?view=continent&continent=americas"><span class="dd-icon">🌎</span><span>The Americas<span class="dd-sub">North America · South America · Caribbean</span></span></a>
+          <a href="index.html?view=continent&continent=africa"><span class="dd-icon">🦁</span><span>Africa<span class="dd-sub">Safaris · Hammams · Isles</span></span></a>
+          <a href="index.html?view=continent&continent=asia"><span class="dd-icon">🌏</span><span>Asia<span class="dd-sub">Kyoto · Tokyo · Bali</span></span></a>
+          <a href="index.html?view=continent&continent=oceania"><span class="dd-icon">🌊</span><span>Oceania<span class="dd-sub">Australia · Polynesia · Reef journeys</span></span></a>
         </div>
       </div>
 
@@ -829,7 +1012,6 @@
     </div>
 
     <div class="hero-content">
-      <p class="hero-eyebrow">Curated Luxury Experiences</p>
       <h1 class="hero-title">The World,<br><em>Perfectly Arranged.</em></h1>
       <p class="hero-subtitle">We craft singular moments in the world's most extraordinary places — private, bespoke, and designed for those who seek the exceptional.</p>
       <div class="hero-actions">
@@ -875,43 +1057,96 @@
     </div>
   </div>
 
+  <!-- CONTINENTS VIEW -->
+  <section id="view-continents" class="view-panel" aria-hidden="true">
+    <div class="section-label">Continents</div>
+    <h2 class="section-title">Explore <em>Five</em> Regions</h2>
+    <p class="continent-intro">Choose a continent/region to discover experiences curated for its rhythm, landscape, and signature hospitality.</p>
+
+    <div class="continent-grid">
+      <a class="continent-card" href="index.html?view=continent&continent=europe">
+        <img class="continent-photo" src="https://source.unsplash.com/900x600/?europe,alps,landscape&sig=1" alt="Europe" loading="lazy" />
+        <div class="continent-chip">✦ Europe</div>
+        <div class="continent-title">Europe</div>
+        <div class="continent-sub">Mediterranean horizons · Alpine sanctuaries · Artful stays</div>
+      </a>
+      <a class="continent-card" href="index.html?view=continent&continent=americas">
+        <img class="continent-photo" src="https://source.unsplash.com/900x600/?north-america,city,coast&sig=2" alt="The Americas" loading="lazy" />
+        <div class="continent-chip">✦ The Americas</div>
+        <div class="continent-title">North · South · Caribbean</div>
+        <div class="continent-sub">City glamour · Wild coastlines · Island escape energy</div>
+      </a>
+      <a class="continent-card" href="index.html?view=continent&continent=africa">
+        <img class="continent-photo" src="https://source.unsplash.com/900x600/?africa,safari,desert&sig=3" alt="Africa" loading="lazy" />
+        <div class="continent-chip">✦ Africa</div>
+        <div class="continent-title">Africa</div>
+        <div class="continent-sub">Safari escapes · Hammam rituals · Island light</div>
+      </a>
+      <a class="continent-card" href="index.html?view=continent&continent=asia">
+        <img class="continent-photo" src="https://source.unsplash.com/900x600/?asia,temple,tea&sig=4" alt="Asia" loading="lazy" />
+        <div class="continent-chip">✦ Asia</div>
+        <div class="continent-title">Asia</div>
+        <div class="continent-sub">Kyoto calm · Tokyo craft · Bali ease</div>
+      </a>
+      <a class="continent-card" href="index.html?view=continent&continent=oceania">
+        <img class="continent-photo" src="https://source.unsplash.com/900x600/?oceania,beach,reef&sig=5" alt="Oceania" loading="lazy" />
+        <div class="continent-chip">✦ Oceania</div>
+        <div class="continent-title">Oceania</div>
+        <div class="continent-sub">Australia · Polynesia · Reef journeys</div>
+      </a>
+    </div>
+  </section>
+
+  <!-- CONTINENT EXPERIENCES VIEW -->
+  <section id="view-continent" class="view-panel" aria-hidden="true">
+    <a href="index.html?view=continents" class="continent-back" aria-label="Back to continents">
+      Back to Regions
+    </a>
+    <div class="section-label" id="continent-section-label">Region Experiences</div>
+    <h2 class="section-title" id="continent-title">Experiences</h2>
+    <p class="continent-intro" id="continent-subtitle"></p>
+
+    <div id="continent-exp-grid" class="exp-grid"></div>
+    <div id="continent-empty" class="continent-empty">No experiences are tagged for this region yet. Please speak with a concierge to curate something exceptional.</div>
+  </section>
+
   <!-- EXPERIENCES -->
   <section id="experiences">
     <div class="section-label reveal">Our Offerings</div>
     <h2 class="section-title reveal">Extraordinary <em>Experiences</em></h2>
     <div class="exp-grid">
-      <div class="exp-card featured reveal">
+      <div class="exp-card featured reveal" data-continent="europe">
         <div class="exp-tag">Signature</div><div class="exp-number">01</div>
         <span class="exp-icon">🛥</span>
         <h3 class="exp-title">Mediterranean Superyacht Voyage</h3>
         <p class="exp-desc">Embark on an unparalleled journey across the Mediterranean aboard a private superyacht. From the Amalfi Coast to the Greek islands, each day is a new horizon — guided by your personal crew and a curated itinerary designed exclusively for you.</p>
         <a href="#contact" class="exp-link">Inquire Now</a>
       </div>
-      <div class="exp-card reveal reveal-delay-1">
+      <div class="exp-card reveal reveal-delay-1" data-continent="europe">
         <div class="exp-number">02</div><span class="exp-icon">🏔</span>
         <h3 class="exp-title">Alpine Sanctuary</h3>
         <p class="exp-desc">Private chalets, heli-skiing access, and world-class mountain cuisine in the Swiss Alps.</p>
         <a href="#contact" class="exp-link">Inquire Now</a>
       </div>
-      <div class="exp-card reveal reveal-delay-2">
+      <div class="exp-card reveal reveal-delay-2" data-continent="africa">
         <div class="exp-number">03</div><span class="exp-icon">🦁</span>
         <h3 class="exp-title">Private Safari</h3>
         <p class="exp-desc">Exclusive tented camps and conservation-led game drives across Botswana's Okavango Delta.</p>
         <a href="#contact" class="exp-link">Inquire Now</a>
       </div>
-      <div class="exp-card reveal reveal-delay-1">
+      <div class="exp-card reveal reveal-delay-1" data-continent="europe,asia">
         <div class="exp-number">04</div><span class="exp-icon">🍽</span>
         <h3 class="exp-title">Culinary Journeys</h3>
         <p class="exp-desc">Private chef collaborations, Michelin tables, and market-to-table experiences in Lyon and Tokyo.</p>
         <a href="#contact" class="exp-link">Inquire Now</a>
       </div>
-      <div class="exp-card reveal reveal-delay-2">
+      <div class="exp-card reveal reveal-delay-2" data-continent="americas,asia">
         <div class="exp-number">05</div><span class="exp-icon">🏯</span>
         <h3 class="exp-title">Cultural Immersion</h3>
         <p class="exp-desc">Private museum access, artist ateliers, and curated encounters with local masters of craft.</p>
         <a href="#contact" class="exp-link">Inquire Now</a>
       </div>
-      <div class="exp-card reveal reveal-delay-3">
+      <div class="exp-card reveal reveal-delay-3" data-continent="africa,asia,oceania">
         <div class="exp-number">06</div><span class="exp-icon">🧘</span>
         <h3 class="exp-title">Wellness Escapes</h3>
         <p class="exp-desc">Bespoke retreats with world-renowned healers, thermal springs, and tailored wellness programmes.</p>
@@ -1059,6 +1294,9 @@
       const trigger=item.querySelector('.nav-link');
       if(!trigger||!item.querySelector('.nav-dropdown'))return;
       trigger.addEventListener('click',e=>{
+        const href=trigger.getAttribute('href')||'';
+        // Continents trigger is a real navigation link (new view page)
+        if(href.includes('view=continents')) return;
         e.preventDefault();
         const isActive=item.classList.contains('active');
         document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
@@ -1069,6 +1307,83 @@
       if(!e.target.closest('.nav-item'))
         document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
     });
+
+    /* ═══════════════════════════════════════════════════
+       CONTINENTS VIEW (URL-driven)
+       - ?view=continents
+       - ?view=continent&continent=europe|americas|africa|asia|oceania
+    ═══════════════════════════════════════════════════ */
+    (function continentsView(){
+      const params=new URLSearchParams(window.location.search);
+      const view=(params.get('view')||'').toLowerCase();
+      const continent=(params.get('continent')||'').toLowerCase();
+
+      const viewContinents=document.getElementById('view-continents');
+      const viewContinent=document.getElementById('view-continent');
+      if(!viewContinents || !viewContinent) return;
+
+      const meta={
+        europe:   { title:'Experiences in <em>Europe</em>', subtitle:'Mediterranean horizons · Alpine sanctuaries · Artful stays' },
+        americas: { title:'Experiences across <em>The Americas</em>', subtitle:'North America · South America · Caribbean' },
+        africa:   { title:'Safari & Hammam Experiences in <em>Africa</em>', subtitle:'Safari escapes · Hammam rituals · Island light' },
+        asia:     { title:'Craft & Serenity Experiences in <em>Asia</em>', subtitle:'Kyoto calm · Tokyo craft · Bali ease' },
+        oceania:  { title:'Island & Reef Experiences in <em>Oceania</em>', subtitle:'Australia · Polynesia · Reef journeys' },
+      };
+
+      const mainHide=['#hero','.marquee-strip','#experiences','#destinations','#philosophy','#process','#testimonials'];
+      function hideMain(){
+        mainHide.forEach(sel=>{
+          document.querySelectorAll(sel).forEach(el=>el.classList.add('view-hidden'));
+        });
+      }
+
+      if(view==='continents'){
+        hideMain();
+        viewContinents.classList.add('is-active');
+        viewContinents.setAttribute('aria-hidden','false');
+        viewContinent.classList.remove('is-active');
+        viewContinent.setAttribute('aria-hidden','true');
+        return;
+      }
+
+      if(view==='continent' && meta[continent]){
+        hideMain();
+        viewContinents.classList.remove('is-active');
+        viewContinents.setAttribute('aria-hidden','true');
+        viewContinent.classList.add('is-active');
+        viewContinent.setAttribute('aria-hidden','false');
+
+        const titleEl=document.getElementById('continent-title');
+        const subtitleEl=document.getElementById('continent-subtitle');
+        if(titleEl) titleEl.innerHTML=meta[continent].title;
+        if(subtitleEl) subtitleEl.textContent=meta[continent].subtitle;
+
+        const grid=document.getElementById('continent-exp-grid');
+        const empty=document.getElementById('continent-empty');
+        if(grid){
+          grid.innerHTML='';
+          const allCards=Array.from(document.querySelectorAll('#experiences .exp-card'));
+          const filtered=allCards.filter(card=>{
+            const raw=(card.getAttribute('data-continent')||'');
+            const tags=raw.split(',').map(s=>s.trim().toLowerCase()).filter(Boolean);
+            return tags.includes(continent);
+          });
+
+          filtered.forEach(card=>{
+            const clone=card.cloneNode(true);
+            clone.classList.remove('reveal','reveal-delay-1','reveal-delay-2','reveal-delay-3');
+            Array.from(clone.classList).forEach(c=>{
+              if(c.startsWith('reveal-delay-')) clone.classList.remove(c);
+            });
+            grid.appendChild(clone);
+          });
+
+          if(empty) empty.style.display=filtered.length?'none':'block';
+        }
+
+        window.scrollTo({top:0,behavior:'auto'});
+      }
+    })();
 
 
     const io=new IntersectionObserver(es=>{
