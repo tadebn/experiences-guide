@@ -1422,7 +1422,7 @@
       btn.textContent='Sending…'; btn.classList.remove('ready');
 
       const form=document.getElementById('contact-form');
-      emailjs.sendForm('service_ciey0u8', 'template_7igyg6k', form)
+      emailjs.sendForm('service_ciey0u8', '7igyg6k', form)
         .then(()=>{
           btn.textContent='✓ Inquiry Received';
           btn.classList.add('sent');
