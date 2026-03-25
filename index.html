@@ -7,8 +7,6 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script>emailjs.init({ publicKey: 'B8tkiRg4kfSt9omNN' });</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -716,19 +714,14 @@
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
     .form-submit {
-      background: #2a2d32; border: none; cursor: not-allowed;
+      background: var(--brass); border: none; cursor: none;
       font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: #4a4a4a; padding: 17px 44px; align-self: flex-start;
-      transition: background 0.4s, color 0.4s, transform 0.2s;
-      pointer-events: none;
+      color: var(--obsidian); padding: 17px 44px; align-self: flex-start;
+      transition: background 0.3s, transform 0.2s;
     }
-    .form-submit.ready {
-      background: var(--brass); color: var(--obsidian);
-      cursor: none; pointer-events: all;
-    }
-    .form-submit.ready:hover { background: var(--brass-bright); transform: translateY(-1px); }
-    .form-submit.sent { background: #2d5a3a; color: #88dba0; pointer-events: none; }
+    .form-submit:hover { background: var(--brass-bright); transform: translateY(-1px); }
+    .form-submit.sent { background: #2d5a3a; color: #88dba0; }
 
     /* FOOTER */
     footer { background: var(--obsidian); padding: 80px 60px 40px; border-top: 1px solid rgba(176,141,87,0.08); }
@@ -1250,16 +1243,16 @@
       </div>
       <form class="contact-form reveal" id="contact-form" onsubmit="handleSubmit(event)">
         <div class="form-row">
-          <div class="form-field"><label>First Name</label><input type="text" name="first_name" placeholder="Alexandra" required /></div>
-          <div class="form-field"><label>Last Name</label><input type="text" name="last_name" placeholder="Fontaine" required /></div>
+          <div class="form-field"><label>First Name</label><input type="text" placeholder="Alexandra" required /></div>
+          <div class="form-field"><label>Last Name</label><input type="text" placeholder="Fontaine" required /></div>
         </div>
-        <div class="form-field"><label>Email Address</label><input type="email" name="reply_to" placeholder="your@email.com" required /></div>
+        <div class="form-field"><label>Email Address</label><input type="email" placeholder="your@email.com" required /></div>
         <div class="form-row">
-          <div class="form-field"><label>Experience Type</label><select name="experience_type" required><option value="">Select a category</option><option>Yacht Charter</option><option>Private Villa</option><option>Safari</option><option>Cultural Journey</option><option>Wellness Retreat</option><option>Culinary Experience</option><option>Bespoke — Tell us</option></select></div>
-          <div class="form-field"><label>Preferred Timeframe</label><select name="timeframe" required><option value="">When?</option><option>Next 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Flexible</option></select></div>
+          <div class="form-field"><label>Experience Type</label><select><option value="">Select a category</option><option>Yacht Charter</option><option>Private Villa</option><option>Safari</option><option>Cultural Journey</option><option>Wellness Retreat</option><option>Culinary Experience</option><option>Bespoke — Tell us</option></select></div>
+          <div class="form-field"><label>Preferred Timeframe</label><select><option value="">When?</option><option>Next 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Flexible</option></select></div>
         </div>
-        <div class="form-field"><label>Tell Us About Your Dream Experience</label><textarea name="message" placeholder="Describe your vision — we will make it a reality." required></textarea></div>
-        <button type="submit" class="form-submit" id="submit-btn">Send Inquiry</button>
+        <div class="form-field"><label>Tell Us About Your Dream Experience</label><textarea placeholder="Describe your vision — we will make it a reality."></textarea></div>
+        <button type="submit" class="form-submit" id="submit-btn">Send Enquiry</button>
       </form>
     </div>
   </section>
@@ -1417,43 +1410,10 @@
 
     function handleSubmit(e){
       e.preventDefault();
-      const btn=document.getElementById('submit-btn');
-      if(!btn.classList.contains('ready'))return;
-      btn.textContent='Sending…'; btn.classList.remove('ready');
-
-      const form=document.getElementById('contact-form');
-      emailjs.sendForm('service_ciey0u8', '7igyg6k', form)
-        .then(()=>{
-          btn.textContent='✓ Inquiry Received';
-          btn.classList.add('sent');
-          form.reset();
-        })
-        .catch(()=>{
-          btn.textContent='Failed — Please Try Again';
-          btn.style.background='#5a2d2d';
-          btn.style.color='#dba0a0';
-          btn.classList.add('ready');
-          setTimeout(()=>{
-            btn.textContent='Send Inquiry';
-            btn.style.background='';btn.style.color='';
-          },3000);
-        });
+        const btn=document.getElementById('submit-btn');
+      btn.textContent='Sending…';btn.disabled=true;
+      setTimeout(()=>{btn.textContent='✓ Enquiry Received';btn.classList.add('sent');},1500);
     }
-
-    // Form validation — enable button only when all required fields are filled
-    (function(){
-      const form=document.getElementById('contact-form');
-      if(!form)return;
-      const btn=document.getElementById('submit-btn');
-      const fields=form.querySelectorAll('input[required],select[required],textarea[required]');
-      function checkForm(){
-        const allFilled=[...fields].every(f=>f.value.trim()!=='');
-        btn.classList.toggle('ready',allFilled);
-      }
-      fields.forEach(f=>f.addEventListener('input',checkForm));
-      fields.forEach(f=>f.addEventListener('change',checkForm));
-      checkForm();
-    })();
 
     /* Failsafe: show all reveal elements after 600ms regardless of IntersectionObserver */
     setTimeout(()=>{
