@@ -954,7 +954,7 @@
       #concierge-btn { right: 20px; bottom: 24px; }
     }
   </style>
-</head>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script><script>emailjs.init({ publicKey: "B8tkiRg4kfSt9omNN" });</script></head>
 <body class="grain">
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
@@ -1410,9 +1410,15 @@
 
     function handleSubmit(e){
       e.preventDefault();
-        const btn=document.getElementById('submit-btn');
-      btn.textContent='Sending…';btn.disabled=true;
-      setTimeout(()=>{btn.textContent='✓ Enquiry Received';btn.classList.add('sent');},1500);
+      const btn=document.getElementById('submit-btn');
+      const form=document.getElementById('contact-form');
+      btn.textContent='Sending...';
+      emailjs.sendForm('service_ciey0u8','template_ryst689',form).then(()=>{
+        btn.textContent='✓ Inquiry Received';btn.classList.add('sent');form.reset();
+      }).catch(()=>{
+        btn.textContent='Failed — Try Again';
+        setTimeout(()=>{btn.textContent='Send Inquiry';},3000);
+      });
     }
 
     /* Failsafe: show all reveal elements after 600ms regardless of IntersectionObserver */
