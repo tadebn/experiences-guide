@@ -7,6 +7,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>emailjs.init({ publicKey: 'B8tkiRg4kfSt9omNN' });</script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -367,6 +369,107 @@
     }
     .section-title em { font-style: italic; color: var(--brass-light); }
 
+
+    /* APPROVED SECTION */
+    #approved {
+      background: var(--obsidian);
+      padding: 120px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    #approved::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(176,141,87,0.3), transparent);
+    }
+    .approved-header {
+      display: flex; align-items: flex-end; justify-content: space-between;
+      margin-bottom: 64px; gap: 40px;
+    }
+    .approved-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-family: var(--sans); font-size: 0.52rem; font-weight: 500;
+      letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--obsidian); background: var(--brass);
+      padding: 7px 18px; margin-bottom: 20px;
+    }
+    .approved-badge::before { content: "✦"; font-size: 0.5rem; }
+    .approved-tagline {
+      font-size: 0.75rem; color: var(--text-muted); max-width: 380px;
+      line-height: 1.8; letter-spacing: 0.02em;
+    }
+    .approved-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: repeat(2, 340px);
+      gap: 2px;
+    }
+    .approved-card {
+      position: relative; overflow: hidden; cursor: none;
+    }
+    .approved-card:first-child { grid-column: span 2; }
+    .approved-card-photo {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      background-color: #1a1f26;
+      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+    }
+    .approved-card-photo:not([style*="url('')"]) {
+      background-color: transparent;
+    }
+    .approved-card-photo[style*="url('')"]::after {
+      content: "+ Add Photo";
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.28em;
+      text-transform: uppercase; color: rgba(176,141,87,0.35);
+      border: 1px dashed rgba(176,141,87,0.18);
+    }
+    .approved-card:hover .approved-card-photo { transform: scale(1.05); }
+    .approved-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,12,0.88) 0%, rgba(10,10,12,0.2) 55%, transparent 100%);
+      transition: background 0.4s;
+    }
+    .approved-card:hover .approved-card-overlay {
+      background: linear-gradient(to top, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.35) 55%, transparent 100%);
+    }
+    .approved-card-body {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 32px 36px;
+    }
+    .approved-card-stamp {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.48rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--brass-bright); margin-bottom: 10px;
+      font-family: var(--sans); font-weight: 500;
+    }
+    .approved-card-stamp::before { content: "✦"; font-size: 0.42rem; }
+    .approved-card-name {
+      font-family: var(--serif); font-size: 1.45rem; font-weight: 400;
+      color: var(--ivory); line-height: 1.25; margin-bottom: 8px;
+    }
+    .approved-card:first-child .approved-card-name { font-size: 2rem; }
+    .approved-card-location {
+      font-size: 0.62rem; color: rgba(240,235,225,0.55);
+      letter-spacing: 0.12em; display: flex; align-items: center; gap: 6px;
+    }
+    .approved-card-location::before { content: "◎"; font-size: 0.5rem; color: var(--brass); }
+    .approved-card-tag {
+      position: absolute; top: 24px; right: 24px;
+      font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase;
+      background: rgba(13,14,16,0.75); backdrop-filter: blur(8px);
+      border: 1px solid rgba(176,141,87,0.25); color: var(--brass-light);
+      padding: 5px 12px;
+    }
+    @media (max-width: 900px) {
+      .approved-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+      .approved-card { height: 280px; }
+      .approved-card:first-child { grid-column: span 1; }
+      .approved-header { flex-direction: column; align-items: flex-start; }
+    }
+
     /* EXPERIENCES */
     #experiences { background: var(--deep); }
     .exp-grid {
@@ -697,6 +800,84 @@
     .contact-detail { display: flex; flex-direction: column; gap: 6px; }
     .contact-detail-label { font-size: 0.55rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--brass); }
     .contact-detail-value { font-family: var(--serif); font-size: 1.05rem; color: var(--text); }
+
+    /* DATE RANGE CALENDAR */
+    .date-range-input {
+      display: flex; align-items: center; justify-content: space-between;
+      background: transparent; border: none; border-bottom: 1px solid rgba(240,235,225,0.15);
+      padding: 10px 0; cursor: pointer; color: var(--text-faint);
+      font-family: var(--sans); font-size: 0.82rem; font-weight: 300;
+      letter-spacing: 0.015em; transition: border-color 0.3s;
+      user-select: none;
+    }
+    .date-range-input:hover, .date-range-input.active { border-bottom-color: var(--brass-bright); }
+    .date-range-text { color: var(--text-faint); transition: color 0.3s; }
+    .date-range-text.has-dates { color: var(--text); }
+    .date-range-icon { font-size: 0.7rem; opacity: 0.5; transition: transform 0.3s; }
+    .date-range-input.active .date-range-icon { transform: rotate(180deg); }
+    .calendar-popup {
+      position: absolute; z-index: 500;
+      background: #161b21; border: 1px solid rgba(176,141,87,0.2);
+      box-shadow: 0 24px 64px rgba(0,0,0,0.6);
+      padding: 28px; margin-top: 8px;
+      display: none; min-width: 580px;
+      left: 0;
+    }
+    .calendar-popup.open { display: block; }
+    .calendar-header { display: flex; align-items: flex-start; gap: 0; }
+    .cal-nav {
+      background: none; border: none; color: var(--brass);
+      font-size: 1.4rem; cursor: pointer; padding: 0 12px;
+      line-height: 1; opacity: 0.7; transition: opacity 0.2s;
+      flex-shrink: 0; margin-top: 2px;
+    }
+    .cal-nav:hover { opacity: 1; }
+    .cal-months { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; flex: 1; }
+    .cal-month-label {
+      font-family: var(--serif); font-size: 0.85rem; font-weight: 400;
+      color: var(--text); letter-spacing: 0.08em;
+      margin-bottom: 14px; text-align: center;
+    }
+    .cal-grid {
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 2px;
+    }
+    .cal-day-header {
+      font-size: 0.48rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-faint); text-align: center; padding: 4px 0;
+    }
+    .cal-day {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      font-size: 0.72rem; color: var(--text-muted); cursor: pointer;
+      border-radius: 0; transition: background 0.15s, color 0.15s;
+      position: relative;
+    }
+    .cal-day:hover:not(.cal-empty):not(.cal-past) { background: rgba(176,141,87,0.12); color: var(--text); }
+    .cal-day.cal-empty { cursor: default; }
+    .cal-day.cal-past { opacity: 0.25; cursor: not-allowed; }
+    .cal-day.cal-start, .cal-day.cal-end {
+      background: var(--brass); color: var(--obsidian); font-weight: 500;
+    }
+    .cal-day.cal-in-range {
+      background: rgba(176,141,87,0.15); color: var(--text);
+    }
+    .cal-day.cal-start { border-radius: 2px 0 0 2px; }
+    .cal-day.cal-end { border-radius: 0 2px 2px 0; }
+    .cal-day.cal-start.cal-end { border-radius: 2px; }
+    .cal-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 20px; padding-top: 16px;
+      border-top: 1px solid rgba(176,141,87,0.1);
+    }
+    .cal-hint { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--brass); }
+    .cal-clear {
+      font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-faint); background: none; border: none; cursor: pointer;
+      transition: color 0.2s;
+    }
+    .cal-clear:hover { color: var(--text-muted); }
+    .form-field { position: relative; }
+
     .contact-form { display: flex; flex-direction: column; gap: 26px; }
     .form-field { display: flex; flex-direction: column; gap: 8px; }
     .form-field label { font-size: 0.57rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--text-muted); }
@@ -714,14 +895,19 @@
     }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 26px; }
     .form-submit {
-      background: var(--brass); border: none; cursor: none;
+      background: #2a2d32; border: none; cursor: not-allowed;
       font-family: var(--sans); font-size: 0.65rem; font-weight: 500;
       letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--obsidian); padding: 17px 44px; align-self: flex-start;
-      transition: background 0.3s, transform 0.2s;
+      color: #4a4a4a; padding: 17px 44px; align-self: flex-start;
+      transition: background 0.4s, color 0.4s, transform 0.2s;
+      pointer-events: none;
     }
-    .form-submit:hover { background: var(--brass-bright); transform: translateY(-1px); }
-    .form-submit.sent { background: #2d5a3a; color: #88dba0; }
+    .form-submit.ready {
+      background: var(--brass); color: var(--obsidian);
+      cursor: none; pointer-events: all;
+    }
+    .form-submit.ready:hover { background: var(--brass-bright); transform: translateY(-1px); }
+    .form-submit.sent { background: #2d5a3a; color: #88dba0; pointer-events: none; }
 
     /* FOOTER */
     footer { background: var(--obsidian); padding: 80px 60px 40px; border-top: 1px solid rgba(176,141,87,0.08); }
@@ -954,7 +1140,7 @@
       #concierge-btn { right: 20px; bottom: 24px; }
     }
   </style>
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script><script>emailjs.init({ publicKey: "B8tkiRg4kfSt9omNN" });</script></head>
+</head>
 <body class="grain">
   <div id="cursor-dot"></div>
   <div id="cursor-ring"></div>
@@ -1056,6 +1242,93 @@
       <span class="marquee-item">Wellness Retreats</span>
     </div>
   </div>
+
+
+  <!-- EXPERIENCES GUIDE APPROVED -->
+  <section id="approved">
+    <div class="approved-header">
+      <div>
+        <div class="approved-badge">Experiences Guide Approved</div>
+        <h2 class="section-title">Our <em>Finest</em> Partners</h2>
+      </div>
+      <p class="approved-tagline">A handpicked selection of the world's most exceptional properties and experiences — each one personally vetted and approved by our team. Only the best carry our mark.</p>
+    </div>
+    <div class="approved-grid">
+
+      <!-- Card 1 — Featured (spans 2 cols) -->
+      <div class="approved-card">
+        <div class="approved-card-photo" style="background-image:url('')" data-slot='card-1'></div>
+        <div class="approved-card-overlay"></div>
+        <div class="approved-card-tag">Yacht Charter</div>
+        <div class="approved-card-body">
+          <div class="approved-card-stamp">Experiences Guide Approved</div>
+          <div class="approved-card-name">Serenity — 90ft Private Superyacht</div>
+          <div class="approved-card-location">Mediterranean · Available May–Oct</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="approved-card">
+        <div class="approved-card-photo" style="background-image:url('')" data-slot='card-2'></div>
+        <div class="approved-card-overlay"></div>
+        <div class="approved-card-tag">Private Villa</div>
+        <div class="approved-card-body">
+          <div class="approved-card-stamp">Experiences Guide Approved</div>
+          <div class="approved-card-name">Villa Calanque</div>
+          <div class="approved-card-location">Côte d'Azur, France</div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="approved-card">
+        <div class="approved-card-photo" style="background-image:url('')" data-slot='card-3'></div>
+        <div class="approved-card-overlay"></div>
+        <div class="approved-card-tag">Wellness Retreat</div>
+        <div class="approved-card-body">
+          <div class="approved-card-stamp">Experiences Guide Approved</div>
+          <div class="approved-card-name">Amanjiwo Resort</div>
+          <div class="approved-card-location">Java, Indonesia</div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="approved-card">
+        <div class="approved-card-photo" style="background-image:url('')" data-slot='card-4'></div>
+        <div class="approved-card-overlay"></div>
+        <div class="approved-card-tag">Safari Lodge</div>
+        <div class="approved-card-body">
+          <div class="approved-card-stamp">Experiences Guide Approved</div>
+          <div class="approved-card-name">Singita Grumeti</div>
+          <div class="approved-card-location">Serengeti, Tanzania</div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="approved-card">
+        <div class="approved-card-photo" style="background-image:url('')" data-slot='card-5'></div>
+        <div class="approved-card-overlay"></div>
+        <div class="approved-card-tag">Fine Dining</div>
+        <div class="approved-card-body">
+          <div class="approved-card-stamp">Experiences Guide Approved</div>
+          <div class="approved-card-name">Le Bernardin — Private Table</div>
+          <div class="approved-card-location">New York, USA</div>
+        </div>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="approved-card">
+        <div class="approved-card-photo" style="background-image:url('')" data-slot='card-6'></div>
+        <div class="approved-card-overlay"></div>
+        <div class="approved-card-tag">Ski Chalet</div>
+        <div class="approved-card-body">
+          <div class="approved-card-stamp">Experiences Guide Approved</div>
+          <div class="approved-card-name">Chalet Edelweiss</div>
+          <div class="approved-card-location">Courchevel 1850, France</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
 
   <!-- CONTINENTS VIEW -->
   <section id="view-continents" class="view-panel" aria-hidden="true">
@@ -1249,10 +1522,38 @@
         <div class="form-field"><label>Email Address</label><input type="email" name="reply_to" placeholder="your@email.com" required /></div>
         <div class="form-row">
           <div class="form-field"><label>Experience Type</label><select name="experience_type" required><option value="">Select a category</option><option>Yacht Charter</option><option>Private Villa</option><option>Safari</option><option>Cultural Journey</option><option>Wellness Retreat</option><option>Culinary Experience</option><option>Bespoke — Tell us</option></select></div>
-          <div class="form-field"><label>Preferred Timeframe</label><select name="timeframe" required><option value="">When?</option><option>Next 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Flexible</option></select></div>
+          <div class="form-field">
+            <label>Travel Dates</label>
+            <div class="date-range-input" id="date-range-trigger" onclick="toggleCalendar()">
+              <span class="date-range-text" id="date-range-text">Select dates</span>
+              <span class="date-range-icon">&#x25BE;</span>
+            </div>
+            <input type="hidden" name="trip_start" id="trip-start" required />
+            <input type="hidden" name="trip_end" id="trip-end" required />
+            <div class="calendar-popup" id="calendar-popup">
+              <div class="calendar-header">
+                <button type="button" class="cal-nav" id="cal-prev" onclick="calNav(-1)">&#8249;</button>
+                <div class="cal-months">
+                  <div>
+                    <div class="cal-month-label" id="cal-label-left"></div>
+                    <div class="cal-grid" id="cal-grid-left"></div>
+                  </div>
+                  <div>
+                    <div class="cal-month-label" id="cal-label-right"></div>
+                    <div class="cal-grid" id="cal-grid-right"></div>
+                  </div>
+                </div>
+                <button type="button" class="cal-nav" id="cal-next" onclick="calNav(1)">&#8250;</button>
+              </div>
+              <div class="cal-footer">
+                <span class="cal-hint" id="cal-hint">Select your arrival date</span>
+                <button type="button" class="cal-clear" onclick="clearDates()">Clear</button>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="form-field"><label>Tell Us About Your Dream Experience</label><textarea name="message" placeholder="Describe your vision — we will make it a reality."></textarea></div>
-        <button type="submit" class="form-submit" id="submit-btn">Send Enquiry</button>
+        <div class="form-field"><label>Tell Us About Your Dream Experience</label><textarea name="message" placeholder="Describe your vision — we will make it a reality." required></textarea></div>
+        <button type="submit" class="form-submit" id="submit-btn">Send Inquiry</button>
       </form>
     </div>
   </section>
@@ -1411,15 +1712,152 @@
     function handleSubmit(e){
       e.preventDefault();
       const btn=document.getElementById('submit-btn');
+      if(!btn.classList.contains('ready'))return;
+      btn.textContent='Sending…'; btn.classList.remove('ready');
+
       const form=document.getElementById('contact-form');
-      btn.textContent='Sending...';
-      emailjs.sendForm('service_ciey0u8','template_ryst689',form).then(()=>{
-        btn.textContent='✓ Inquiry Received';btn.classList.add('sent');form.reset();
-      }).catch(()=>{
-        btn.textContent='Failed — Try Again';
-        setTimeout(()=>{btn.textContent='Send Inquiry';},3000);
-      });
+      emailjs.sendForm('service_ciey0u8', 'template_ryst689', form)
+        .then(()=>{
+          btn.textContent='✓ Inquiry Received';
+          btn.classList.add('sent');
+          form.reset();
+        })
+        .catch(()=>{
+          btn.textContent='Failed — Please Try Again';
+          btn.style.background='#5a2d2d';
+          btn.style.color='#dba0a0';
+          btn.classList.add('ready');
+          setTimeout(()=>{
+            btn.textContent='Send Inquiry';
+            btn.style.background='';btn.style.color='';
+          },3000);
+        });
     }
+
+
+    // ── CALENDAR DATE PICKER ──
+    (function(){
+      const MONTHS = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      const DAYS = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+      let viewYear = new Date().getFullYear();
+      let viewMonth = new Date().getMonth();
+      let startDate = null, endDate = null, hoverDate = null;
+
+      const popup   = document.getElementById('calendar-popup');
+      const trigger = document.getElementById('date-range-trigger');
+      const text    = document.getElementById('date-range-text');
+      const hint    = document.getElementById('cal-hint');
+      const hidStart = document.getElementById('trip-start');
+      const hidEnd   = document.getElementById('trip-end');
+
+      function fmt(d){ return d ? d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}) : ''; }
+      function fmtISO(d){ return d ? d.toISOString().slice(0,10) : ''; }
+
+      function updateText(){
+        if(startDate && endDate){
+          const nights = Math.round((endDate - startDate)/(1000*60*60*24));
+          text.textContent = fmt(startDate) + '  →  ' + fmt(endDate) + '  (' + nights + ' night' + (nights!==1?'s':'') + ')';
+          text.classList.add('has-dates');
+        } else if(startDate){
+          text.textContent = fmt(startDate) + '  →  Select end date';
+          text.classList.add('has-dates');
+        } else {
+          text.textContent = 'Select dates';
+          text.classList.remove('has-dates');
+        }
+        hidStart.value = fmtISO(startDate)||'';
+        hidEnd.value   = fmtISO(endDate)||'';
+        // trigger form validation
+        hidStart.dispatchEvent(new Event('input'));
+        hidEnd.dispatchEvent(new Event('input'));
+      }
+
+      function renderMonth(gridId, labelId, year, month){
+        const label = document.getElementById(labelId);
+        const grid  = document.getElementById(gridId);
+        label.textContent = MONTHS[month] + ' ' + year;
+        grid.innerHTML = '';
+        DAYS.forEach(d=>{ const h=document.createElement('div'); h.className='cal-day-header'; h.textContent=d; grid.appendChild(h); });
+        const first = new Date(year,month,1).getDay();
+        const total = new Date(year,month+1,0).getDate();
+        const today = new Date(); today.setHours(0,0,0,0);
+        for(let i=0;i<first;i++){ const e=document.createElement('div'); e.className='cal-day cal-empty'; grid.appendChild(e); }
+        for(let d=1;d<=total;d++){
+          const date = new Date(year,month,d);
+          const el = document.createElement('div');
+          el.className = 'cal-day';
+          el.textContent = d;
+          if(date < today) el.classList.add('cal-past');
+          else {
+            if(startDate && date.getTime()===startDate.getTime()) el.classList.add('cal-start');
+            if(endDate   && date.getTime()===endDate.getTime())   el.classList.add('cal-end');
+            if(startDate && endDate && date>startDate && date<endDate) el.classList.add('cal-in-range');
+            if(startDate && !endDate && hoverDate && date>startDate && date<=hoverDate) el.classList.add('cal-in-range');
+            el.addEventListener('mouseenter', ()=>{ hoverDate=date; render(); });
+            el.addEventListener('click', ()=>{ selectDay(date); });
+          }
+          grid.appendChild(el);
+        }
+      }
+
+      function render(){
+        renderMonth('cal-grid-left',  'cal-label-left',  viewYear, viewMonth);
+        const r = viewMonth===11 ? {y:viewYear+1,m:0} : {y:viewYear,m:viewMonth+1};
+        renderMonth('cal-grid-right', 'cal-label-right', r.y, r.m);
+        hint.textContent = (!startDate) ? 'Select your arrival date' : (!endDate) ? 'Now select your departure date' : fmt(startDate)+' → '+fmt(endDate);
+      }
+
+      function selectDay(date){
+        if(!startDate || (startDate && endDate) || date<startDate){
+          startDate=date; endDate=null;
+        } else {
+          endDate=date;
+        }
+        updateText(); render();
+        if(startDate && endDate){ setTimeout(()=>closeCalendar(), 320); }
+      }
+
+      window.calNav = function(dir){
+        viewMonth += dir;
+        if(viewMonth>11){ viewMonth=0; viewYear++; }
+        if(viewMonth<0){ viewMonth=11; viewYear--; }
+        render();
+      };
+
+      window.toggleCalendar = function(){
+        const open = popup.classList.toggle('open');
+        trigger.classList.toggle('active', open);
+        if(open){ render(); }
+      };
+
+      window.clearDates = function(){
+        startDate=null; endDate=null; hoverDate=null;
+        updateText(); render();
+      };
+
+      // close on outside click
+      document.addEventListener('click', e=>{
+        if(!popup.contains(e.target) && e.target!==trigger && !trigger.contains(e.target)){
+          popup.classList.remove('open');
+          trigger.classList.remove('active');
+        }
+      });
+    })();
+
+    // Form validation — enable button only when all required fields are filled
+    (function(){
+      const form=document.getElementById('contact-form');
+      if(!form)return;
+      const btn=document.getElementById('submit-btn');
+      const fields=form.querySelectorAll('input[required],select[required],textarea[required]');  // includes trip-start and trip-end hidden inputs
+      function checkForm(){
+        const allFilled=[...fields].every(f=>f.value.trim()!=='');
+        btn.classList.toggle('ready',allFilled);
+      }
+      fields.forEach(f=>f.addEventListener('input',checkForm));
+      fields.forEach(f=>f.addEventListener('change',checkForm));
+      checkForm();
+    })();
 
     /* Failsafe: show all reveal elements after 600ms regardless of IntersectionObserver */
     setTimeout(()=>{
