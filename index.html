@@ -1248,10 +1248,10 @@
         </div>
         <div class="form-field"><label>Email Address</label><input type="email" name="reply_to" placeholder="your@email.com" required /></div>
         <div class="form-row">
-          <div class="form-field"><label>Experience Type</label><select><option value="">Select a category</option><option>Yacht Charter</option><option>Private Villa</option><option>Safari</option><option>Cultural Journey</option><option>Wellness Retreat</option><option>Culinary Experience</option><option>Bespoke — Tell us</option></select></div>
-          <div class="form-field"><label>Preferred Timeframe</label><select><option value="">When?</option><option>Next 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Flexible</option></select></div>
+          <div class="form-field"><label>Experience Type</label><select name="experience_type" required><option value="">Select a category</option><option>Yacht Charter</option><option>Private Villa</option><option>Safari</option><option>Cultural Journey</option><option>Wellness Retreat</option><option>Culinary Experience</option><option>Bespoke — Tell us</option></select></div>
+          <div class="form-field"><label>Preferred Timeframe</label><select name="timeframe" required><option value="">When?</option><option>Next 3 months</option><option>3–6 months</option><option>6–12 months</option><option>Flexible</option></select></div>
         </div>
-        <div class="form-field"><label>Tell Us About Your Dream Experience</label><textarea placeholder="Describe your vision — we will make it a reality."></textarea></div>
+        <div class="form-field"><label>Tell Us About Your Dream Experience</label><textarea name="message" placeholder="Describe your vision — we will make it a reality."></textarea></div>
         <button type="submit" class="form-submit" id="submit-btn">Send Enquiry</button>
       </form>
     </div>
