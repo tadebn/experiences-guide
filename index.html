@@ -205,8 +205,104 @@
     .nav-book:hover::before { transform: translateX(0); }
 
     /* Mobile */
+    /* Hamburger button */
+    .nav-hamburger {
+      display: none;
+      flex-direction: column; justify-content: center; align-items: center;
+      gap: 5px; width: 40px; height: 40px;
+      background: none; border: 1px solid rgba(176,141,87,0.25);
+      cursor: pointer; z-index: 201; flex-shrink: 0;
+      transition: border-color 0.3s;
+    }
+    .nav-hamburger:hover { border-color: var(--brass); }
+    .nav-hamburger span {
+      display: block; width: 20px; height: 1.5px;
+      background: var(--brass-bright);
+      transition: transform 0.35s var(--ease-out), opacity 0.25s, width 0.3s;
+      transform-origin: center;
+    }
+    .nav-hamburger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
+    .nav-hamburger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* Mobile drawer */
+    .nav-drawer {
+      position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 199; background: rgba(13,14,16,0.98);
+      backdrop-filter: blur(24px);
+      display: flex; flex-direction: column;
+      padding: 88px 0 48px;
+      transform: translateX(100%);
+      transition: transform 0.4s var(--ease-out);
+      overflow-y: auto;
+    }
+    .nav-drawer.open { transform: translateX(0); }
+
+    /* Accordion trigger rows */
+    .nav-drawer-trigger {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 32px;
+      font-family: var(--sans); font-size: 0.68rem; font-weight: 400;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      color: rgba(240,235,225,0.85); cursor: pointer;
+      border-bottom: 1px solid rgba(176,141,87,0.08);
+      user-select: none; transition: color 0.25s;
+    }
+    .nav-drawer-trigger:hover { color: var(--brass-bright); }
+    .nav-drawer-trigger .drawer-chev {
+      font-size: 0.5rem; opacity: 0.55;
+      transition: transform 0.3s var(--ease-out);
+    }
+    .nav-drawer-trigger.open { color: var(--brass-bright); }
+    .nav-drawer-trigger.open .drawer-chev { transform: rotate(180deg); opacity: 1; }
+
+    /* Accordion panel */
+    .nav-drawer-panel {
+      max-height: 0; overflow: hidden;
+      transition: max-height 0.4s var(--ease-out);
+      background: rgba(255,255,255,0.02);
+    }
+    .nav-drawer-panel.open { max-height: 600px; }
+
+    .nav-drawer-panel a {
+      display: flex; align-items: center; gap: 14px;
+      padding: 13px 32px 13px 44px;
+      font-family: var(--sans); font-size: 0.72rem; font-weight: 400;
+      color: var(--text-muted); text-decoration: none;
+      letter-spacing: 0.06em;
+      border-bottom: 1px solid rgba(176,141,87,0.06);
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-drawer-panel a:hover { color: var(--brass-bright); background: rgba(176,141,87,0.05); }
+    .nav-drawer-panel a .dd-icon { font-size: 0.9rem; flex-shrink: 0; }
+    .nav-drawer-panel a .drawer-sub {
+      display: block; font-size: 0.56rem; color: var(--text-faint);
+      letter-spacing: 0.08em; margin-top: 2px;
+    }
+
+    /* Book Now — matches .nav-book exactly */
+    .nav-drawer-book {
+      font-family: var(--sans); font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.18em; text-transform: uppercase;
+      background: var(--brass); color: var(--obsidian);
+      padding: 15px 32px; text-decoration: none;
+      position: relative; overflow: hidden;
+      transition: background 0.3s, transform 0.2s;
+      display: block; margin: 28px 32px 0; text-align: center;
+    }
+    .nav-drawer-book::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.15);
+      transform: translateX(-100%); transition: transform 0.4s var(--ease-out);
+    }
+    .nav-drawer-book:hover { background: var(--brass-bright); transform: translateY(-1px); }
+    .nav-drawer-book:hover::before { transform: translateX(0); }
+
     @media (max-width: 900px) {
       .nav-right { display: none; }
+      .nav-hamburger { display: flex; }
+      nav { padding: 20px 28px; }
+      nav.scrolled { padding: 14px 28px; }
     }
 
     /* ── HERO ── */
@@ -1305,6 +1401,53 @@
       .exp-lp-book-card { position: static; }
       .exp-lp-back { padding: 20px 28px 0; }
     }
+
+    /* ── EXPERIENCE MAP ── */
+    #exp-map-section {
+      background: var(--deep); padding: 120px 60px;
+      position: relative; overflow: hidden;
+    }
+    #exp-map-section::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% 50%, rgba(176,141,87,0.04), transparent 70%);
+      pointer-events: none;
+    }
+    .map-wrap {
+      position: relative; margin-top: 60px;
+      border: 1px solid rgba(176,141,87,0.18); overflow: visible;
+    }
+    #exp-map-svg { display: block; width: 100%; cursor: crosshair; }
+    .map-land { fill: #1e2d3d; transition: fill 0.2s; }
+    .map-pin-g { cursor: pointer; }
+    .map-pin-g:hover .map-pin-circle { r: 9; fill: #E2C47A; }
+    .map-pin-pulse { animation: mpulse 2.4s ease-in-out infinite; transform-origin: center; }
+    @keyframes mpulse {
+      0%,100% { opacity: 0.4; transform: scale(1); }
+      50%      { opacity: 0.05; transform: scale(2.2); }
+    }
+    /* Popup */
+    .map-popup-box {
+      position: absolute; z-index: 20; width: 210px;
+      background: rgba(13,14,16,0.97); border: 1px solid rgba(176,141,87,0.28);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.65);
+      pointer-events: none; opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.22s, transform 0.22s;
+    }
+    .map-popup-box.show { opacity: 1; transform: translateY(0); pointer-events: all; }
+    .map-popup-img { width: 100%; height: 115px; background-size: cover; background-position: center; }
+    .map-popup-inner { padding: 12px 14px 15px; }
+    .map-popup-tag { font-size: 0.46rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--brass); margin-bottom: 5px; }
+    .map-popup-name { font-family: var(--serif); font-size: 0.9rem; color: var(--ivory); line-height: 1.3; margin-bottom: 10px; }
+    .map-popup-cta {
+      display: inline-block; font-size: 0.5rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--obsidian); background: var(--brass); padding: 7px 14px;
+      text-decoration: none; transition: background 0.25s;
+    }
+    .map-popup-cta:hover { background: var(--brass-bright); }
+    @media (max-width: 900px) {
+      #exp-map-section { padding: 80px 28px; }
+    }
   </style>
 </head>
 <body class="grain">
@@ -1350,7 +1493,41 @@
       <a href="#contact" class="nav-book">Book Now</a>
 
     </div>
+
+    <!-- Hamburger button -->
+    <button class="nav-hamburger" id="nav-hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
+
+  <!-- Mobile drawer -->
+  <div class="nav-drawer" id="nav-drawer">
+
+    <!-- Continents accordion -->
+    <div class="nav-drawer-trigger" id="drawer-continents-trigger">
+      Continents <span class="drawer-chev">&#9660;</span>
+    </div>
+    <div class="nav-drawer-panel" id="drawer-continents-panel">
+      <a href="index.html?view=continent&continent=europe"><span class="dd-icon">🌍</span><span>Europe<span class="drawer-sub">Mediterranean &amp; Alps</span></span></a>
+      <a href="index.html?view=continent&continent=americas"><span class="dd-icon">🌎</span><span>The Americas<span class="drawer-sub">North · South · Caribbean</span></span></a>
+      <a href="index.html?view=continent&continent=africa"><span class="dd-icon">🦁</span><span>Africa<span class="drawer-sub">Safaris · Hammams · Isles</span></span></a>
+      <a href="index.html?view=continent&continent=asia"><span class="dd-icon">🌏</span><span>Asia<span class="drawer-sub">Kyoto · Tokyo · Bali</span></span></a>
+      <a href="index.html?view=continent&continent=oceania"><span class="dd-icon">🌊</span><span>Oceania<span class="drawer-sub">Australia · Polynesia · Reef</span></span></a>
+    </div>
+
+    <!-- About Us accordion -->
+    <div class="nav-drawer-trigger" id="drawer-about-trigger">
+      About Us <span class="drawer-chev">&#9660;</span>
+    </div>
+    <div class="nav-drawer-panel" id="drawer-about-panel">
+      <a href="index.html#philosophy"><span class="dd-icon">✦</span><span>Our Philosophy<span class="drawer-sub">What drives us</span></span></a>
+      <a href="index.html#process"><span class="dd-icon">◈</span><span>How It Works<span class="drawer-sub">Your journey with us</span></span></a>
+      <a href="index.html#testimonials"><span class="dd-icon">❝</span><span>Client Stories<span class="drawer-sub">Voices of experience</span></span></a>
+      <a href="index.html#contact"><span class="dd-icon">✉</span><span>Get In Touch<span class="drawer-sub">We respond within 24h</span></span></a>
+    </div>
+
+    <a href="index.html#contact" class="nav-drawer-book">Book Now</a>
+  </div>
 
   <!-- HERO -->
   <section id="hero">
@@ -1635,6 +1812,138 @@
         <h3 class="exp-title">Wellness Escapes</h3>
         <p class="exp-desc">Bespoke retreats with world-renowned healers, thermal springs, and tailored wellness programmes.</p>
         <a href="index.html?view=exp&id=wellness" class="exp-link">Explore &amp; Book</a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- EXPERIENCE MAP -->
+  <section id="exp-map-section">
+    <div class="section-label reveal">Where We Operate</div>
+    <h2 class="section-title reveal">Explore the <em>World</em></h2>
+    <p class="section-sub reveal" style="font-size:0.78rem;color:var(--text-muted);max-width:520px;line-height:1.9;margin-top:16px;">Hover a pin to preview — click to explore and book.</p>
+
+    <div class="map-wrap">
+      <svg id="exp-map-svg" viewBox="0 0 1000 480" xmlns="http://www.w3.org/2000/svg">
+        <!-- Ocean -->
+        <rect width="1000" height="480" fill="#0a1018"/>
+        <!-- Subtle grid lines -->
+        <line x1="0" y1="240" x2="1000" y2="240" stroke="rgba(176,141,87,0.05)" stroke-width="0.5"/>
+        <line x1="500" y1="0" x2="500" y2="480" stroke="rgba(176,141,87,0.05)" stroke-width="0.5"/>
+
+        <!-- ═══ CONTINENTS (accurate Natural Earth simplified) ═══ -->
+        <!-- Greenland -->
+        <path class="map-land" d="M230,18 L252,14 L272,18 L284,30 L280,44 L262,52 L244,52 L228,42 L222,30Z"/>
+        <!-- North America -->
+        <path class="map-land" d="M90,52 L112,46 L136,44 L158,48 L176,46 L194,52 L208,56 L222,54 L236,60 L244,72 L236,82 L224,88 L234,96 L248,98 L260,92 L272,96 L278,108 L270,120 L260,126 L266,138 L272,150 L264,162 L254,170 L246,182 L238,196 L228,208 L218,220 L208,234 L198,248 L190,260 L182,270 L172,278 L162,274 L150,262 L140,250 L130,238 L120,224 L112,210 L106,196 L102,182 L100,168 L100,154 L102,140 L108,128 L114,116 L112,104 L106,94 L104,82 L106,70 L112,60Z"/>
+        <!-- Alaska -->
+        <path class="map-land" d="M80,54 L98,48 L110,54 L112,66 L102,76 L88,76 L78,68Z"/>
+        <!-- Central America -->
+        <path class="map-land" d="M180,276 L194,270 L200,278 L196,288 L184,292 L176,286Z"/>
+        <!-- Caribbean -->
+        <path class="map-land" d="M200,230 L214,226 L220,232 L212,240 L200,238Z"/>
+        <!-- South America -->
+        <path class="map-land" d="M186,292 L204,282 L222,278 L240,280 L254,290 L262,304 L266,320 L264,338 L256,356 L246,372 L232,386 L218,398 L204,406 L190,408 L176,400 L164,388 L156,372 L150,354 L148,338 L148,320 L152,304 L160,290 L172,284Z"/>
+        <!-- Iceland -->
+        <path class="map-land" d="M388,40 L408,34 L422,38 L420,52 L402,58 L388,52Z"/>
+        <!-- UK + Ireland -->
+        <path class="map-land" d="M416,68 L430,64 L438,70 L434,82 L420,84 L412,74Z M430,62 L444,58 L452,66 L446,78 L432,78Z"/>
+        <!-- Scandinavia -->
+        <path class="map-land" d="M452,40 L476,34 L498,38 L510,52 L502,66 L480,72 L460,68 L448,56Z M438,44 L454,40 L456,54 L444,58Z"/>
+        <!-- Iberia -->
+        <path class="map-land" d="M416,94 L438,88 L456,92 L460,106 L452,118 L434,122 L416,116 L408,104Z"/>
+        <!-- France + Germany -->
+        <path class="map-land" d="M438,80 L466,74 L486,80 L490,94 L480,106 L460,110 L440,106 L432,96Z"/>
+        <!-- Italy -->
+        <path class="map-land" d="M462,106 L478,102 L486,112 L482,128 L468,136 L456,128 L454,114Z"/>
+        <!-- Balkans + Eastern Europe -->
+        <path class="map-land" d="M484,90 L512,84 L528,90 L528,106 L514,116 L496,120 L480,112 L476,98Z"/>
+        <!-- Greece -->
+        <path class="map-land" d="M490,118 L508,112 L516,122 L510,134 L494,138 L484,128Z"/>
+        <!-- Russia -->
+        <path class="map-land" d="M484,36 L544,28 L616,24 L686,22 L754,24 L816,28 L858,36 L870,50 L846,62 L800,68 L756,70 L714,68 L672,66 L630,64 L588,66 L550,68 L518,72 L498,78 L484,70 L480,54Z"/>
+        <!-- Kamchatka -->
+        <path class="map-land" d="M840,52 L860,44 L874,52 L868,68 L848,74 L832,66Z"/>
+        <!-- Middle East -->
+        <path class="map-land" d="M528,104 L562,98 L590,104 L596,120 L592,138 L574,152 L550,156 L530,148 L518,132 L520,116Z"/>
+        <!-- Central Asia -->
+        <path class="map-land" d="M570,70 L636,64 L690,68 L710,82 L702,98 L670,108 L628,112 L588,108 L562,94 L558,80Z"/>
+        <!-- India -->
+        <path class="map-land" d="M596,112 L634,108 L660,116 L668,136 L658,158 L638,182 L614,198 L594,202 L576,190 L564,168 L562,146 L570,126Z"/>
+        <!-- Sri Lanka -->
+        <path class="map-land" d="M622,198 L634,192 L638,200 L630,210 L620,206Z"/>
+        <!-- China + East Asia -->
+        <path class="map-land" d="M690,62 L758,58 L808,66 L828,82 L824,100 L800,114 L768,122 L732,124 L700,118 L674,106 L664,88 L666,72Z"/>
+        <!-- Korea -->
+        <path class="map-land" d="M802,96 L820,88 L828,98 L820,112 L802,114Z"/>
+        <!-- Japan -->
+        <path class="map-land" d="M828,80 L846,72 L858,80 L854,96 L836,104 L820,98Z M820,100 L836,96 L842,108 L830,118 L818,114Z"/>
+        <!-- SE Asia mainland -->
+        <path class="map-land" d="M674,114 L714,110 L740,118 L744,136 L730,154 L704,164 L676,162 L656,150 L652,132 L658,118Z"/>
+        <!-- Philippines -->
+        <path class="map-land" d="M774,140 L790,134 L798,144 L790,158 L774,160 L764,150Z M782,158 L796,152 L804,162 L796,174 L780,172Z"/>
+        <!-- Borneo -->
+        <path class="map-land" d="M744,164 L782,156 L812,164 L820,184 L810,206 L782,216 L750,214 L730,198 L730,178Z"/>
+        <!-- Sumatra -->
+        <path class="map-land" d="M686,178 L728,164 L758,170 L762,188 L738,204 L706,210 L682,200Z"/>
+        <!-- Java -->
+        <path class="map-land" d="M716,212 L760,204 L784,212 L778,226 L742,232 L714,226Z"/>
+        <!-- Bali/Lombok -->
+        <path class="map-land" d="M784,220 L800,216 L806,224 L798,232 L782,230Z"/>
+        <!-- New Guinea -->
+        <path class="map-land" d="M820,216 L866,206 L898,212 L908,230 L894,248 L860,256 L824,252 L804,234Z"/>
+        <!-- Africa -->
+        <path class="map-land" d="M428,124 L466,116 L498,116 L524,124 L546,140 L558,158 L562,180 L558,206 L548,230 L532,254 L514,276 L492,294 L468,308 L444,316 L418,316 L394,302 L376,282 L362,258 L354,232 L352,204 L356,178 L366,154 L382,136 L402,126Z"/>
+        <!-- Madagascar -->
+        <path class="map-land" d="M550,256 L564,244 L574,250 L574,274 L562,290 L548,284 L544,268Z"/>
+        <!-- Australia -->
+        <path class="map-land" d="M782,292 L828,280 L872,278 L910,286 L940,302 L956,324 L954,348 L938,370 L910,386 L876,396 L838,400 L798,392 L764,372 L744,346 L740,318 L750,296Z"/>
+        <!-- Tasmania -->
+        <path class="map-land" d="M856,398 L870,392 L878,402 L870,412 L854,410Z"/>
+        <!-- NZ -->
+        <path class="map-land" d="M944,350 L958,340 L968,348 L962,364 L946,368Z M950,368 L966,360 L976,370 L966,386 L950,384Z"/>
+
+        <!-- ═══ PINS ═══ -->
+        <!-- 1. Superyacht — Monaco (43.7N, 7.4E) -->
+        <g class="map-pin-g" id="pin-yacht">
+          <circle cx="521" cy="176" r="18" fill="rgba(176,141,87,0.15)" class="map-pin-pulse"/>
+          <circle cx="521" cy="176" r="6" fill="#B08D57" stroke="rgba(226,196,122,0.9)" stroke-width="2.5" class="map-pin-circle"/>
+        </g>
+        <!-- 2. Alpine — Verbier (46.1N, 7.3E) -->
+        <g class="map-pin-g" id="pin-alpine">
+          <circle cx="520" cy="169" r="18" fill="rgba(176,141,87,0.15)" class="map-pin-pulse" style="animation-delay:0.5s"/>
+          <circle cx="520" cy="169" r="6" fill="#B08D57" stroke="rgba(226,196,122,0.9)" stroke-width="2.5" class="map-pin-circle"/>
+        </g>
+        <!-- 3. Safari — Botswana (-22.3N, 24E) -->
+        <g class="map-pin-g" id="pin-safari">
+          <circle cx="567" cy="292" r="18" fill="rgba(176,141,87,0.15)" class="map-pin-pulse" style="animation-delay:1s"/>
+          <circle cx="567" cy="292" r="6" fill="#B08D57" stroke="rgba(226,196,122,0.9)" stroke-width="2.5" class="map-pin-circle"/>
+        </g>
+        <!-- 4. Culinary — Lyon (45.7N, 4.8E) -->
+        <g class="map-pin-g" id="pin-culinary">
+          <circle cx="513" cy="172" r="18" fill="rgba(176,141,87,0.15)" class="map-pin-pulse" style="animation-delay:1.5s"/>
+          <circle cx="513" cy="172" r="6" fill="#B08D57" stroke="rgba(226,196,122,0.9)" stroke-width="2.5" class="map-pin-circle"/>
+        </g>
+        <!-- 5. Cultural — Paris (48.9N, 2.3E) -->
+        <g class="map-pin-g" id="pin-cultural">
+          <circle cx="506" cy="162" r="18" fill="rgba(176,141,87,0.15)" class="map-pin-pulse" style="animation-delay:2s"/>
+          <circle cx="506" cy="162" r="6" fill="#B08D57" stroke="rgba(226,196,122,0.9)" stroke-width="2.5" class="map-pin-circle"/>
+        </g>
+        <!-- 6. Wellness — Bali (-8.4S, 115.2E) -->
+        <g class="map-pin-g" id="pin-wellness">
+          <circle cx="820" cy="262" r="18" fill="rgba(176,141,87,0.15)" class="map-pin-pulse" style="animation-delay:2.5s"/>
+          <circle cx="820" cy="262" r="6" fill="#B08D57" stroke="rgba(226,196,122,0.9)" stroke-width="2.5" class="map-pin-circle"/>
+        </g>
+      </svg>
+
+      <!-- Hover popup -->
+      <div class="map-popup-box" id="map-popup">
+        <div class="map-popup-img" id="map-popup-img"></div>
+        <div class="map-popup-inner">
+          <div class="map-popup-tag" id="map-popup-tag"></div>
+          <div class="map-popup-name" id="map-popup-name"></div>
+          <a class="map-popup-cta" id="map-popup-cta" href="#">Explore &amp; Book</a>
+        </div>
       </div>
     </div>
   </section>
@@ -2111,6 +2420,72 @@
       window.scrollTo({top:0,behavior:'auto'});
     })();
 
+
+    // Leaflet map initialised below, after leaflet.js loads
+
+
+    // ── EXPERIENCE MAP (zero-dependency SVG) ──
+    (function() {
+      var EXP = {
+        yacht:    { tag:'Yacht Charter',      name:'Mediterranean Superyacht Voyage', photo:'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=400&q=80', cx:521, cy:176 },
+        alpine:   { tag:'Alpine Retreat',     name:'Alpine Sanctuary',                photo:'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=400&q=80',   cx:520, cy:169 },
+        safari:   { tag:'Safari Expedition',  name:'Private Safari',                  photo:'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80', cx:567, cy:292 },
+        culinary: { tag:'Culinary Journey',   name:'Culinary Journeys',               photo:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80', cx:513, cy:172 },
+        cultural: { tag:'Cultural Immersion', name:'Cultural Immersion',              photo:'https://images.unsplash.com/photo-1499781350541-7783f6c6a0c8?w=400&q=80', cx:506, cy:162 },
+        wellness: { tag:'Wellness Escape',    name:'Wellness Escapes',                photo:'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=400&q=80', cx:820, cy:262 },
+      };
+
+      var svg    = document.getElementById('exp-map-svg');
+      var popup  = document.getElementById('map-popup');
+      var imgEl  = document.getElementById('map-popup-img');
+      var tagEl  = document.getElementById('map-popup-tag');
+      var nameEl = document.getElementById('map-popup-name');
+      var ctaEl  = document.getElementById('map-popup-cta');
+      if(!svg || !popup) return;
+
+      function showPopup(id) {
+        var e = EXP[id]; if(!e) return;
+        imgEl.style.backgroundImage  = 'url(' + e.photo + ')';
+        tagEl.textContent  = e.tag;
+        nameEl.textContent = e.name;
+        ctaEl.href = 'index.html?view=exp&id=' + id;
+
+        // Convert SVG coords to page coords
+        var svgRect = svg.getBoundingClientRect();
+        var vb      = svg.viewBox.baseVal;
+        var scaleX  = svgRect.width  / vb.width;
+        var scaleY  = svgRect.height / vb.height;
+        var wrap    = svg.parentElement;
+        var wRect   = wrap.getBoundingClientRect();
+
+        var px = e.cx * scaleX + (svgRect.left - wRect.left);
+        var py = e.cy * scaleY + (svgRect.top  - wRect.top);
+
+        var pw = 210, ph = 200;
+        var left = px - pw / 2;
+        var top  = py - ph - 14;
+        if(left < 4) left = 4;
+        if(left + pw > wRect.width - 4) left = wRect.width - pw - 4;
+        if(top < 4) top = py + 20;
+
+        popup.style.left = left + 'px';
+        popup.style.top  = top  + 'px';
+        popup.classList.add('show');
+      }
+
+      function hidePopup() { popup.classList.remove('show'); }
+
+      ['yacht','alpine','safari','culinary','cultural','wellness'].forEach(function(id) {
+        var g = document.getElementById('pin-' + id);
+        if(!g) return;
+        g.addEventListener('mouseenter', function() { showPopup(id); });
+        g.addEventListener('mouseleave', function() { hidePopup(); });
+        g.addEventListener('click',      function() { window.location.href = 'index.html?view=exp&id=' + id; });
+      });
+
+      svg.parentElement.addEventListener('mouseleave', hidePopup);
+    })();
+
     const io=new IntersectionObserver(es=>{
       es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
     },{threshold:0, rootMargin:'0px 0px -20px 0px'});
@@ -2408,6 +2783,68 @@
       overlay.addEventListener('click', function(){ closeCalendar(); });
       window.addEventListener('resize', function(){ if(popup.style.display !== 'none') positionPopup(); });
 
+    })();
+
+
+    // ── MOBILE HAMBURGER MENU ──
+    (function(){
+      var btn    = document.getElementById('nav-hamburger');
+      var drawer = document.getElementById('nav-drawer');
+      if(!btn || !drawer) return;
+
+      function openMenu(){
+        btn.classList.add('open');
+        drawer.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeMenu(){
+        btn.classList.remove('open');
+        drawer.classList.remove('open');
+        document.body.style.overflow = '';
+        // also close all accordion panels
+        drawer.querySelectorAll('.nav-drawer-panel').forEach(function(p){ p.classList.remove('open'); });
+        drawer.querySelectorAll('.nav-drawer-trigger').forEach(function(t){ t.classList.remove('open'); });
+      }
+
+      btn.addEventListener('click', function(e){
+        e.stopPropagation();
+        drawer.classList.contains('open') ? closeMenu() : openMenu();
+      });
+
+      // Accordion toggles
+      var accordions = [
+        { trigger: 'drawer-continents-trigger', panel: 'drawer-continents-panel' },
+        { trigger: 'drawer-about-trigger',      panel: 'drawer-about-panel'      },
+      ];
+      accordions.forEach(function(acc){
+        var trigger = document.getElementById(acc.trigger);
+        var panel   = document.getElementById(acc.panel);
+        if(!trigger || !panel) return;
+        trigger.addEventListener('click', function(e){
+          e.stopPropagation();
+          var isOpen = panel.classList.contains('open');
+          // close all panels first
+          drawer.querySelectorAll('.nav-drawer-panel').forEach(function(p){ p.classList.remove('open'); });
+          drawer.querySelectorAll('.nav-drawer-trigger').forEach(function(t){ t.classList.remove('open'); });
+          // open this one if it was closed
+          if(!isOpen){
+            panel.classList.add('open');
+            trigger.classList.add('open');
+          }
+        });
+      });
+
+      // Close when a sub-link is tapped
+      drawer.querySelectorAll('.nav-drawer-panel a, .nav-drawer-book').forEach(function(a){
+        a.addEventListener('click', function(){ closeMenu(); });
+      });
+
+      // Close on outside tap
+      document.addEventListener('click', function(e){
+        if(drawer.classList.contains('open') && !drawer.contains(e.target) && e.target !== btn && !btn.contains(e.target)){
+          closeMenu();
+        }
+      });
     })();
 
     // Form validation — enable button only when all required fields are filled
