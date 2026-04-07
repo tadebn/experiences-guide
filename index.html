@@ -1740,6 +1740,470 @@
       #exp-map-section { padding: 80px 28px; }
       #eg-map { height: 380px; }
     }
+
+    /* ═══════════════════════════════════════════════════
+       COMPREHENSIVE MOBILE OPTIMIZATIONS
+       @media (max-width: 768px)  — phones
+       @media (max-width: 480px)  — small phones
+    ═══════════════════════════════════════════════════ */
+
+    @media (max-width: 768px) {
+
+      /* ── CURSOR: disable custom cursor on touch devices ── */
+      body { cursor: auto !important; }
+      #cursor-dot, #cursor-ring { display: none !important; }
+
+      /* Restore pointer cursors for interactive elements */
+      a, button, [role="button"],
+      .nav-hamburger, .nav-drawer-trigger,
+      .continent-card, .exp-card, .dest-exp-item,
+      .nav-book, .nav-drawer-book, .btn-primary, .btn-secondary,
+      .form-submit, .form-submit.ready,
+      #concierge-btn, .cc-send, .tab-btn,
+      .form-field input, .form-field select, .form-field textarea,
+      .cp-prev, .cp-next, .cp-day,
+      .eg-pp-btn {
+        cursor: pointer !important;
+      }
+
+      /* ── NAV ── */
+      nav {
+        padding: 16px 20px !important;
+      }
+      nav.scrolled {
+        padding: 12px 20px !important;
+      }
+      .nav-right {
+        display: none !important;
+      }
+      .nav-hamburger {
+        display: flex !important;
+      }
+      .nav-logo {
+        font-size: 1.1rem;
+      }
+
+      /* ── SECTIONS: reduce large padding ── */
+      section {
+        padding: 64px 20px !important;
+      }
+
+      /* ── HERO ── */
+      .hero-content {
+        padding: 0 20px 72px !important;
+        max-width: 100% !important;
+      }
+      .hero-title {
+        font-size: clamp(2.4rem, 9vw, 3.8rem) !important;
+        margin-bottom: 18px !important;
+      }
+      .hero-subtitle {
+        font-size: 0.82rem !important;
+        max-width: 100% !important;
+        margin-bottom: 32px !important;
+      }
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 18px !important;
+      }
+      .btn-primary {
+        padding: 16px 32px !important;
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+        font-size: 0.64rem !important;
+      }
+      .btn-secondary {
+        min-height: 44px;
+        display: inline-flex;
+        align-items: center;
+      }
+      .hero-stats, .hero-corner, .hero-scroll { display: none !important; }
+
+      /* ── APPROVED SECTION ── */
+      #approved {
+        padding: 64px 20px !important;
+      }
+      .approved-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+      }
+      .approved-card {
+        height: 240px !important;
+        border-radius: 12px !important;
+      }
+      .approved-card:first-child {
+        grid-column: span 1 !important;
+        grid-row: span 1 !important;
+        min-height: 240px !important;
+        height: 240px !important;
+      }
+      .approved-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      /* ── SECTION TITLES ── */
+      .section-title {
+        font-size: clamp(1.8rem, 7vw, 2.8rem) !important;
+      }
+      .section-label {
+        font-size: 0.55rem !important;
+      }
+
+      /* ── EXPERIENCES GRID ── */
+      .exp-grid {
+        grid-template-columns: 1fr !important;
+        margin-top: 40px !important;
+      }
+      .exp-card.featured {
+        grid-column: span 1 !important;
+      }
+      .exp-grid .exp-card {
+        padding: 32px 24px !important;
+      }
+      .exp-grid .exp-card .exp-title {
+        font-size: 1.3rem !important;
+      }
+      .exp-grid .exp-card.featured .exp-title {
+        font-size: 1.5rem !important;
+      }
+      .exp-grid .exp-card .exp-number {
+        font-size: 2.4rem !important;
+        margin-bottom: 16px !important;
+      }
+
+      /* ── CONTINENT GRID ── */
+      .continent-grid {
+        grid-template-columns: 1fr !important;
+        gap: 14px !important;
+        margin-top: 40px !important;
+      }
+      .continent-card {
+        min-height: 160px !important;
+        cursor: pointer !important;
+      }
+
+      /* ── DESTINATIONS ── */
+      .dest-layout {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+        margin-top: 40px !important;
+      }
+      .dest-visual { display: none !important; }
+
+      /* ── PHILOSOPHY ── */
+      .phil-inner {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+      }
+      .phil-quote {
+        font-size: clamp(1.3rem, 5vw, 1.8rem) !important;
+      }
+
+      /* ── STATS STRIP ── */
+      .stats-strip {
+        grid-template-columns: repeat(2, 1fr) !important;
+        padding: 40px 20px !important;
+        gap: 1px !important;
+      }
+      .stat-block {
+        padding: 28px 16px !important;
+        border-right: none !important;
+        border-bottom: 1px solid rgba(176,141,87,0.08) !important;
+      }
+      .stat-number {
+        font-size: 2.8rem !important;
+      }
+
+      /* ── PROCESS STEPS ── */
+      .process-steps {
+        grid-template-columns: 1fr !important;
+        margin-top: 40px !important;
+      }
+      .process-step {
+        padding: 36px 24px !important;
+      }
+      .step-connector { display: none !important; }
+
+      /* ── TESTIMONIALS ── */
+      .testimonial-grid {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+        margin-top: 40px !important;
+      }
+      .testimonial-card {
+        padding: 28px 24px !important;
+      }
+
+      /* ── CONTACT ── */
+      .contact-inner {
+        grid-template-columns: 1fr !important;
+        gap: 40px !important;
+      }
+      .form-row {
+        grid-template-columns: 1fr !important;
+        gap: 20px !important;
+      }
+      .form-field input,
+      .form-field select,
+      .form-field textarea {
+        width: 100% !important;
+        font-size: 1rem !important; /* 16px — prevents iOS zoom on focus */
+        padding: 14px 0 !important;
+        min-height: 44px;
+        cursor: pointer !important;
+      }
+      .form-submit {
+        width: 100% !important;
+        text-align: center !important;
+        align-self: stretch !important;
+        padding: 16px 32px !important;
+        min-height: 44px !important;
+      }
+
+      /* ── CALENDAR PICKER ── */
+      .contact-date-picker {
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        padding: 56px 20px 32px !important;
+      }
+      .footer-top {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 32px !important;
+        margin-bottom: 40px !important;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+      .footer-tagline {
+        max-width: 100% !important;
+      }
+
+      /* ── MARQUEE / TICKER ── */
+      .marquee-track { gap: 40px !important; }
+
+      /* ── EXP LANDING PAGE ── */
+      .exp-lp-hero {
+        min-height: 45vh !important;
+        height: 45vh !important;
+      }
+      .exp-lp-hero-content {
+        padding: 0 20px 32px !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 16px !important;
+      }
+      .exp-lp-body {
+        grid-template-columns: 1fr !important;
+        padding: 40px 20px 64px !important;
+        gap: 40px !important;
+      }
+      .exp-lp-highlights {
+        grid-template-columns: 1fr !important;
+      }
+      .exp-lp-book-card {
+        position: static !important;
+        top: auto !important;
+      }
+      .exp-lp-back {
+        padding: 80px 20px 0 !important;
+      }
+
+      /* ── DESTINATION LANDING PAGE ── */
+      .dlp-hero {
+        min-height: 42vh !important;
+        height: 42vh !important;
+      }
+      .dlp-hero-content {
+        padding: 0 20px 32px !important;
+      }
+      .dlp-back { left: 20px !important; }
+      .dlp-count-badge { right: 20px !important; }
+      .dlp-body {
+        padding: 40px 20px 64px !important;
+      }
+      .dlp-intro {
+        grid-template-columns: 1fr !important;
+        gap: 32px !important;
+      }
+      .dlp-grid {
+        grid-template-columns: 1fr !important;
+      }
+      .dlp-cta-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        padding: 24px 20px !important;
+        gap: 16px !important;
+      }
+      .dlp-cta-btn {
+        width: 100% !important;
+        text-align: center !important;
+        min-height: 44px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+      }
+
+      /* ── MAP SECTION ── */
+      #exp-map-section {
+        padding: 64px 20px !important;
+      }
+      #eg-map {
+        height: 320px !important;
+      }
+
+      /* ── AI CONCIERGE ── */
+      #concierge-btn {
+        bottom: 20px !important;
+        right: 16px !important;
+        width: 54px !important;
+        height: 54px !important;
+        cursor: pointer !important;
+      }
+      #concierge-panel {
+        width: calc(100vw - 24px) !important;
+        right: 12px !important;
+        bottom: 86px !important;
+        max-height: 72vh !important;
+        border-radius: 16px !important;
+      }
+
+      /* ── PREVENT HORIZONTAL OVERFLOW ── */
+      img, video, iframe, embed, object {
+        max-width: 100% !important;
+      }
+      .nav-dropdown {
+        min-width: 0 !important;
+      }
+
+      /* ── VIEW PANELS ── */
+      #view-continents, #view-continent,
+      #view-exp, #view-dest {
+        padding: 0 !important;
+      }
+
+      /* ── CONTINENT BACK BUTTON ── */
+      .continent-back {
+        margin-bottom: 20px !important;
+        min-height: 44px !important;
+        display: inline-flex !important;
+        align-items: center !important;
+      }
+
+      /* ── GENERAL TOUCH TARGETS ── */
+      .nav-drawer-trigger,
+      .nav-drawer-panel a,
+      .nav-drawer-book,
+      .dest-exp-item,
+      .tab-btn {
+        min-height: 44px !important;
+      }
+
+    } /* end @media (max-width: 768px) */
+
+    @media (max-width: 480px) {
+
+      /* ── NAV ── */
+      nav, nav.scrolled {
+        padding: 14px 16px !important;
+      }
+      .nav-logo {
+        font-size: 1rem !important;
+      }
+
+      /* ── SECTIONS ── */
+      section {
+        padding: 48px 16px !important;
+      }
+
+      /* ── HERO ── */
+      .hero-content {
+        padding: 0 16px 60px !important;
+      }
+      .hero-title {
+        font-size: clamp(2rem, 10vw, 3rem) !important;
+      }
+      .hero-subtitle {
+        font-size: 0.79rem !important;
+      }
+
+      /* ── SECTION TITLES ── */
+      .section-title {
+        font-size: clamp(1.6rem, 8vw, 2.4rem) !important;
+      }
+
+      /* ── STATS ── */
+      .stats-strip {
+        grid-template-columns: 1fr 1fr !important;
+        padding: 32px 16px !important;
+      }
+      .stat-number {
+        font-size: 2.4rem !important;
+      }
+
+      /* ── TESTIMONIALS ── */
+      .testimonial-card {
+        padding: 24px 18px !important;
+      }
+
+      /* ── EXP LANDING HERO ── */
+      .exp-lp-hero {
+        min-height: 40vh !important;
+        height: 40vh !important;
+      }
+
+      /* ── DLP HERO ── */
+      .dlp-hero {
+        min-height: 38vh !important;
+        height: 38vh !important;
+      }
+
+      /* ── FOOTER ── */
+      footer {
+        padding: 44px 16px 28px !important;
+      }
+      .footer-top {
+        grid-template-columns: 1fr !important;
+        gap: 28px !important;
+      }
+
+      /* ── CONTACT FORM ── */
+      .form-field input,
+      .form-field select,
+      .form-field textarea {
+        font-size: 1rem !important;
+      }
+
+      /* ── MAP ── */
+      #eg-map {
+        height: 260px !important;
+      }
+
+      /* ── CONCIERGE ── */
+      #concierge-btn {
+        bottom: 16px !important;
+        right: 12px !important;
+        width: 50px !important;
+        height: 50px !important;
+      }
+      #concierge-panel {
+        width: calc(100vw - 16px) !important;
+        right: 8px !important;
+        max-height: 78vh !important;
+      }
+
+    } /* end @media (max-width: 480px) */
+
   </style>
 </head>
 <body class="grain">
