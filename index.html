@@ -500,18 +500,20 @@
     .approved-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      grid-template-rows: repeat(2, 340px);
-      gap: 2px;
+      gap: 20px;
     }
+    .approved-grid .approved-card:first-child { grid-column: span 2; grid-row: span 2; }
     .approved-card {
       position: relative; overflow: hidden; cursor: none;
+      border-radius: 16px; height: 260px;
     }
-    .approved-card:first-child { grid-column: span 2; }
+    .approved-card:first-child { height: 100%; min-height: 540px; }
     .approved-card-photo {
       position: absolute; inset: 0;
       background-size: cover; background-position: center;
       background-color: #1a1f26;
-      transition: transform 0.7s cubic-bezier(0.16,1,0.3,1);
+      transition: transform 0.8s cubic-bezier(0.16,1,0.3,1);
+      border-radius: 16px;
     }
     .approved-card-photo:not([style*="url('')"]) {
       background-color: transparent;
@@ -522,96 +524,135 @@
       display: flex; align-items: center; justify-content: center;
       font-family: var(--sans); font-size: 0.6rem; letter-spacing: 0.28em;
       text-transform: uppercase; color: rgba(176,141,87,0.35);
-      border: 1px dashed rgba(176,141,87,0.18);
+      border: 1px dashed rgba(176,141,87,0.18); border-radius: 16px;
     }
-    .approved-card:hover .approved-card-photo { transform: scale(1.05); }
+    .approved-card:hover .approved-card-photo { transform: scale(1.06); }
     .approved-card-overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,10,12,0.88) 0%, rgba(10,10,12,0.2) 55%, transparent 100%);
+      position: absolute; inset: 0; border-radius: 16px;
+      background: linear-gradient(to top, rgba(10,10,12,0.82) 0%, rgba(10,10,12,0.15) 50%, transparent 100%);
       transition: background 0.4s;
     }
     .approved-card:hover .approved-card-overlay {
-      background: linear-gradient(to top, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.35) 55%, transparent 100%);
+      background: linear-gradient(to top, rgba(10,10,12,0.9) 0%, rgba(10,10,12,0.3) 55%, transparent 100%);
     }
     .approved-card-body {
       position: absolute; bottom: 0; left: 0; right: 0;
-      padding: 32px 36px;
+      padding: 26px 28px;
     }
     .approved-card-stamp {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.48rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--brass-bright); margin-bottom: 10px;
+      font-size: 0.44rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--brass-bright); margin-bottom: 8px;
       font-family: var(--sans); font-weight: 500;
     }
-    .approved-card-stamp::before { content: "✦"; font-size: 0.42rem; }
+    .approved-card-stamp::before { content: "✦"; font-size: 0.4rem; }
     .approved-card-name {
-      font-family: var(--serif); font-size: 1.45rem; font-weight: 400;
-      color: var(--ivory); line-height: 1.25; margin-bottom: 8px;
+      font-family: var(--serif); font-size: 1.05rem; font-weight: 400;
+      color: var(--ivory); line-height: 1.25; margin-bottom: 6px;
     }
-    .approved-card:first-child .approved-card-name { font-size: 2rem; }
+    .approved-card:first-child .approved-card-name { font-size: 1.55rem; }
     .approved-card-location {
-      font-size: 0.62rem; color: rgba(240,235,225,0.55);
-      letter-spacing: 0.12em; display: flex; align-items: center; gap: 6px;
+      font-size: 0.58rem; color: rgba(240,235,225,0.5);
+      letter-spacing: 0.1em; display: flex; align-items: center; gap: 6px;
     }
-    .approved-card-location::before { content: "◎"; font-size: 0.5rem; color: var(--brass); }
+    .approved-card-location::before { content: "◎"; font-size: 0.48rem; color: var(--brass); }
     .approved-card-tag {
-      position: absolute; top: 24px; right: 24px;
-      font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase;
-      background: rgba(13,14,16,0.75); backdrop-filter: blur(8px);
-      border: 1px solid rgba(176,141,87,0.25); color: var(--brass-light);
-      padding: 5px 12px;
+      position: absolute; top: 18px; right: 18px;
+      font-size: 0.44rem; letter-spacing: 0.2em; text-transform: uppercase;
+      background: rgba(13,14,16,0.7); backdrop-filter: blur(10px);
+      border: 1px solid rgba(176,141,87,0.2); color: var(--brass-light);
+      padding: 4px 11px; border-radius: 20px;
     }
     @media (max-width: 900px) {
-      .approved-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
-      .approved-card { height: 280px; }
-      .approved-card:first-child { grid-column: span 1; }
+      .approved-grid { grid-template-columns: 1fr; gap: 14px; }
+      .approved-card { height: 260px; border-radius: 12px; }
+      .approved-card:first-child { grid-column: span 1; grid-row: span 1; min-height: 260px; }
       .approved-header { flex-direction: column; align-items: flex-start; }
     }
 
     /* EXPERIENCES */
     #experiences { background: var(--deep); }
+    .exp-list {
+      margin-top: 72px;
+      border-top: 1px solid rgba(176,141,87,0.12);
+    }
+    .exp-card {
+      display: grid; grid-template-columns: 64px 1fr auto;
+      align-items: center; gap: 0 40px;
+      padding: 32px 0;
+      border-bottom: 1px solid rgba(176,141,87,0.08);
+      text-decoration: none; cursor: none;
+      position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .exp-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(90deg, rgba(176,141,87,0.04), transparent 60%);
+      opacity: 0; transition: opacity 0.4s;
+    }
+    .exp-card:hover::before { opacity: 1; }
+    .exp-card:hover .exp-title { color: var(--brass-bright); }
+    .exp-card:hover .exp-link { gap: 18px; color: var(--brass-bright); }
+    .exp-card:hover .exp-number { color: rgba(176,141,87,0.25); }
+    .exp-number {
+      font-family: var(--serif); font-size: 2.2rem; font-weight: 400;
+      color: rgba(176,141,87,0.1); line-height: 1;
+      text-align: right; transition: color 0.3s;
+    }
+    .exp-card-mid { display: flex; flex-direction: column; gap: 6px; position: relative; z-index: 1; }
+    .exp-card-top { display: flex; align-items: center; gap: 16px; }
+    .exp-tag {
+      font-size: 0.46rem; font-weight: 500;
+      letter-spacing: 0.26em; text-transform: uppercase;
+      border: 1px solid rgba(176,141,87,0.3); color: var(--brass);
+      padding: 4px 12px; flex-shrink: 0;
+    }
+    .exp-title {
+      font-family: var(--serif); font-size: 1.55rem; font-weight: 400;
+      color: var(--text); line-height: 1.2;
+      transition: color 0.3s;
+    }
+    .exp-desc {
+      font-size: 0.74rem; line-height: 1.85; color: var(--text-muted);
+      max-width: 640px;
+    }
+    .exp-link {
+      font-size: 0.58rem; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--brass); text-decoration: none;
+      display: flex; align-items: center; gap: 10px;
+      flex-shrink: 0; white-space: nowrap;
+      transition: gap 0.3s, color 0.3s; position: relative; z-index: 1;
+    }
+    .exp-link::after { content: '→'; }
+    /* Keep exp-grid for continent pages */
     .exp-grid {
       display: grid; grid-template-columns: repeat(3,1fr);
       gap: 1px; margin-top: 80px;
       border: 1px solid rgba(176,141,87,0.06);
     }
-    .exp-card {
-      background: var(--surface); position: relative;
-      padding: 50px 42px; overflow: hidden;
-      transition: background 0.4s; cursor: none;
+    .exp-grid .exp-card {
+      display: block; grid-template-columns: unset;
+      background: var(--surface); padding: 50px 42px;
+      border-bottom: none; transition: background 0.4s;
     }
-    .exp-card:hover { background: var(--surface-2); }
-    .exp-card::before {
-      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    .exp-grid .exp-card::before {
       background: linear-gradient(90deg, transparent, var(--brass-bright), transparent);
+      top: 0; left: 0; right: 0; height: 1px; bottom: auto;
       transform: scaleX(0); transition: transform 0.6s var(--ease-out);
     }
-    .exp-card:hover::before { transform: scaleX(1); }
-    .exp-number {
-      font-family: var(--serif); font-size: 3.2rem; font-weight: 400;
-      color: rgba(176,141,87,0.07); line-height: 1; margin-bottom: 28px;
-    }
-    .exp-icon { font-size: 1.5rem; margin-bottom: 18px; display: block; }
-    .exp-title {
-      font-family: var(--serif); font-size: 1.45rem; font-weight: 400;
-      color: var(--text); margin-bottom: 14px; line-height: 1.3;
-    }
-    .exp-desc { font-size: 0.76rem; line-height: 1.9; color: var(--text-muted); margin-bottom: 30px; }
-    .exp-link {
-      font-size: 0.6rem; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase;
-      color: var(--brass); text-decoration: none;
-      display: flex; align-items: center; gap: 10px;
-      transition: gap 0.3s, color 0.3s;
-    }
-    .exp-link::after { content: '→'; }
-    .exp-card:hover .exp-link { gap: 16px; color: var(--brass-bright); }
-    .exp-card.featured { grid-column: span 2; background: var(--surface-2); }
-    .exp-card.featured .exp-title { font-size: 2.1rem; }
-    .exp-tag {
-      display: inline-block; font-size: 0.56rem; font-weight: 500;
-      letter-spacing: 0.22em; text-transform: uppercase;
-      border: 1px solid var(--brass-dim); color: var(--brass-light);
-      padding: 5px 14px; margin-bottom: 22px;
+    .exp-grid .exp-card:hover { background: var(--surface-2); }
+    .exp-grid .exp-card:hover::before { transform: scaleX(1); opacity: 1; }
+    .exp-grid .exp-card .exp-number { font-size: 3.2rem; color: rgba(176,141,87,0.07); margin-bottom: 28px; text-align: left; }
+    .exp-grid .exp-card .exp-title { font-size: 1.45rem; margin-bottom: 14px; }
+    .exp-grid .exp-card .exp-desc { margin-bottom: 30px; max-width: none; }
+    .exp-grid .exp-card.featured { grid-column: span 2; background: var(--surface-2); }
+    .exp-grid .exp-card.featured .exp-title { font-size: 2.1rem; }
+    .exp-grid .exp-card .exp-card-mid { display: contents; }
+    .exp-grid .exp-card .exp-card-top { display: contents; }
+    @media (max-width: 900px) {
+      .exp-card { grid-template-columns: 44px 1fr; gap: 0 20px; }
+      .exp-card .exp-link { display: none; }
+      .exp-card .exp-title { font-size: 1.25rem; }
     }
 
     /* CONTINENTS (Multi-page via URL view) */
@@ -794,8 +835,81 @@
 
     /* DESTINATIONS */
     #destinations { background: var(--obsidian); }
-    .dest-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: start; margin-top: 80px; }
-    .dest-item {
+    .dest-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; margin-top: 80px; }
+
+    /* Destination experiences panel */
+    .dest-panel {
+      position: sticky; top: 100px;
+      background: var(--surface); border: 1px solid rgba(176,141,87,0.12);
+      min-height: 400px; transition: opacity 0.3s;
+    }
+    .dest-panel-empty {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 400px; gap: 14px; opacity: 0.4;
+    }
+    .dest-panel-empty-icon {
+      font-size: 0.55rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--brass);
+    }
+    .dest-panel-empty-text {
+      font-family: var(--serif); font-size: 1.1rem; color: var(--text-muted);
+      font-style: italic;
+    }
+    .dest-panel-header {
+      display: none; padding: 24px 28px 20px;
+      border-bottom: 1px solid rgba(176,141,87,0.1);
+    }
+    .dest-panel-header.show { display: block; }
+    .dest-panel-city {
+      font-family: var(--serif); font-size: 1.5rem; font-weight: 400; color: var(--text);
+      margin-bottom: 4px;
+    }
+    .dest-panel-region {
+      font-size: 0.52rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--brass);
+    }
+    .dest-panel-list { display: none; overflow-y: auto; max-height: 480px; }
+    .dest-panel-list.show { display: block; }
+    .dest-exp-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 28px; border-bottom: 1px solid rgba(176,141,87,0.07);
+      gap: 20px; text-decoration: none; transition: background 0.2s;
+    }
+    .dest-exp-item:hover { background: rgba(176,141,87,0.05); }
+    .dest-exp-item:hover .dest-exp-name { color: var(--brass-bright); }
+    .dest-exp-item:hover .dest-exp-arrow { opacity: 1; transform: translateX(3px); }
+    .dest-exp-cat {
+      font-size: 0.44rem; letter-spacing: 0.24em; text-transform: uppercase;
+      color: var(--brass); margin-bottom: 4px;
+    }
+    .dest-exp-name {
+      font-family: var(--serif); font-size: 0.95rem; color: var(--text);
+      transition: color 0.2s; line-height: 1.3;
+    }
+    .dest-exp-price {
+      font-size: 0.62rem; color: var(--text-faint); margin-top: 3px;
+    }
+    .dest-exp-arrow {
+      color: var(--brass); font-size: 0.9rem; flex-shrink: 0;
+      opacity: 0.4; transition: opacity 0.2s, transform 0.2s;
+    }
+    .dest-panel-book {
+      display: none; padding: 20px 28px;
+      border-top: 1px solid rgba(176,141,87,0.1);
+    }
+    .dest-panel-book.show { display: block; }
+    .dest-panel-book-btn {
+      display: block; width: 100%; text-align: center;
+      background: var(--brass); color: var(--obsidian);
+      font-family: var(--sans); font-size: 0.6rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      padding: 14px; text-decoration: none;
+      transition: background 0.3s;
+    }
+    .dest-panel-book-btn:hover { background: var(--brass-bright); }
+    .dest-item.active .dest-name { color: var(--brass-bright); }
+    .dest-item.active { padding-left: 20px; }
+    .dest-item.active::before { width: 100%; }
+    .dest-item { cursor: pointer;
       display: flex; align-items: center; justify-content: space-between;
       padding: 26px 0; border-bottom: 1px solid rgba(255,255,255,0.04);
       cursor: none; transition: padding-left 0.4s var(--ease-out); position: relative;
@@ -1404,6 +1518,162 @@
       .exp-lp-back { padding: 88px 28px 0; }
     }
 
+
+    /* ── DESTINATION LANDING PAGE ── */
+    #view-dest { background: var(--obsidian); padding: 0; }
+
+    /* Hero */
+    .dlp-hero {
+      position: relative; height: 65vh; min-height: 440px;
+      display: flex; align-items: flex-end; overflow: hidden;
+    }
+    .dlp-hero-bg {
+      position: absolute; inset: 0;
+      background-size: cover; background-position: center;
+      transition: transform 0.6s ease;
+    }
+    .dlp-hero:hover .dlp-hero-bg { transform: scale(1.03); }
+    .dlp-hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(10,10,12,0.88) 0%, rgba(10,10,12,0.3) 55%, transparent 100%),
+                  linear-gradient(to bottom, rgba(10,10,12,0.55) 0%, transparent 30%);
+    }
+    .dlp-hero-content {
+      position: relative; z-index: 2; padding: 0 60px 52px; width: 100%;
+    }
+    .dlp-back {
+      position: absolute; top: 100px; left: 60px; z-index: 3;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.56rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: rgba(240,235,225,0.7); text-decoration: none; transition: color 0.3s;
+    }
+    .dlp-back::before { content: '←'; }
+    .dlp-back:hover { color: var(--brass-light); }
+    .dlp-region-label {
+      font-size: 0.52rem; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--brass-bright); margin-bottom: 14px;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .dlp-region-label::before { content: '◎'; font-size: 0.5rem; }
+    .dlp-title {
+      font-family: var(--serif); font-size: clamp(2.8rem, 5.5vw, 5rem);
+      font-weight: 400; color: var(--ivory); line-height: 1.05; margin-bottom: 16px;
+    }
+    .dlp-tagline {
+      font-size: 0.8rem; color: rgba(240,235,225,0.6); max-width: 480px;
+      line-height: 1.8; letter-spacing: 0.02em;
+    }
+    .dlp-count-badge {
+      position: absolute; bottom: 52px; right: 60px; z-index: 2;
+      background: rgba(13,14,16,0.8); backdrop-filter: blur(12px);
+      border: 1px solid rgba(176,141,87,0.25); padding: 14px 24px;
+      text-align: center;
+    }
+    .dlp-count-num {
+      font-family: var(--serif); font-size: 2rem; color: var(--brass-bright); line-height: 1;
+    }
+    .dlp-count-label {
+      font-size: 0.46rem; letter-spacing: 0.3em; text-transform: uppercase;
+      color: var(--text-muted); margin-top: 4px;
+    }
+
+    /* Body */
+    .dlp-body { padding: 80px 60px 120px; }
+    .dlp-intro {
+      display: grid; grid-template-columns: 1fr 340px;
+      gap: 80px; align-items: start; margin-bottom: 80px;
+      padding-bottom: 60px; border-bottom: 1px solid rgba(176,141,87,0.1);
+    }
+    .dlp-intro-text {
+      font-size: 0.9rem; line-height: 2; color: var(--text-muted); max-width: 580px;
+    }
+    .dlp-stats { display: flex; flex-direction: column; gap: 0; }
+    .dlp-stat {
+      display: flex; justify-content: space-between; align-items: baseline;
+      padding: 14px 0; border-bottom: 1px solid rgba(176,141,87,0.08);
+    }
+    .dlp-stat-key {
+      font-size: 0.52rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-faint);
+    }
+    .dlp-stat-val { font-family: var(--serif); font-size: 0.9rem; color: var(--text); }
+
+    /* Experience grid */
+    .dlp-exp-label {
+      font-size: 0.55rem; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--brass); margin-bottom: 40px;
+      display: flex; align-items: center; gap: 14px;
+    }
+    .dlp-exp-label::before { content: ''; flex: 0 0 28px; height: 1px; background: var(--brass-dim); }
+    .dlp-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1px; background: rgba(176,141,87,0.06);
+      border: 1px solid rgba(176,141,87,0.06);
+      margin-bottom: 60px;
+    }
+    .dlp-card {
+      background: var(--surface); padding: 36px 32px;
+      position: relative; overflow: hidden;
+      transition: background 0.35s; text-decoration: none; display: block;
+    }
+    .dlp-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, var(--brass-bright), transparent);
+      transform: scaleX(0); transition: transform 0.5s var(--ease-out);
+    }
+    .dlp-card:hover { background: var(--surface-2); }
+    .dlp-card:hover::before { transform: scaleX(1); }
+    .dlp-card:hover .dlp-card-name { color: var(--brass-bright); }
+    .dlp-card:hover .dlp-card-link { gap: 14px; color: var(--brass-bright); }
+    .dlp-card-cat {
+      font-size: 0.46rem; letter-spacing: 0.26em; text-transform: uppercase;
+      color: var(--brass); margin-bottom: 12px;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .dlp-card-cat::before { content: '✦'; font-size: 0.4rem; }
+    .dlp-card-name {
+      font-family: var(--serif); font-size: 1.15rem; font-weight: 400;
+      color: var(--text); line-height: 1.3; margin-bottom: 10px;
+      transition: color 0.3s;
+    }
+    .dlp-card-price {
+      font-size: 0.64rem; color: var(--text-faint); margin-bottom: 22px;
+    }
+    .dlp-card-link {
+      font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--brass); display: flex; align-items: center; gap: 8px;
+      transition: gap 0.3s, color 0.3s;
+    }
+    .dlp-card-link::after { content: '→'; }
+
+    /* CTA bar */
+    .dlp-cta-bar {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 36px 44px; background: var(--surface);
+      border: 1px solid rgba(176,141,87,0.12); gap: 40px;
+    }
+    .dlp-cta-text {
+      font-family: var(--serif); font-size: 1.2rem; color: var(--text); font-weight: 400;
+    }
+    .dlp-cta-text em { font-style: italic; color: var(--brass-light); }
+    .dlp-cta-btn {
+      font-family: var(--sans); font-size: 0.62rem; font-weight: 500;
+      letter-spacing: 0.2em; text-transform: uppercase;
+      background: var(--brass); color: var(--obsidian);
+      padding: 15px 36px; text-decoration: none; flex-shrink: 0;
+      transition: background 0.3s;
+    }
+    .dlp-cta-btn:hover { background: var(--brass-bright); }
+
+    @media (max-width: 900px) {
+      .dlp-hero-content { padding: 0 28px 40px; }
+      .dlp-back { left: 28px; }
+      .dlp-count-badge { right: 28px; }
+      .dlp-body { padding: 52px 28px 80px; }
+      .dlp-intro { grid-template-columns: 1fr; gap: 40px; }
+      .dlp-grid { grid-template-columns: 1fr; }
+      .dlp-cta-bar { flex-direction: column; align-items: flex-start; padding: 28px; }
+    }
     /* ── EXPERIENCE MAP ── */
     #exp-map-section {
       background: var(--deep); padding: 120px 60px;
@@ -1614,7 +1884,7 @@
     <div class="approved-header">
       <div>
         <div class="approved-badge">Experiences Guide Approved</div>
-        <h2 class="section-title">Our <em>Finest</em> Partners</h2>
+        <h2 class="section-title" style="font-size:clamp(1.6rem,2.8vw,2.6rem);">Our <em>Finest</em> Partners</h2>
       </div>
       <p class="approved-tagline">A handpicked selection of the world's most exceptional properties and experiences — each one personally vetted and approved by our team. Only the best carry our mark.</p>
     </div>
@@ -1793,48 +2063,148 @@
     </div>
   </section>
 
+
+  <!-- DESTINATION LANDING PAGE -->
+  <section id="view-dest" class="view-panel" aria-hidden="true">
+    <!-- Hero -->
+    <a href="index.html" class="dlp-back" id="dlp-back">All Destinations</a>
+    <div class="dlp-hero">
+      <div class="dlp-hero-bg" id="dlp-hero-bg"></div>
+      <div class="dlp-hero-overlay"></div>
+      <div class="dlp-hero-content">
+        <div class="dlp-region-label" id="dlp-region"></div>
+        <h1 class="dlp-title" id="dlp-title"></h1>
+        <p class="dlp-tagline" id="dlp-tagline"></p>
+      </div>
+      <div class="dlp-count-badge">
+        <div class="dlp-count-num" id="dlp-count"></div>
+        <div class="dlp-count-label">Curated Experiences</div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="dlp-body">
+      <!-- Intro + stats -->
+      <div class="dlp-intro">
+        <p class="dlp-intro-text" id="dlp-intro-text"></p>
+        <div class="dlp-stats" id="dlp-stats"></div>
+      </div>
+
+      <!-- Experience grid -->
+      <div class="dlp-exp-label">All Experiences</div>
+      <div class="dlp-grid" id="dlp-grid"></div>
+
+      <!-- CTA -->
+      <div class="dlp-cta-bar">
+        <div class="dlp-cta-text">Ready to begin your journey to <em id="dlp-cta-dest"></em>?</div>
+        <a href="index.html#contact" class="dlp-cta-btn">Begin Enquiry</a>
+      </div>
+    </div>
+  </section>
+
   <!-- EXPERIENCES -->
   <section id="experiences">
     <div class="section-label reveal">Our Offerings</div>
     <h2 class="section-title reveal">Extraordinary <em>Experiences</em></h2>
-    <div class="exp-grid">
-      <div class="exp-card featured reveal" data-continent="europe" data-id="yacht">
-        <div class="exp-tag">Signature</div><div class="exp-number">01</div>
-        <span class="exp-icon">🛥</span>
-        <h3 class="exp-title">Mediterranean Superyacht Voyage</h3>
-        <p class="exp-desc">Embark on an unparalleled journey across the Mediterranean aboard a private superyacht. From the Amalfi Coast to the Greek islands, each day is a new horizon — guided by your personal crew and a curated itinerary designed exclusively for you.</p>
-        <a href="index.html?view=exp&id=yacht" class="exp-link">Explore &amp; Book</a>
-      </div>
-      <div class="exp-card reveal reveal-delay-1" data-continent="europe" data-id="alpine">
-        <div class="exp-number">02</div><span class="exp-icon">🏔</span>
-        <h3 class="exp-title">Alpine Sanctuary</h3>
-        <p class="exp-desc">Private chalets, heli-skiing access, and world-class mountain cuisine in the Swiss Alps.</p>
-        <a href="index.html?view=exp&id=alpine" class="exp-link">Explore &amp; Book</a>
-      </div>
-      <div class="exp-card reveal reveal-delay-2" data-continent="africa" data-id="safari">
-        <div class="exp-number">03</div><span class="exp-icon">🦁</span>
-        <h3 class="exp-title">Private Safari</h3>
-        <p class="exp-desc">Exclusive tented camps and conservation-led game drives across Botswana's Okavango Delta.</p>
-        <a href="index.html?view=exp&id=safari" class="exp-link">Explore &amp; Book</a>
-      </div>
-      <div class="exp-card reveal reveal-delay-1" data-continent="europe,asia" data-id="culinary">
-        <div class="exp-number">04</div><span class="exp-icon">🍽</span>
-        <h3 class="exp-title">Culinary Journeys</h3>
-        <p class="exp-desc">Private chef collaborations, Michelin tables, and market-to-table experiences in Lyon and Tokyo.</p>
-        <a href="index.html?view=exp&id=culinary" class="exp-link">Explore &amp; Book</a>
-      </div>
-      <div class="exp-card reveal reveal-delay-2" data-continent="americas,asia" data-id="cultural">
-        <div class="exp-number">05</div><span class="exp-icon">🏯</span>
-        <h3 class="exp-title">Cultural Immersion</h3>
-        <p class="exp-desc">Private museum access, artist ateliers, and curated encounters with local masters of craft.</p>
-        <a href="index.html?view=exp&id=cultural" class="exp-link">Explore &amp; Book</a>
-      </div>
-      <div class="exp-card reveal reveal-delay-3" data-continent="africa,asia,oceania" data-id="wellness">
-        <div class="exp-number">06</div><span class="exp-icon">🧘</span>
-        <h3 class="exp-title">Wellness Escapes</h3>
-        <p class="exp-desc">Bespoke retreats with world-renowned healers, thermal springs, and tailored wellness programmes.</p>
-        <a href="index.html?view=exp&id=wellness" class="exp-link">Explore &amp; Book</a>
-      </div>
+
+    <div class="exp-list">
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">01</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">On Water</span>
+            <h3 class="exp-title">Yacht Voyages</h3>
+          </div>
+          <p class="exp-desc">Private superyachts, sailing charters, and river cruises — from Mediterranean island-hopping to South Pacific crossings, entirely on your terms.</p>
+        </div>
+        <span class="exp-link">Enquire</span>
+      </a>
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">02</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">In the Wild</span>
+            <h3 class="exp-title">Safaris &amp; Expeditions</h3>
+          </div>
+          <p class="exp-desc">Private game drives, gorilla treks, polar voyages, and remote wilderness camps — access to the natural world at its most untouched.</p>
+        </div>
+        <span class="exp-link">Enquire</span>
+      </a>
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">03</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">Private Stays</span>
+            <h3 class="exp-title">Villas &amp; Retreats</h3>
+          </div>
+          <p class="exp-desc">Sole-occupancy estates, mountain chalets, overwater residences, and island buyouts — private sanctuaries across every landscape and climate.</p>
+        </div>
+        <span class="exp-link">Enquire</span>
+      </a>
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">04</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">At the Table</span>
+            <h3 class="exp-title">Culinary &amp; Gastronomy</h3>
+          </div>
+          <p class="exp-desc">Michelin chef collaborations, private market tours, wine harvest dinners, and access to counters that cannot be booked without an introduction.</p>
+        </div>
+        <span class="exp-link">Enquire</span>
+      </a>
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">05</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">Mind &amp; Body</span>
+            <h3 class="exp-title">Wellness &amp; Restoration</h3>
+          </div>
+          <p class="exp-desc">Immersive spa programmes, silent retreats, thermal sanctuaries, and bespoke wellness itineraries led by the world&#39;s foremost practitioners.</p>
+        </div>
+        <span class="exp-link">Enquire</span>
+      </a>
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">06</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">Arts &amp; Culture</span>
+            <h3 class="exp-title">Cultural Journeys</h3>
+          </div>
+          <p class="exp-desc">Private museum access, artist studio visits, archaeological site tours, and curated encounters with living masters of craft, music, and design.</p>
+        </div>
+        <span class="exp-link">Enquire</span>
+      </a>
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">07</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">Adrenaline</span>
+            <h3 class="exp-title">Adventure &amp; Sport</h3>
+          </div>
+          <p class="exp-desc">Heli-skiing, Formula 1 paddock access, deep-sea diving, private circuit days, and once-in-a-lifetime sporting encounters — curated for the boldly curious.</p>
+        </div>
+        <span class="exp-link">Enquire</span>
+      </a>
+
+      <a href="#contact" class="exp-card reveal">
+        <div class="exp-number">08</div>
+        <div class="exp-card-mid">
+          <div class="exp-card-top">
+            <span class="exp-tag">Bespoke</span>
+            <h3 class="exp-title">Something Entirely Your Own</h3>
+          </div>
+          <p class="exp-desc">If none of the above captures what you have in mind, tell us. Our concierge has arranged experiences that have never been done before — and will never be repeated.</p>
+        </div>
+        <span class="exp-link">Speak to a Concierge</span>
+      </a>
+
     </div>
   </section>
 
@@ -1855,22 +2225,27 @@
     <h2 class="section-title reveal">Our <em>Destinations</em></h2>
     <div class="dest-layout">
       <div class="dest-list">
-        <div class="dest-item reveal" data-city="Amalfi Coast" data-tag="Southern Europe"><span class="dest-name">Amalfi Coast</span><div class="dest-meta"><span class="dest-count">12 Experiences</span><span class="dest-region">Italy</span></div></div>
-        <div class="dest-item reveal reveal-delay-1" data-city="Kyoto" data-tag="East Asia"><span class="dest-name">Kyoto</span><div class="dest-meta"><span class="dest-count">8 Experiences</span><span class="dest-region">Japan</span></div></div>
-        <div class="dest-item reveal reveal-delay-2" data-city="Maldives" data-tag="Indian Ocean"><span class="dest-name">Maldives</span><div class="dest-meta"><span class="dest-count">15 Experiences</span><span class="dest-region">Indian Ocean</span></div></div>
-        <div class="dest-item reveal reveal-delay-3" data-city="Patagonia" data-tag="South America"><span class="dest-name">Patagonia</span><div class="dest-meta"><span class="dest-count">6 Experiences</span><span class="dest-region">Chile</span></div></div>
-        <div class="dest-item reveal" data-city="Santorini" data-tag="The Aegean"><span class="dest-name">Santorini</span><div class="dest-meta"><span class="dest-count">10 Experiences</span><span class="dest-region">Greece</span></div></div>
-        <div class="dest-item reveal reveal-delay-1" data-city="Marrakech" data-tag="North Africa"><span class="dest-name">Marrakech</span><div class="dest-meta"><span class="dest-count">9 Experiences</span><span class="dest-region">Morocco</span></div></div>
-        <div class="dest-item reveal reveal-delay-2" data-city="Seychelles" data-tag="East Africa"><span class="dest-name">Seychelles</span><div class="dest-meta"><span class="dest-count">11 Experiences</span><span class="dest-region">Indian Ocean</span></div></div>
-        <div class="dest-item reveal reveal-delay-3" data-city="St. Moritz" data-tag="The Alps"><span class="dest-name">St. Moritz</span><div class="dest-meta"><span class="dest-count">7 Experiences</span><span class="dest-region">Switzerland</span></div></div>
+        <a href="index.html?view=dest&id=amalfi" class="dest-item reveal" data-city="Amalfi Coast" data-key="amalfi" data-tag="Southern Europe"><span class="dest-name">Amalfi Coast</span><div class="dest-meta"><span class="dest-count">12 Experiences</span><span class="dest-region">Italy</span></div></a>
+        <a href="index.html?view=dest&id=kyoto" class="dest-item reveal reveal-delay-1" data-city="Kyoto" data-key="kyoto" data-tag="East Asia"><span class="dest-name">Kyoto</span><div class="dest-meta"><span class="dest-count">8 Experiences</span><span class="dest-region">Japan</span></div></a>
+        <a href="index.html?view=dest&id=maldives" class="dest-item reveal reveal-delay-2" data-city="Maldives" data-key="maldives" data-tag="Indian Ocean"><span class="dest-name">Maldives</span><div class="dest-meta"><span class="dest-count">15 Experiences</span><span class="dest-region">Indian Ocean</span></div></a>
+        <a href="index.html?view=dest&id=patagonia" class="dest-item reveal reveal-delay-3" data-city="Patagonia" data-key="patagonia" data-tag="South America"><span class="dest-name">Patagonia</span><div class="dest-meta"><span class="dest-count">6 Experiences</span><span class="dest-region">Chile</span></div></a>
+        <a href="index.html?view=dest&id=santorini" class="dest-item reveal" data-city="Santorini" data-key="santorini" data-tag="The Aegean"><span class="dest-name">Santorini</span><div class="dest-meta"><span class="dest-count">10 Experiences</span><span class="dest-region">Greece</span></div></a>
+        <a href="index.html?view=dest&id=marrakech" class="dest-item reveal reveal-delay-1" data-city="Marrakech" data-key="marrakech" data-tag="North Africa"><span class="dest-name">Marrakech</span><div class="dest-meta"><span class="dest-count">9 Experiences</span><span class="dest-region">Morocco</span></div></a>
+        <a href="index.html?view=dest&id=seychelles" class="dest-item reveal reveal-delay-2" data-city="Seychelles" data-key="seychelles" data-tag="East Africa"><span class="dest-name">Seychelles</span><div class="dest-meta"><span class="dest-count">11 Experiences</span><span class="dest-region">Indian Ocean</span></div></a>
+        <a href="index.html?view=dest&id=stmoritz" class="dest-item reveal reveal-delay-3" data-city="St. Moritz" data-key="stmoritz" data-tag="The Alps"><span class="dest-name">St. Moritz</span><div class="dest-meta"><span class="dest-count">7 Experiences</span><span class="dest-region">Switzerland</span></div></a>
       </div>
-      <div class="dest-visual">
-        <div class="dest-frame">
-          <div class="dest-frame-bg"></div>
-          <div class="dest-frame-inner">
-            <div class="dest-frame-city" id="dest-display">Amalfi Coast</div>
-            <div class="dest-frame-tagline" id="dest-tag-display">Southern Europe</div>
-          </div>
+      <div class="dest-panel" id="dest-panel">
+        <div class="dest-panel-empty" id="dest-panel-empty">
+          <div class="dest-panel-empty-icon">✦ Select a destination</div>
+          <div class="dest-panel-empty-text">Choose a destination to browse experiences</div>
+        </div>
+        <div class="dest-panel-header" id="dest-panel-header">
+          <div class="dest-panel-city" id="dest-panel-city"></div>
+          <div class="dest-panel-region" id="dest-panel-region"></div>
+        </div>
+        <div class="dest-panel-list" id="dest-panel-list"></div>
+        <div class="dest-panel-book" id="dest-panel-book">
+          <a href="#contact" class="dest-panel-book-btn">Inquire About This Destination</a>
         </div>
       </div>
     </div>
@@ -2033,7 +2408,7 @@
         oceania:  { title:'Island & Reef Experiences in <em>Oceania</em>', subtitle:'Australia · Polynesia · Reef journeys' },
       };
 
-      const mainHide=['#hero','.marquee-strip','#approved','#experiences','#destinations','#philosophy','#process','#testimonials','#stats'];
+      const mainHide=['#hero','.marquee-strip','#approved','#experiences','#destinations','#philosophy','#process','#testimonials','#stats','#exp-map-section'];
       function hideMain(){
         mainHide.forEach(sel=>{
           document.querySelectorAll(sel).forEach(el=>el.classList.add('view-hidden'));
@@ -2324,6 +2699,412 @@
 
     // Leaflet map initialised below, after leaflet.js loads
 
+
+
+    // ── DESTINATION EXPERIENCE PANEL ──
+    (function(){
+      var DEST = {
+        amalfi: {
+          city: 'Amalfi Coast', region: 'Southern Europe · Italy',
+          experiences: [
+            { cat:'Yacht Charter',       name:'Amalfi & Positano Superyacht',        price:'From €18,000/week', href:'index.html?view=exp&id=yacht' },
+            { cat:'Culinary',            name:'Ravello Private Chef Dinner',          price:'From €1,200/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Private Villa',       name:'Clifftop Estate — Sole Occupancy',     price:'From €8,500/night', href:'#contact' },
+            { cat:'Cultural Journey',    name:'Ancient Roman Site Private Access',    price:'From €950/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Wellness',            name:'Thermal Spring Retreat',               price:'From €2,400/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Adventure',           name:'Private Helicopter Coastal Tour',      price:'From €1,800/flight', href:'#contact' },
+            { cat:'Culinary',            name:'Fishing Village Market & Feast',       price:'From €650/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Yacht Charter',       name:'Capri Island Hop Day Charter',         price:'From €4,200/day', href:'index.html?view=exp&id=yacht' },
+            { cat:'Cultural Journey',    name:'Pompeii After-Hours Tour',             price:'From €1,100/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Private Villa',       name:'Sorrento Hillside Palazzo',            price:'From €5,200/night', href:'#contact' },
+            { cat:'Wellness',            name:'Sunrise Yoga & Coastal Meditation',    price:'From €380/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Culinary',            name:'Limoncello & Pasta Masterclass',       price:'From €480/person', href:'index.html?view=exp&id=culinary' },
+          ]
+        },
+        kyoto: {
+          city: 'Kyoto', region: 'East Asia · Japan',
+          experiences: [
+            { cat:'Cultural Journey',    name:'Private Tea Ceremony with Grand Master', price:'From €1,800/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Culinary',            name:'Nishiki Market Tour & Kaiseki Dinner',   price:'From €2,400/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Cultural Journey',    name:'Geisha Encounter — Private Ozashiki',    price:'From €3,200/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Wellness',            name:'Buddhist Temple Meditation Retreat',      price:'From €1,600/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Cultural Journey',    name:'Master Ceramicist Atelier Visit',         price:'From €950/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Culinary',            name:'Impossible-to-Book Omakase Counter',     price:'From €4,500/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Private Villa',       name:'Machiya Townhouse — Sole Occupancy',     price:'From €2,800/night', href:'#contact' },
+            { cat:'Cultural Journey',    name:'Fushimi Inari Shrine at Dawn',           price:'From €680/person', href:'index.html?view=exp&id=cultural' },
+          ]
+        },
+        maldives: {
+          city: 'Maldives', region: 'Indian Ocean',
+          experiences: [
+            { cat:'Private Villa',       name:'Overwater Residence — Full Island',     price:'From €12,000/night', href:'#contact' },
+            { cat:'Yacht Charter',       name:'Private Dhoni Island-Hopping',          price:'From €6,500/day', href:'index.html?view=exp&id=yacht' },
+            { cat:'Wellness',            name:'Sunrise Coral Reef Yoga',               price:'From €480/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Adventure',           name:'Bioluminescent Night Dive',             price:'From €850/person', href:'#contact' },
+            { cat:'Culinary',            name:'Floating Breakfast & Private Chef',     price:'From €1,200/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Wellness',            name:'Deep Tissue Spa — Over-Ocean Pavilion', price:'From €680/session', href:'index.html?view=exp&id=wellness' },
+            { cat:'Adventure',           name:'Whale Shark Snorkel Expedition',        price:'From €1,100/person', href:'#contact' },
+            { cat:'Culinary',            name:'Sunset Champagne Sandbank Dinner',      price:'From €2,800/couple', href:'index.html?view=exp&id=culinary' },
+            { cat:'Private Villa',       name:'Reef-Side Pavilion with Butler Service',price:'From €4,200/night', href:'#contact' },
+            { cat:'Yacht Charter',       name:'Sunset Cruise & Dolphin Safari',        price:'From €2,200/charter', href:'index.html?view=exp&id=yacht' },
+            { cat:'Adventure',           name:'Freediving with Marine Biologist',      price:'From €950/person', href:'#contact' },
+            { cat:'Wellness',            name:'Couples Wellness & Restoration Week',   price:'From €8,400/couple', href:'index.html?view=exp&id=wellness' },
+            { cat:'Culinary',            name:'Maldivian Cooking Masterclass',         price:'From €580/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Cultural Journey',    name:'Local Island Village Experience',       price:'From €420/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Adventure',           name:'Night Fishing with Local Captains',     price:'From €680/person', href:'#contact' },
+          ]
+        },
+        patagonia: {
+          city: 'Patagonia', region: 'South America · Chile',
+          experiences: [
+            { cat:'Adventure',           name:'Torres del Paine Private Trek',         price:'From €3,200/person', href:'#contact' },
+            { cat:'Private Villa',       name:'Estancia — Lakeside Lodge Buyout',      price:'From €7,500/night', href:'#contact' },
+            { cat:'Yacht Charter',       name:'Fjord & Glacier Private Expedition',    price:'From €14,000/week', href:'index.html?view=exp&id=yacht' },
+            { cat:'Adventure',           name:'Condor Watching with Ornithologist',    price:'From €1,400/person', href:'#contact' },
+            { cat:'Culinary',            name:'Asado under the Southern Stars',        price:'From €980/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Adventure',           name:'Ice-Field Hike & Ice Carving',          price:'From €2,200/person', href:'#contact' },
+          ]
+        },
+        santorini: {
+          city: 'Santorini', region: 'The Aegean · Greece',
+          experiences: [
+            { cat:'Yacht Charter',       name:'Caldera Superyacht Sunset Cruise',      price:'From €8,500/day', href:'index.html?view=exp&id=yacht' },
+            { cat:'Private Villa',       name:'Oia Cliffside Villa — Sole Occupancy',  price:'From €6,800/night', href:'#contact' },
+            { cat:'Culinary',            name:'Private Wine & Volcanic Soil Tasting',  price:'From €1,200/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Cultural Journey',    name:'Minoan Site Private Guided Tour',       price:'From €880/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Wellness',            name:'Infinity Pool Sunrise Yoga',            price:'From €420/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Adventure',           name:'Volcano Hike with Geologist',           price:'From €680/person', href:'#contact' },
+            { cat:'Culinary',            name:'Fisherman Taverna Private Feast',       price:'From €950/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Yacht Charter',       name:'Greek Islands Multi-Stop Charter',      price:'From €22,000/week', href:'index.html?view=exp&id=yacht' },
+            { cat:'Cultural Journey',    name:'Akrotiri Archaeological After-Hours',   price:'From €1,100/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Wellness',            name:'Volcanic Mineral Spa Programme',        price:'From €1,600/person', href:'index.html?view=exp&id=wellness' },
+          ]
+        },
+        marrakech: {
+          city: 'Marrakech', region: 'North Africa · Morocco',
+          experiences: [
+            { cat:'Private Villa',       name:'Private Riad — Medina Sole Occupancy',  price:'From €3,400/night', href:'#contact' },
+            { cat:'Wellness',            name:'Traditional Hammam & Argan Ritual',     price:'From €580/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Cultural Journey',    name:'Souks of the Medina Private Tour',      price:'From €680/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Culinary',            name:'Rooftop Dinner with Master Chef',       price:'From €1,400/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Adventure',           name:'Atlas Mountains Hot Air Balloon',       price:'From €1,800/person', href:'#contact' },
+            { cat:'Cultural Journey',    name:'Artisan Atelier — Pottery & Weaving',  price:'From €480/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Wellness',            name:'Desert Stargazing Retreat',             price:'From €2,200/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Adventure',           name:'Sahara Desert Camel & Camp Night',      price:'From €1,600/person', href:'#contact' },
+            { cat:'Culinary',            name:'Spice Market & Tajine Cooking Class',   price:'From €420/person', href:'index.html?view=exp&id=culinary' },
+          ]
+        },
+        seychelles: {
+          city: 'Seychelles', region: 'East Africa · Indian Ocean',
+          experiences: [
+            { cat:'Private Villa',       name:'Private Island Villa — Praslin',        price:'From €9,800/night', href:'#contact' },
+            { cat:'Yacht Charter',       name:'Island-Hopping Catamaran Charter',      price:'From €7,200/week', href:'index.html?view=exp&id=yacht' },
+            { cat:'Adventure',           name:'Giant Tortoise Conservation Day',       price:'From €680/person', href:'#contact' },
+            { cat:'Wellness',            name:'Jungle Spa & Marine Sound Healing',     price:'From €1,200/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Culinary',            name:'Creole Seafood Feast on the Beach',     price:'From €980/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Adventure',           name:'Coral Reef Snorkel with Marine Guide',  price:'From €480/person', href:'#contact' },
+            { cat:'Cultural Journey',    name:'Vallee de Mai UNESCO Private Walk',     price:'From €850/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Wellness',            name:'Barefoot Sunrise Wellness Programme',   price:'From €2,400/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Yacht Charter',       name:'Sunset Champagne Sail — Private',       price:'From €2,800/charter', href:'index.html?view=exp&id=yacht' },
+            { cat:'Adventure',           name:'Deep-Sea Fishing Expedition',           price:'From €1,400/person', href:'#contact' },
+            { cat:'Culinary',            name:'Private Chef & Spice Garden Tour',      price:'From €1,100/person', href:'index.html?view=exp&id=culinary' },
+          ]
+        },
+        stmoritz: {
+          city: 'St. Moritz', region: 'The Alps · Switzerland',
+          experiences: [
+            { cat:'Private Villa',       name:'Alpine Chalet — Engadin Valley',        price:'From €12,000/week', href:'#contact' },
+            { cat:'Adventure',           name:'Heli-Skiing Untracked Powder Runs',     price:'From €4,200/day', href:'#contact' },
+            { cat:'Culinary',            name:'Michelin Table with Mountain Views',    price:'From €2,800/person', href:'index.html?view=exp&id=culinary' },
+            { cat:'Wellness',            name:'Thermal Spa & Alpine Recovery',         price:'From €1,800/person', href:'index.html?view=exp&id=wellness' },
+            { cat:'Adventure',           name:'Private Ice Polo Match Access',         price:'From €3,500/person', href:'#contact' },
+            { cat:'Cultural Journey',    name:'Engadin Art Walks with Curator',        price:'From €980/person', href:'index.html?view=exp&id=cultural' },
+            { cat:'Adventure',           name:'Glacier Snowshoe & Ice Carving',        price:'From €1,200/person', href:'#contact' },
+          ]
+        }
+      };
+
+      var items    = document.querySelectorAll('.dest-item[data-key]');
+      var emptyEl  = document.getElementById('dest-panel-empty');
+      var headerEl = document.getElementById('dest-panel-header');
+      var cityEl   = document.getElementById('dest-panel-city');
+      var regionEl = document.getElementById('dest-panel-region');
+      var listEl   = document.getElementById('dest-panel-list');
+      var bookEl   = document.getElementById('dest-panel-book');
+
+      if(!items.length || !listEl || !emptyEl || !headerEl || !cityEl || !regionEl || !bookEl) return;
+
+      function showDest(key) {
+        var d = DEST[key]; if(!d) return;
+
+        // Update active state
+        items.forEach(function(i){ i.classList.remove('active'); });
+        document.querySelector('.dest-item[data-key="'+key+'"]').classList.add('active');
+
+        // Populate header
+        cityEl.textContent   = d.city;
+        regionEl.textContent = d.region;
+
+        // Build experience list
+        listEl.innerHTML = '';
+        d.experiences.forEach(function(exp) {
+          var a = document.createElement('a');
+          a.className = 'dest-exp-item';
+          a.href = exp.href;
+          a.innerHTML =
+            '<div>' +
+              '<div class="dest-exp-cat">' + exp.cat + '</div>' +
+              '<div class="dest-exp-name">' + exp.name + '</div>' +
+              '<div class="dest-exp-price">' + exp.price + '</div>' +
+            '</div>' +
+            '<span class="dest-exp-arrow">&#8250;</span>';
+          listEl.appendChild(a);
+        });
+
+        // Show / hide
+        if(emptyEl) emptyEl.style.display  = 'none';
+        headerEl.classList.add('show');
+        listEl.classList.add('show');
+        bookEl.classList.add('show');
+      }
+
+      items.forEach(function(item) {
+        item.addEventListener('click', function() {
+          showDest(item.getAttribute('data-key'));
+          // Smooth scroll to panel on mobile
+          if(window.innerWidth < 900) {
+            document.getElementById('dest-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      });
+    })();
+
+
+    /* ════════════════════════════════════════════
+       DESTINATION LANDING PAGE  (?view=dest&id=)
+    ════════════════════════════════════════════ */
+    (function destView(){
+      var params = new URLSearchParams(window.location.search);
+      if((params.get('view')||'').toLowerCase() !== 'dest') return;
+      var id = (params.get('id')||'').toLowerCase();
+
+      var DEST_DATA = {
+        amalfi: {
+          city:'Amalfi Coast', region:'Southern Europe · Italy',
+          tagline:'Clifftop splendour, turquoise waters, and the finest table in Italy.',
+          intro:'The Amalfi Coast rewards those who arrive by sea. We arrange private superyacht access to hidden coves, clifftop villas unavailable to the public, and dinners at tables the guides will never mention.',
+          hero:'https://images.unsplash.com/photo-1533606688076-b6683a5f59f1?w=1400&q=80',
+          stats:[{k:'Best Season',v:'May – October'},{k:'Getting There',v:'Private transfer from Naples or Rome'},{k:'Currency',v:'Euro (€)'},{k:'Time Zone',v:'CET / UTC+1'}],
+          experiences:[
+            {cat:'Yacht Charter',   name:'Amalfi & Positano Superyacht',       price:'From €18,000 / week',  href:'index.html?view=exp&id=yacht'},
+            {cat:'Culinary',        name:'Ravello Private Chef Dinner',         price:'From €1,200 / person', href:'index.html?view=exp&id=culinary'},
+            {cat:'Private Villa',   name:'Clifftop Estate — Sole Occupancy',    price:'From €8,500 / night',  href:'#contact'},
+            {cat:'Cultural',        name:'Ancient Roman Site Private Access',   price:'From €950 / person',   href:'index.html?view=exp&id=cultural'},
+            {cat:'Wellness',        name:'Thermal Spring Retreat',              price:'From €2,400 / person', href:'index.html?view=exp&id=wellness'},
+            {cat:'Adventure',       name:'Private Helicopter Coastal Tour',     price:'From €1,800 / flight', href:'#contact'},
+            {cat:'Culinary',        name:'Fishing Village Market & Feast',      price:'From €650 / person',   href:'index.html?view=exp&id=culinary'},
+            {cat:'Yacht Charter',   name:'Capri Island Hop Day Charter',        price:'From €4,200 / day',    href:'index.html?view=exp&id=yacht'},
+            {cat:'Cultural',        name:'Pompeii After-Hours Tour',            price:'From €1,100 / person', href:'index.html?view=exp&id=cultural'},
+            {cat:'Private Villa',   name:'Sorrento Hillside Palazzo',           price:'From €5,200 / night',  href:'#contact'},
+            {cat:'Wellness',        name:'Sunrise Yoga & Coastal Meditation',   price:'From €380 / person',   href:'index.html?view=exp&id=wellness'},
+            {cat:'Culinary',        name:'Limoncello & Pasta Masterclass',      price:'From €480 / person',   href:'index.html?view=exp&id=culinary'},
+          ]
+        },
+        kyoto: {
+          city:'Kyoto', region:'East Asia · Japan',
+          tagline:'Ancient ritual, living craft, and cuisine that cannot be booked without us.',
+          intro:'Kyoto reveals itself slowly — and only to those with the right introductions. Our partners include tea masters, geisha houses, ceramicists, and restaurant counters with years-long waiting lists.',
+          hero:'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=1400&q=80',
+          stats:[{k:'Best Season',v:'Mar–May, Oct–Nov'},{k:'Getting There',v:'Shinkansen from Tokyo (2h 15m)'},{k:'Currency',v:'Japanese Yen (¥)'},{k:'Time Zone',v:'JST / UTC+9'}],
+          experiences:[
+            {cat:'Cultural',        name:'Tea Ceremony with Grand Master',       price:'From €1,800 / person', href:'index.html?view=exp&id=cultural'},
+            {cat:'Culinary',        name:'Nishiki Market & Kaiseki Dinner',      price:'From €2,400 / person', href:'index.html?view=exp&id=culinary'},
+            {cat:'Cultural',        name:'Geisha Encounter — Private Ozashiki',  price:'From €3,200 / person', href:'index.html?view=exp&id=cultural'},
+            {cat:'Wellness',        name:'Buddhist Temple Meditation Retreat',   price:'From €1,600 / person', href:'index.html?view=exp&id=wellness'},
+            {cat:'Cultural',        name:'Master Ceramicist Atelier Visit',      price:'From €950 / person',   href:'index.html?view=exp&id=cultural'},
+            {cat:'Culinary',        name:'Impossible-to-Book Omakase Counter',  price:'From €4,500 / person', href:'index.html?view=exp&id=culinary'},
+            {cat:'Private Villa',   name:'Machiya Townhouse — Sole Occupancy',  price:'From €2,800 / night',  href:'#contact'},
+            {cat:'Cultural',        name:'Fushimi Inari Shrine at Dawn',         price:'From €680 / person',   href:'index.html?view=exp&id=cultural'},
+          ]
+        },
+        maldives: {
+          city:'Maldives', region:'Indian Ocean',
+          tagline:'15 curated experiences across the world\'s most perfect archipelago.',
+          intro:'Fifteen experiences across the Maldives, from private island buyouts to bioluminescent night dives. Each is curated around the rhythm of the tides and the complete absence of compromise.',
+          hero:'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=1400&q=80',
+          stats:[{k:'Best Season',v:'November – April'},{k:'Getting There',v:'Seaplane or speedboat transfer'},{k:'Currency',v:'USD accepted everywhere'},{k:'Time Zone',v:'MVT / UTC+5'}],
+          experiences:[
+            {cat:'Private Villa',   name:'Overwater Residence — Full Island',    price:'From €12,000 / night', href:'#contact'},
+            {cat:'Yacht Charter',   name:'Private Dhoni Island-Hopping',         price:'From €6,500 / day',    href:'index.html?view=exp&id=yacht'},
+            {cat:'Wellness',        name:'Sunrise Coral Reef Yoga',              price:'From €480 / person',   href:'index.html?view=exp&id=wellness'},
+            {cat:'Adventure',       name:'Bioluminescent Night Dive',            price:'From €850 / person',   href:'#contact'},
+            {cat:'Culinary',        name:'Floating Breakfast & Private Chef',    price:'From €1,200 / person', href:'index.html?view=exp&id=culinary'},
+            {cat:'Wellness',        name:'Over-Ocean Deep Tissue Spa Pavilion',  price:'From €680 / session',  href:'index.html?view=exp&id=wellness'},
+            {cat:'Adventure',       name:'Whale Shark Snorkel Expedition',       price:'From €1,100 / person', href:'#contact'},
+            {cat:'Culinary',        name:'Sunset Champagne Sandbank Dinner',     price:'From €2,800 / couple', href:'index.html?view=exp&id=culinary'},
+            {cat:'Private Villa',   name:'Reef-Side Pavilion with Butler',       price:'From €4,200 / night',  href:'#contact'},
+            {cat:'Yacht Charter',   name:'Sunset Cruise & Dolphin Safari',       price:'From €2,200 / charter',href:'index.html?view=exp&id=yacht'},
+            {cat:'Adventure',       name:'Freediving with Marine Biologist',     price:'From €950 / person',   href:'#contact'},
+            {cat:'Wellness',        name:'Couples Wellness & Restoration Week',  price:'From €8,400 / couple', href:'index.html?view=exp&id=wellness'},
+            {cat:'Culinary',        name:'Maldivian Cooking Masterclass',        price:'From €580 / person',   href:'index.html?view=exp&id=culinary'},
+            {cat:'Cultural',        name:'Local Island Village Experience',      price:'From €420 / person',   href:'index.html?view=exp&id=cultural'},
+            {cat:'Adventure',       name:'Night Fishing with Local Captains',    price:'From €680 / person',   href:'#contact'},
+          ]
+        },
+        patagonia: {
+          city:'Patagonia', region:'South America · Chile',
+          tagline:'Untouched wilderness at the edge of the world.',
+          intro:'Patagonia belongs to those willing to reach it. We arrange light aircraft transfers, private estancias, and glacier expeditions with guides who know this landscape as their own.',
+          hero:'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1400&q=80',
+          stats:[{k:'Best Season',v:'November – March'},{k:'Getting There',v:'Light aircraft from Punta Arenas'},{k:'Currency',v:'Chilean Peso / USD'},{k:'Time Zone',v:'CLT / UTC-3'}],
+          experiences:[
+            {cat:'Adventure',       name:'Torres del Paine Private Trek',        price:'From €3,200 / person', href:'#contact'},
+            {cat:'Private Villa',   name:'Estancia — Lakeside Lodge Buyout',     price:'From €7,500 / night',  href:'#contact'},
+            {cat:'Yacht Charter',   name:'Fjord & Glacier Private Expedition',   price:'From €14,000 / week',  href:'index.html?view=exp&id=yacht'},
+            {cat:'Adventure',       name:'Condor Watching with Ornithologist',   price:'From €1,400 / person', href:'#contact'},
+            {cat:'Culinary',        name:'Asado under the Southern Stars',       price:'From €980 / person',   href:'index.html?view=exp&id=culinary'},
+            {cat:'Adventure',       name:'Ice-Field Hike & Ice Carving',         price:'From €2,200 / person', href:'#contact'},
+          ]
+        },
+        santorini: {
+          city:'Santorini', region:'The Aegean · Greece',
+          tagline:'Volcanic beauty, Aegean light, and sunsets worth crossing continents for.',
+          intro:'Santorini from a superyacht at sunset is one of the great sights of the world. We arrange that — and the private caldera dinner, the after-hours Minoan tour, and the cliffside villa that never appears online.',
+          hero:'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=1400&q=80',
+          stats:[{k:'Best Season',v:'April – October'},{k:'Getting There',v:'Private helicopter from Athens'},{k:'Currency',v:'Euro (€)'},{k:'Time Zone',v:'EET / UTC+2'}],
+          experiences:[
+            {cat:'Yacht Charter',   name:'Caldera Superyacht Sunset Cruise',     price:'From €8,500 / day',    href:'index.html?view=exp&id=yacht'},
+            {cat:'Private Villa',   name:'Oia Cliffside Villa — Sole Occupancy', price:'From €6,800 / night',  href:'#contact'},
+            {cat:'Culinary',        name:'Private Wine & Volcanic Soil Tasting', price:'From €1,200 / person', href:'index.html?view=exp&id=culinary'},
+            {cat:'Cultural',        name:'Minoan Site Private Guided Tour',      price:'From €880 / person',   href:'index.html?view=exp&id=cultural'},
+            {cat:'Wellness',        name:'Infinity Pool Sunrise Yoga',           price:'From €420 / person',   href:'index.html?view=exp&id=wellness'},
+            {cat:'Adventure',       name:'Volcano Hike with Geologist',          price:'From €680 / person',   href:'#contact'},
+            {cat:'Culinary',        name:'Fisherman Taverna Private Feast',      price:'From €950 / person',   href:'index.html?view=exp&id=culinary'},
+            {cat:'Yacht Charter',   name:'Greek Islands Multi-Stop Charter',     price:'From €22,000 / week',  href:'index.html?view=exp&id=yacht'},
+            {cat:'Cultural',        name:'Akrotiri Archaeological After-Hours',  price:'From €1,100 / person', href:'index.html?view=exp&id=cultural'},
+            {cat:'Wellness',        name:'Volcanic Mineral Spa Programme',       price:'From €1,600 / person', href:'index.html?view=exp&id=wellness'},
+          ]
+        },
+        marrakech: {
+          city:'Marrakech', region:'North Africa · Morocco',
+          tagline:'Sensory opulence, ancient hammams, and the Sahara at your door.',
+          intro:'Marrakech is best experienced from inside a private riad, with a guide who knows which door to knock on. We know every door worth knocking on.',
+          hero:'https://images.unsplash.com/photo-1555990538-c4f86b7e2de5?w=1400&q=80',
+          stats:[{k:'Best Season',v:'March–May, Sept–Nov'},{k:'Getting There',v:'Direct flights from most European cities'},{k:'Currency',v:'Moroccan Dirham (MAD)'},{k:'Time Zone',v:'WET / UTC+1'}],
+          experiences:[
+            {cat:'Private Villa',   name:'Private Riad — Medina Sole Occupancy', price:'From €3,400 / night', href:'#contact'},
+            {cat:'Wellness',        name:'Traditional Hammam & Argan Ritual',    price:'From €580 / person',  href:'index.html?view=exp&id=wellness'},
+            {cat:'Cultural',        name:'Souks of the Medina Private Tour',     price:'From €680 / person',  href:'index.html?view=exp&id=cultural'},
+            {cat:'Culinary',        name:'Rooftop Dinner with Master Chef',      price:'From €1,400 / person',href:'index.html?view=exp&id=culinary'},
+            {cat:'Adventure',       name:'Atlas Mountains Hot Air Balloon',      price:'From €1,800 / person',href:'#contact'},
+            {cat:'Cultural',        name:'Artisan Atelier — Pottery & Weaving',  price:'From €480 / person',  href:'index.html?view=exp&id=cultural'},
+            {cat:'Wellness',        name:'Desert Stargazing Retreat',            price:'From €2,200 / person',href:'index.html?view=exp&id=wellness'},
+            {cat:'Adventure',       name:'Sahara Desert Camel & Camp Night',     price:'From €1,600 / person',href:'#contact'},
+            {cat:'Culinary',        name:'Spice Market & Tajine Cooking Class',  price:'From €420 / person',  href:'index.html?view=exp&id=culinary'},
+          ]
+        },
+        seychelles: {
+          city:'Seychelles', region:'East Africa · Indian Ocean',
+          tagline:'Pristine coral, granite boulders, and sole-occupancy island sanctuaries.',
+          intro:'The Seychelles at sole occupancy — a private island villa, a dedicated crew, and a marine biologist for your morning snorkel. This is how these islands were meant to be experienced.',
+          hero:'https://images.unsplash.com/photo-1589979481223-deb893043163?w=1400&q=80',
+          stats:[{k:'Best Season',v:'April–May, Oct–Nov'},{k:'Getting There',v:'Private charter from Mahé'},{k:'Currency',v:'USD / Euro accepted'},{k:'Time Zone',v:'SCT / UTC+4'}],
+          experiences:[
+            {cat:'Private Villa',   name:'Private Island Villa — Praslin',        price:'From €9,800 / night',  href:'#contact'},
+            {cat:'Yacht Charter',   name:'Island-Hopping Catamaran Charter',      price:'From €7,200 / week',   href:'index.html?view=exp&id=yacht'},
+            {cat:'Adventure',       name:'Giant Tortoise Conservation Day',       price:'From €680 / person',   href:'#contact'},
+            {cat:'Wellness',        name:'Jungle Spa & Marine Sound Healing',     price:'From €1,200 / person', href:'index.html?view=exp&id=wellness'},
+            {cat:'Culinary',        name:'Creole Seafood Feast on the Beach',     price:'From €980 / person',   href:'index.html?view=exp&id=culinary'},
+            {cat:'Adventure',       name:'Coral Reef Snorkel with Marine Guide',  price:'From €480 / person',   href:'#contact'},
+            {cat:'Cultural',        name:'Vallée de Mai UNESCO Private Walk',     price:'From €850 / person',   href:'index.html?view=exp&id=cultural'},
+            {cat:'Wellness',        name:'Barefoot Sunrise Wellness Programme',   price:'From €2,400 / person', href:'index.html?view=exp&id=wellness'},
+            {cat:'Yacht Charter',   name:'Sunset Champagne Sail — Private',       price:'From €2,800 / charter',href:'index.html?view=exp&id=yacht'},
+            {cat:'Adventure',       name:'Deep-Sea Fishing Expedition',           price:'From €1,400 / person', href:'#contact'},
+            {cat:'Culinary',        name:'Private Chef & Spice Garden Tour',      price:'From €1,100 / person', href:'index.html?view=exp&id=culinary'},
+          ]
+        },
+        stmoritz: {
+          city:'St. Moritz', region:'The Alps · Switzerland',
+          tagline:'The Alps at their most rarefied — powder, gastronomy, and altitude.',
+          intro:'St. Moritz in winter is the world\'s most glamorous mountain town. We arrange the chalet, the heli-skiing, the private ice polo access, and the Michelin table with no waiting list.',
+          hero:'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1400&q=80',
+          stats:[{k:'Best Season',v:'December – March'},{k:'Getting There',v:'Private transfer from Zurich (2h)'},{k:'Currency',v:'Swiss Franc (CHF)'},{k:'Time Zone',v:'CET / UTC+1'}],
+          experiences:[
+            {cat:'Private Villa',   name:'Alpine Chalet — Engadin Valley',       price:'From €12,000 / week',  href:'#contact'},
+            {cat:'Adventure',       name:'Heli-Skiing Untracked Powder Runs',    price:'From €4,200 / day',    href:'#contact'},
+            {cat:'Culinary',        name:'Michelin Table with Mountain Views',   price:'From €2,800 / person', href:'index.html?view=exp&id=culinary'},
+            {cat:'Wellness',        name:'Thermal Spa & Alpine Recovery',        price:'From €1,800 / person', href:'index.html?view=exp&id=wellness'},
+            {cat:'Adventure',       name:'Private Ice Polo Match Access',        price:'From €3,500 / person', href:'#contact'},
+            {cat:'Cultural',        name:'Engadin Art Walks with Curator',       price:'From €980 / person',   href:'index.html?view=exp&id=cultural'},
+            {cat:'Adventure',       name:'Glacier Snowshoe & Ice Carving',       price:'From €1,200 / person', href:'#contact'},
+          ]
+        }
+      };
+
+      var d = DEST_DATA[id];
+      if(!d) return;
+
+      // Hide all main sections
+      ['#hero','.marquee-strip','#approved','#experiences','#destinations',
+       '#philosophy','#process','#testimonials','#stats','#exp-map-section',
+       '#view-continents','#view-continent','#view-exp']
+        .forEach(function(sel){
+          document.querySelectorAll(sel).forEach(function(el){ el.classList.add('view-hidden'); });
+        });
+
+      // Show the landing section
+      var section = document.getElementById('view-dest');
+      if(!section) return;
+      section.classList.add('is-active');
+      section.setAttribute('aria-hidden','false');
+
+      // Populate hero
+      var heroBg = document.getElementById('dlp-hero-bg');
+      if(heroBg) heroBg.style.backgroundImage = 'url(' + d.hero + ')';
+      var regionEl = document.getElementById('dlp-region');
+      if(regionEl) regionEl.textContent = d.region;
+      var titleEl = document.getElementById('dlp-title');
+      if(titleEl) titleEl.textContent = d.city;
+      var taglineEl = document.getElementById('dlp-tagline');
+      if(taglineEl) taglineEl.textContent = d.tagline;
+      var countEl = document.getElementById('dlp-count');
+      if(countEl) countEl.textContent = d.experiences.length;
+
+      // Populate intro
+      var introEl = document.getElementById('dlp-intro-text');
+      if(introEl) introEl.textContent = d.intro;
+      var statsEl = document.getElementById('dlp-stats');
+      if(statsEl) {
+        d.stats.forEach(function(s){
+          statsEl.innerHTML += '<div class="dlp-stat">'
+            + '<span class="dlp-stat-key">' + s.k + '</span>'
+            + '<span class="dlp-stat-val">' + s.v + '</span>'
+            + '</div>';
+        });
+      }
+
+      // Build experience grid
+      var grid = document.getElementById('dlp-grid');
+      if(grid) {
+        d.experiences.forEach(function(exp){
+          var a = document.createElement('a');
+          a.className = 'dlp-card';
+          a.href = exp.href;
+          a.innerHTML =
+            '<div class="dlp-card-cat">' + exp.cat + '</div>'
+            + '<div class="dlp-card-name">' + exp.name + '</div>'
+            + '<div class="dlp-card-price">' + exp.price + '</div>'
+            + '<div class="dlp-card-link">Enquire</div>';
+          grid.appendChild(a);
+        });
+      }
+
+      // CTA destination name
+      var ctaDest = document.getElementById('dlp-cta-dest');
+      if(ctaDest) ctaDest.textContent = d.city;
+
+      window.scrollTo({top:0, behavior:'auto'});
+    })();
 
     const io=new IntersectionObserver(es=>{
       es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});
