@@ -1786,6 +1786,8 @@
       /* ── SECTIONS: reduce large padding ── */
       section {
         padding: 64px 20px !important;
+        /* Push anchor-scrolled sections below the fixed nav (~70px tall) */
+        scroll-margin-top: 76px;
       }
 
       /* ── HERO ── */
@@ -2015,10 +2017,6 @@
         position: static !important;
         top: auto !important;
       }
-      .exp-lp-back {
-        padding: 80px 20px 0 !important;
-      }
-
       /* ── DESTINATION LANDING PAGE ── */
       .dlp-hero {
         min-height: 42vh !important;
@@ -2027,7 +2025,6 @@
       .dlp-hero-content {
         padding: 0 20px 32px !important;
       }
-      .dlp-back { left: 20px !important; }
       .dlp-count-badge { right: 20px !important; }
       .dlp-body {
         padding: 40px 20px 64px !important;
@@ -2087,13 +2084,34 @@
       }
 
       /* ── VIEW PANELS ── */
+      /* Reset base section padding but keep sides at 20px */
       #view-continents, #view-continent,
       #view-exp, #view-dest {
         padding: 0 !important;
       }
 
+      /* #view-continents and #view-continent content must clear the fixed nav
+         (~74px tall on mobile). Use padding-top so section-label/back-btn
+         are never hidden behind the bar. */
+      #view-continents {
+        padding: 80px 20px 48px !important;
+      }
+      #view-continent {
+        padding: 80px 20px 48px !important;
+      }
+
+      /* exp-lp-back and dlp-back also need to clear the fixed nav */
+      .exp-lp-back {
+        padding: 88px 20px 0 !important;
+      }
+      .dlp-back {
+        top: 80px !important;
+        left: 20px !important;
+      }
+
       /* ── CONTINENT BACK BUTTON ── */
       .continent-back {
+        margin-top: 0 !important;
         margin-bottom: 20px !important;
         min-height: 44px !important;
         display: inline-flex !important;
@@ -2124,6 +2142,7 @@
       /* ── SECTIONS ── */
       section {
         padding: 48px 16px !important;
+        scroll-margin-top: 72px;
       }
 
       /* ── HERO ── */
@@ -2200,6 +2219,19 @@
         width: calc(100vw - 16px) !important;
         right: 8px !important;
         max-height: 78vh !important;
+      }
+
+      /* ── VIEW PANELS (480px): keep nav-clearance padding ── */
+      #view-continents,
+      #view-continent {
+        padding: 76px 16px 40px !important;
+      }
+      .exp-lp-back {
+        padding: 84px 16px 0 !important;
+      }
+      .dlp-back {
+        top: 76px !important;
+        left: 16px !important;
       }
 
     } /* end @media (max-width: 480px) */
