@@ -1013,6 +1013,17 @@
     .contact-detail-label { font-size: 0.55rem; letter-spacing: 0.32em; text-transform: uppercase; color: var(--brass); }
     .contact-detail-value { font-family: var(--serif); font-size: 1.05rem; color: var(--text); }
 
+    /* Exp booking calendar — same styles as main calendar */
+    #exp-cal-popup {
+      position: fixed; z-index: 9000;
+      background: #161b21;
+      border: 1px solid rgba(176,141,87,0.22);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.7);
+      width: 280px;
+      font-family: var(--sans);
+    }
+    #exp-cal-overlay { z-index: 8999; }
+
     /* DATE RANGE CALENDAR */
     .date-range-input {
       display: flex; align-items: center; justify-content: space-between;
@@ -2148,9 +2159,10 @@
             </div>
             <div class="exp-lp-form-field">
               <label>Preferred Travel Dates</label>
-              <button type="button" id="exp-date-trigger" class="exp-date-trigger">
-                <span id="exp-date-text">Select dates</span>
-              </button>
+              <div class="date-range-input" id="exp-date-trigger">
+                <span class="date-range-text" id="exp-date-text">Select dates</span>
+                <span class="date-range-icon">&#9660;</span>
+              </div>
               <input type="hidden" id="exp-book-date-start" name="trip_start" />
               <input type="hidden" id="exp-book-date-end"   name="trip_end"   />
             </div>
@@ -4322,7 +4334,7 @@
       // Build popup (reuse same CSS classes as main calendar)
       var overlay2 = document.createElement('div');
       overlay2.id = 'exp-cal-overlay';
-      overlay2.style.cssText = 'position:fixed;inset:0;z-index:8998;background:transparent;display:none;';
+      overlay2.style.cssText = 'position:fixed;inset:0;z-index:8999;background:transparent;display:none;';
 
       var popup2 = document.createElement('div');
       popup2.id = 'exp-cal-popup';
