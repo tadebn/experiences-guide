@@ -1365,157 +1365,223 @@
       #concierge-btn { right: 20px; bottom: 24px; }
     }
 
-    /* ── EXPERIENCE LANDING PAGE ── */
+    /* ══════════════════════════════════════════
+       EXPERIENCE LANDING PAGE
+    ══════════════════════════════════════════ */
     #view-exp { background: var(--obsidian); padding: 0; }
+
+    /* Back link */
+    .exp-lp-back {
+      position: absolute; top: 100px; left: 60px; z-index: 10;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: rgba(240,235,225,0.75); text-decoration: none; transition: color 0.3s;
+    }
+    .exp-lp-back::before { content: '←'; }
+    .exp-lp-back:hover { color: var(--brass-light); }
+
+    /* ── Hero Carousel ── */
     .exp-lp-hero {
-      position: relative; height: 70vh; min-height: 480px;
+      position: relative; height: 78vh; min-height: 520px;
       display: flex; align-items: flex-end; overflow: hidden;
     }
-    .exp-lp-carousel {
-      position: absolute; inset: 0;
-    }
+    .exp-lp-carousel { position: absolute; inset: 0; }
     .exp-lp-slide {
       position: absolute; inset: 0;
       background-size: cover; background-position: center;
-      opacity: 0; transition: opacity 0.8s ease;
+      opacity: 0; transition: opacity 1s ease;
     }
     .exp-lp-slide.active { opacity: 1; }
     .exp-lp-overlay {
       position: absolute; inset: 0;
-      background: linear-gradient(to top, rgba(10,10,12,0.85) 0%, rgba(10,10,12,0.2) 60%, transparent 100%), linear-gradient(to bottom, rgba(10,10,12,0.65) 0%, transparent 30%);
+      background:
+        linear-gradient(to top, rgba(10,10,12,0.92) 0%, rgba(10,10,12,0.35) 45%, transparent 75%),
+        linear-gradient(to bottom, rgba(10,10,12,0.6) 0%, transparent 28%);
     }
     .exp-lp-hero-content {
-      position: relative; z-index: 2; padding: 0 60px 52px; width: 100%;
+      position: relative; z-index: 2; padding: 0 60px 56px; width: 100%;
       display: flex; align-items: flex-end; justify-content: space-between; gap: 40px;
     }
     .exp-lp-tag {
-      font-size: 0.52rem; letter-spacing: 0.38em; text-transform: uppercase;
-      color: var(--brass-bright); margin-bottom: 12px;
+      font-size: 0.5rem; letter-spacing: 0.4em; text-transform: uppercase;
+      color: var(--brass-bright); margin-bottom: 14px;
       display: flex; align-items: center; gap: 8px;
     }
-    .exp-lp-tag::before { content: '✦'; font-size: 0.45rem; }
+    .exp-lp-tag::before { content: '✦'; font-size: 0.42rem; }
     .exp-lp-title {
-      font-family: var(--serif); font-size: clamp(2rem, 4.5vw, 3.6rem);
-      font-weight: 400; color: var(--ivory); line-height: 1.1;
+      font-family: var(--serif); font-size: clamp(2.2rem, 5vw, 4rem);
+      font-weight: 400; color: var(--ivory); line-height: 1.08;
     }
-    .exp-lp-dots {
-      display: flex; gap: 7px; padding-bottom: 8px; flex-shrink: 0;
-    }
+    /* Carousel controls */
+    .exp-lp-dots { display: flex; gap: 8px; padding-bottom: 6px; flex-shrink: 0; align-items: center; }
     .exp-lp-dot {
-      width: 24px; height: 2px; background: rgba(255,255,255,0.3);
-      cursor: pointer; transition: background 0.3s, width 0.3s;
+      width: 28px; height: 2px; background: rgba(255,255,255,0.25);
+      cursor: pointer; transition: background 0.35s, width 0.35s;
     }
-    .exp-lp-dot.active { background: var(--brass-bright); width: 40px; }
+    .exp-lp-dot.active { background: var(--brass-bright); width: 44px; }
     .exp-lp-arrows {
-      position: absolute; bottom: 52px; right: 60px; z-index: 3;
-      display: flex; gap: 10px; padding-bottom: 8px;
+      position: absolute; bottom: 56px; right: 60px; z-index: 3;
+      display: flex; gap: 10px;
     }
     .exp-lp-arrow {
-      width: 38px; height: 38px; border: 1px solid rgba(176,141,87,0.35);
-      background: rgba(13,14,16,0.5); color: var(--brass); font-size: 1rem;
+      width: 42px; height: 42px; border: 1px solid rgba(176,141,87,0.3);
+      background: rgba(13,14,16,0.55); color: var(--brass-light); font-size: 1.1rem;
       display: flex; align-items: center; justify-content: center;
-      cursor: pointer; transition: border-color 0.25s, background 0.25s; backdrop-filter: blur(8px);
+      cursor: pointer; backdrop-filter: blur(12px);
+      transition: border-color 0.25s, background 0.25s, color 0.25s;
     }
-    .exp-lp-arrow:hover { border-color: var(--brass); background: rgba(176,141,87,0.12); }
+    .exp-lp-arrow:hover { border-color: var(--brass-bright); background: rgba(176,141,87,0.15); color: var(--brass-bright); }
 
-    /* Back link */
-    .exp-lp-back {
-      display: inline-flex; align-items: center; gap: 8px;
-      font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--text-muted); text-decoration: none;
-      padding: 100px 60px 0; transition: color 0.3s;
+    /* ── Photo strip below hero ── */
+    .exp-lp-strip {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px;
+      height: 140px; overflow: hidden;
     }
-    .exp-lp-back:hover { color: var(--brass-light); }
-    .exp-lp-back::before { content: '←'; }
+    .exp-lp-strip-thumb {
+      background-size: cover; background-position: center;
+      cursor: pointer; opacity: 0.65; transition: opacity 0.3s;
+      position: relative;
+    }
+    .exp-lp-strip-thumb:hover { opacity: 1; }
+    .exp-lp-strip-thumb.active { opacity: 1; }
+    .exp-lp-strip-thumb.active::after {
+      content: ''; position: absolute; inset: 0;
+      border: 2px solid var(--brass-bright);
+    }
 
-    /* Body */
+    /* ── Body layout ── */
     .exp-lp-body {
-      display: grid; grid-template-columns: 1fr 380px;
-      gap: 80px; padding: 80px 60px 120px; align-items: start;
+      display: grid; grid-template-columns: 1fr 400px;
+      gap: 72px; padding: 72px 60px 120px; align-items: start;
     }
+
+    /* Left column */
     .exp-lp-section-label {
-      font-size: 0.55rem; letter-spacing: 0.38em; text-transform: uppercase;
-      color: var(--brass); margin-bottom: 18px;
+      font-size: 0.53rem; letter-spacing: 0.38em; text-transform: uppercase;
+      color: var(--brass); margin-bottom: 16px;
       display: flex; align-items: center; gap: 14px;
     }
     .exp-lp-section-label::before { content: ''; flex: 0 0 28px; height: 1px; background: var(--brass-dim); }
     .exp-lp-overview-title {
-      font-family: var(--serif); font-size: 2rem; font-weight: 400;
-      color: var(--text); margin-bottom: 28px; line-height: 1.25;
+      font-family: var(--serif); font-size: clamp(1.6rem, 2.8vw, 2.2rem); font-weight: 400;
+      color: var(--text); margin-bottom: 24px; line-height: 1.22;
     }
     .exp-lp-overview-title em { font-style: italic; color: var(--brass-light); }
     .exp-lp-desc {
-      font-size: 0.82rem; line-height: 2; color: var(--text-muted);
-      margin-bottom: 36px;
+      font-size: 0.83rem; line-height: 2.05; color: var(--text-muted);
+      margin-bottom: 48px;
     }
+    /* Highlights grid */
     .exp-lp-highlights {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 48px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 24px 32px;
+      margin-bottom: 56px; padding-top: 36px;
+      border-top: 1px solid rgba(176,141,87,0.1);
     }
-    .exp-lp-highlight {
-      display: flex; gap: 14px; align-items: flex-start;
-    }
-    .exp-lp-highlight-icon {
-      font-size: 1.1rem; flex-shrink: 0; margin-top: 2px;
-    }
+    .exp-lp-highlight { display: flex; flex-direction: column; gap: 6px; }
     .exp-lp-highlight-label {
-      font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase;
-      color: var(--brass); margin-bottom: 4px;
+      font-size: 0.5rem; letter-spacing: 0.28em; text-transform: uppercase;
+      color: var(--brass); display: flex; align-items: center; gap: 8px;
     }
+    .exp-lp-highlight-label::before { content: ''; width: 16px; height: 1px; background: var(--brass-dim); }
     .exp-lp-highlight-val {
-      font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;
+      font-family: var(--serif); font-size: 0.98rem; color: var(--text); line-height: 1.4;
     }
 
-    /* Booking card */
+    /* ── Booking card ── */
     .exp-lp-book-card {
-      background: var(--surface); border: 1px solid rgba(176,141,87,0.12);
-      padding: 40px 36px; position: sticky; top: 100px;
+      background: var(--surface);
+      border: 1px solid rgba(176,141,87,0.14);
+      position: sticky; top: 100px; overflow: hidden;
+    }
+    .exp-lp-book-card-header {
+      background: linear-gradient(135deg, rgba(176,141,87,0.1) 0%, rgba(226,196,122,0.03) 100%);
+      border-bottom: 1px solid rgba(176,141,87,0.12);
+      padding: 32px 36px;
     }
     .exp-lp-price-label {
-      font-size: 0.52rem; letter-spacing: 0.3em; text-transform: uppercase;
-      color: var(--brass); margin-bottom: 8px;
+      font-size: 0.48rem; letter-spacing: 0.34em; text-transform: uppercase;
+      color: var(--brass); margin-bottom: 10px;
     }
     .exp-lp-price {
-      font-family: var(--serif); font-size: 2.2rem; font-weight: 400;
-      color: var(--ivory); margin-bottom: 6px; line-height: 1;
+      font-family: var(--serif); font-size: 2.4rem; font-weight: 400;
+      color: var(--ivory); line-height: 1; margin-bottom: 6px;
     }
     .exp-lp-price-sub {
-      font-size: 0.62rem; color: var(--text-faint); letter-spacing: 0.08em;
-      margin-bottom: 32px;
+      font-size: 0.6rem; color: var(--text-faint); letter-spacing: 0.1em;
     }
+    .exp-lp-book-body { padding: 28px 36px 36px; }
     .exp-lp-divider {
-      height: 1px; background: rgba(176,141,87,0.1); margin-bottom: 28px;
+      height: 1px; background: rgba(176,141,87,0.08); margin: 0 0 24px;
     }
     .exp-lp-meta-row {
       display: flex; justify-content: space-between; align-items: center;
-      margin-bottom: 16px;
+      padding: 10px 0; border-bottom: 1px solid rgba(176,141,87,0.06);
     }
+    .exp-lp-meta-row:last-of-type { border-bottom: none; }
     .exp-lp-meta-key {
-      font-size: 0.57rem; letter-spacing: 0.18em; text-transform: uppercase;
+      font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase;
       color: var(--text-faint);
     }
-    .exp-lp-meta-val {
-      font-size: 0.72rem; color: var(--text-muted);
+    .exp-lp-meta-val { font-size: 0.74rem; color: var(--text-muted); }
+    /* Enquiry form inside booking card */
+    .exp-lp-form { margin-top: 28px; display: flex; flex-direction: column; gap: 14px; }
+    .exp-lp-form-field { display: flex; flex-direction: column; gap: 6px; }
+    .exp-lp-form-field label {
+      font-size: 0.48rem; letter-spacing: 0.22em; text-transform: uppercase;
+      color: var(--text-faint);
     }
+    .exp-lp-form-field input,
+    .exp-lp-form-field select,
+    .exp-lp-form-field textarea {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(176,141,87,0.15);
+      color: var(--text); font-family: var(--sans);
+      font-size: 0.76rem; padding: 11px 14px;
+      outline: none; transition: border-color 0.3s; width: 100%;
+    }
+    .exp-lp-form-field input:focus,
+    .exp-lp-form-field select:focus,
+    .exp-lp-form-field textarea:focus { border-color: rgba(176,141,87,0.45); }
+    .exp-lp-form-field select { cursor: pointer; }
+    .exp-lp-form-field textarea { resize: none; height: 76px; }
+    .exp-lp-form-field input::placeholder,
+    .exp-lp-form-field textarea::placeholder { color: rgba(138,135,128,0.6); }
     .exp-lp-book-btn {
-      display: block; width: 100%; margin-top: 32px;
+      display: block; width: 100%; margin-top: 6px;
       background: var(--brass); color: var(--obsidian);
-      border: none; font-family: var(--sans); font-size: 0.65rem;
-      font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase;
-      padding: 17px 0; text-align: center; text-decoration: none;
+      border: none; font-family: var(--sans); font-size: 0.62rem;
+      font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase;
+      padding: 16px 0; text-align: center; text-decoration: none;
       cursor: pointer; transition: background 0.3s, transform 0.2s;
+      position: relative; overflow: hidden;
+    }
+    .exp-lp-book-btn::before {
+      content: ''; position: absolute; inset: 0;
+      background: rgba(255,255,255,0.14);
+      transform: translateX(-100%); transition: transform 0.4s var(--ease-out);
     }
     .exp-lp-book-btn:hover { background: var(--brass-bright); transform: translateY(-1px); }
+    .exp-lp-book-btn:hover::before { transform: translateX(0); }
     .exp-lp-book-note {
-      font-size: 0.55rem; color: var(--text-faint); text-align: center;
-      margin-top: 14px; letter-spacing: 0.06em;
+      font-size: 0.52rem; color: var(--text-faint); text-align: center;
+      margin-top: 12px; letter-spacing: 0.06em; line-height: 1.7;
     }
 
     @media (max-width: 900px) {
+      .exp-lp-back { top: 88px; left: 28px; }
+      .exp-lp-hero { height: 60vh; min-height: 400px; }
+      .exp-lp-hero-content { padding: 0 28px 40px; flex-direction: column; align-items: flex-start; gap: 20px; }
+      .exp-lp-arrows { right: 28px; bottom: 40px; }
+      .exp-lp-strip { height: 90px; }
       .exp-lp-body { grid-template-columns: 1fr; gap: 48px; padding: 48px 28px 80px; }
-      .exp-lp-hero-content { padding: 0 28px 40px; flex-direction: column; align-items: flex-start; }
-      .exp-lp-highlights { grid-template-columns: 1fr; }
+      .exp-lp-highlights { grid-template-columns: 1fr 1fr; gap: 20px; }
       .exp-lp-book-card { position: static; }
-      .exp-lp-back { padding: 88px 28px 0; }
+      .exp-lp-book-card-header { padding: 24px 28px; }
+      .exp-lp-book-body { padding: 20px 28px 28px; }
+    }
+    @media (max-width: 480px) {
+      .exp-lp-highlights { grid-template-columns: 1fr; }
+      .exp-lp-strip { grid-template-columns: repeat(3,1fr); height: 70px; }
     }
 
 
@@ -2517,9 +2583,11 @@
 
   <!-- EXPERIENCE LANDING -->
   <section id="view-exp" class="view-panel" aria-hidden="true">
+
+    <!-- Back link -->
     <a href="javascript:history.back()" class="exp-lp-back" id="exp-lp-back">All Experiences</a>
 
-    <!-- Photo carousel hero -->
+    <!-- ── Full-screen carousel hero ── -->
     <div class="exp-lp-hero">
       <div class="exp-lp-carousel" id="exp-carousel"></div>
       <div class="exp-lp-overlay"></div>
@@ -2536,9 +2604,13 @@
       </div>
     </div>
 
-    <!-- Body -->
+    <!-- ── Thumbnail strip ── -->
+    <div class="exp-lp-strip" id="exp-lp-strip"></div>
+
+    <!-- ── Body ── -->
     <div class="exp-lp-body">
-      <!-- Left: description -->
+
+      <!-- Left: overview + highlights -->
       <div>
         <div class="exp-lp-section-label">Overview</div>
         <h2 class="exp-lp-overview-title" id="exp-lp-overview-title">—</h2>
@@ -2546,15 +2618,54 @@
         <div class="exp-lp-highlights" id="exp-lp-highlights"></div>
       </div>
 
-      <!-- Right: booking card -->
+      <!-- Right: sticky booking card -->
       <div class="exp-lp-book-card">
-        <div class="exp-lp-price-label">Starting From</div>
-        <div class="exp-lp-price" id="exp-lp-price">—</div>
-        <div class="exp-lp-price-sub" id="exp-lp-price-sub">per person</div>
-        <div class="exp-lp-divider"></div>
-        <div id="exp-lp-meta"></div>
-        <a href="#contact" class="exp-lp-book-btn" id="exp-lp-book-btn">Book Now</a>
-        <p class="exp-lp-book-note">No commitment — our concierge will be in touch within 24 hours.</p>
+        <!-- Price header -->
+        <div class="exp-lp-book-card-header">
+          <div class="exp-lp-price-label">Starting From</div>
+          <div class="exp-lp-price" id="exp-lp-price">—</div>
+          <div class="exp-lp-price-sub" id="exp-lp-price-sub">per person</div>
+        </div>
+
+        <!-- Meta + form -->
+        <div class="exp-lp-book-body">
+          <div id="exp-lp-meta"></div>
+          <div class="exp-lp-divider"></div>
+
+          <!-- Quick enquiry form -->
+          <div class="exp-lp-form">
+            <div class="exp-lp-form-field">
+              <label>Full Name</label>
+              <input type="text" placeholder="Your name" id="exp-book-name" />
+            </div>
+            <div class="exp-lp-form-field">
+              <label>Email Address</label>
+              <input type="email" placeholder="your@email.com" id="exp-book-email" />
+            </div>
+            <div class="exp-lp-form-field">
+              <label>Preferred Travel Date</label>
+              <input type="text" placeholder="e.g. July 2025" id="exp-book-date" />
+            </div>
+            <div class="exp-lp-form-field">
+              <label>Number of Guests</label>
+              <select id="exp-book-guests">
+                <option value="">Select guests</option>
+                <option>1 – 2 guests</option>
+                <option>3 – 4 guests</option>
+                <option>5 – 6 guests</option>
+                <option>7 – 10 guests</option>
+                <option>10+ guests</option>
+              </select>
+            </div>
+            <div class="exp-lp-form-field">
+              <label>Special Requests</label>
+              <textarea placeholder="Any specific requirements or questions…" id="exp-book-notes"></textarea>
+            </div>
+          </div>
+
+          <button class="exp-lp-book-btn" id="exp-lp-book-btn" onclick="expBookSubmit(this)">Request This Experience</button>
+          <p class="exp-lp-book-note">No commitment required — our concierge will respond within 24 hours.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -3158,39 +3269,102 @@
       // Book btn links to contact
       document.getElementById('exp-lp-book-btn').href = 'index.html#contact';
 
-      // Carousel
+      // ── Carousel + thumbnail strip ──
       var carousel = document.getElementById('exp-carousel');
-      var dots = document.getElementById('exp-lp-dots');
-      var current = 0;
-      var slides = [];
+      var dots     = document.getElementById('exp-lp-dots');
+      var strip    = document.getElementById('exp-lp-strip');
+      var current  = 0;
+      var slides   = [];
+      var thumbs   = [];
+      var autoTimer;
 
       exp.photos.forEach(function(url, i){
+        // Main slide
         var slide = document.createElement('div');
         slide.className = 'exp-lp-slide' + (i===0?' active':'');
         slide.style.backgroundImage = 'url(' + url + ')';
         carousel.appendChild(slide);
         slides.push(slide);
 
+        // Dot
         var dot = document.createElement('div');
         dot.className = 'exp-lp-dot' + (i===0?' active':'');
-        dot.addEventListener('click', function(){ goTo(i); });
+        dot.addEventListener('click', function(){ goTo(i); resetAuto(); });
         dots.appendChild(dot);
+
+        // Thumbnail
+        if(strip){
+          var thumb = document.createElement('div');
+          thumb.className = 'exp-lp-strip-thumb' + (i===0?' active':'');
+          thumb.style.backgroundImage = 'url(' + url + ')';
+          thumb.addEventListener('click', function(){ goTo(i); resetAuto(); });
+          strip.appendChild(thumb);
+          thumbs.push(thumb);
+        }
       });
 
       function goTo(n){
         slides[current].classList.remove('active');
         dots.children[current].classList.remove('active');
+        if(thumbs[current]) thumbs[current].classList.remove('active');
         current = (n + slides.length) % slides.length;
         slides[current].classList.add('active');
         dots.children[current].classList.add('active');
+        if(thumbs[current]) thumbs[current].classList.add('active');
       }
 
-      document.getElementById('exp-arrow-prev').addEventListener('click', function(){ goTo(current-1); });
-      document.getElementById('exp-arrow-next').addEventListener('click', function(){ goTo(current+1); });
-      setInterval(function(){ goTo(current+1); }, 5000);
+      function resetAuto(){
+        clearInterval(autoTimer);
+        autoTimer = setInterval(function(){ goTo(current+1); }, 5000);
+      }
 
-      window.scrollTo({top:0,behavior:'auto'});
+      document.getElementById('exp-arrow-prev').addEventListener('click', function(){ goTo(current-1); resetAuto(); });
+      document.getElementById('exp-arrow-next').addEventListener('click', function(){ goTo(current+1); resetAuto(); });
+      autoTimer = setInterval(function(){ goTo(current+1); }, 5000);
+
+      window.scrollTo({top:0, behavior:'auto'});
     })();
+
+    // ── Booking form submit handler ──
+    function expBookSubmit(btn){
+      var name  = document.getElementById('exp-book-name');
+      var email = document.getElementById('exp-book-email');
+      var date  = document.getElementById('exp-book-date');
+      if(!name || !email) return;
+      if(!name.value.trim() || !email.value.trim()){
+        name.style.borderColor = !name.value.trim() ? 'rgba(176,141,87,0.6)' : '';
+        email.style.borderColor = !email.value.trim() ? 'rgba(176,141,87,0.6)' : '';
+        return;
+      }
+      // Send via EmailJS if available
+      var expTitle = document.getElementById('exp-lp-title');
+      var guests   = document.getElementById('exp-book-guests');
+      var notes    = document.getElementById('exp-book-notes');
+      var params = {
+        experience:      expTitle ? expTitle.textContent : '',
+        from_name:       name.value,
+        reply_to:        email.value,
+        preferred_date:  date ? date.value : '',
+        guests:          guests ? guests.value : '',
+        message:         notes ? notes.value : '',
+      };
+      if(typeof emailjs !== 'undefined'){
+        btn.textContent = 'Sending…';
+        btn.style.opacity = '0.7';
+        emailjs.send('service_ciey0u8', 'template_ryst689', params)
+          .then(function(){
+            btn.textContent = 'Request Sent ✓';
+            btn.style.background = 'rgba(176,141,87,0.35)';
+            btn.style.opacity = '1';
+          }, function(){
+            btn.textContent = 'Request This Experience';
+            btn.style.opacity = '1';
+            window.location.href = 'index.html#contact';
+          });
+      } else {
+        window.location.href = 'index.html#contact';
+      }
+    }
 
 
     // Leaflet map initialised below, after leaflet.js loads
