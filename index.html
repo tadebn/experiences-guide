@@ -3577,13 +3577,24 @@
       var expTitle = document.getElementById('exp-lp-title');
       var guests   = document.getElementById('exp-book-guests');
       var notes    = document.getElementById('exp-book-notes');
+      var tripDates = (dateStart && dateStart.value)
+        ? dateStart.value + (dateEnd && dateEnd.value ? ' to ' + dateEnd.value : '')
+        : 'Not specified';
+
       var params = {
-        experience:      expTitle ? expTitle.textContent : '',
-        from_name:       name.value,
-        reply_to:        email.value,
-        preferred_date:  (dateStart && dateStart.value) ? dateStart.value + (dateEnd && dateEnd.value ? ' to ' + dateEnd.value : '') : '',
-        guests:          guests ? guests.value : '',
-        message:         notes ? notes.value : '',
+        first_name:       name.value,
+        last_name:        '',
+        reply_to:         email.value,
+        experience_type:  expTitle ? expTitle.textContent : '',
+        trip_start:       dateStart ? dateStart.value : '',
+        trip_end:         dateEnd   ? dateEnd.value   : '',
+        message:          'Experience: ' + (expTitle ? expTitle.textContent : '') + '
+'
+                        + 'Dates: ' + tripDates + '
+'
+                        + 'Guests: ' + (guests ? guests.value : 'Not specified') + '
+'
+                        + 'Notes: ' + (notes ? notes.value : ''),
       };
       if(typeof emailjs !== 'undefined'){
         btn.textContent = 'Sending…';
@@ -4042,6 +4053,9 @@
       btn.textContent='Sending…'; btn.classList.remove('ready');
 
       const form=document.getElementById('contact-form');
+      // Tag as general enquiry
+      var msgField = form.querySelector('[name=message]');
+      if(msgField && !msgField.value.startsWith('[GENERAL ENQUIRY]')) msgField.value = '[GENERAL ENQUIRY]\n' + msgField.value;
       emailjs.sendForm('service_ciey0u8', 'template_ryst689', form)
         .then(()=>{
           btn.textContent='✓ Inquiry Received';
