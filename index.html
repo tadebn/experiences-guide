@@ -1957,7 +1957,7 @@
     <div class="approved-grid">
 
       <!-- Card 1 — Featured (spans 2 cols) -->
-      <div class="approved-card">
+      <a href="index.html?view=exp&id=ap-01" class="approved-card" style="text-decoration:none;">
         <div class="approved-card-photo" style="background-image:url('')" data-slot='card-1'></div>
         <div class="approved-card-overlay"></div>
         <div class="approved-card-tag">Yacht Charter</div>
@@ -1966,10 +1966,10 @@
           <div class="approved-card-name">Serenity — 90ft Private Superyacht</div>
           <div class="approved-card-location">Mediterranean · Available May–Oct</div>
         </div>
-      </div>
+      </a>
 
       <!-- Card 2 -->
-      <div class="approved-card">
+      <a href="index.html?view=exp&id=ap-02" class="approved-card" style="text-decoration:none;">
         <div class="approved-card-photo" style="background-image:url('')" data-slot='card-2'></div>
         <div class="approved-card-overlay"></div>
         <div class="approved-card-tag">Private Villa</div>
@@ -1978,10 +1978,10 @@
           <div class="approved-card-name">Villa Calanque</div>
           <div class="approved-card-location">Côte d'Azur, France</div>
         </div>
-      </div>
+      </a>
 
       <!-- Card 3 -->
-      <div class="approved-card">
+      <a href="index.html?view=exp&id=ap-03" class="approved-card" style="text-decoration:none;">
         <div class="approved-card-photo" style="background-image:url('')" data-slot='card-3'></div>
         <div class="approved-card-overlay"></div>
         <div class="approved-card-tag">Wellness Retreat</div>
@@ -1990,10 +1990,10 @@
           <div class="approved-card-name">Amanjiwo Resort</div>
           <div class="approved-card-location">Java, Indonesia</div>
         </div>
-      </div>
+      </a>
 
       <!-- Card 4 -->
-      <div class="approved-card">
+      <a href="index.html?view=exp&id=ap-04" class="approved-card" style="text-decoration:none;">
         <div class="approved-card-photo" style="background-image:url('')" data-slot='card-4'></div>
         <div class="approved-card-overlay"></div>
         <div class="approved-card-tag">Safari Lodge</div>
@@ -2002,10 +2002,10 @@
           <div class="approved-card-name">Singita Grumeti</div>
           <div class="approved-card-location">Serengeti, Tanzania</div>
         </div>
-      </div>
+      </a>
 
       <!-- Card 5 -->
-      <div class="approved-card">
+      <a href="index.html?view=exp&id=ap-05" class="approved-card" style="text-decoration:none;">
         <div class="approved-card-photo" style="background-image:url('')" data-slot='card-5'></div>
         <div class="approved-card-overlay"></div>
         <div class="approved-card-tag">Fine Dining</div>
@@ -2014,10 +2014,10 @@
           <div class="approved-card-name">Le Bernardin — Private Table</div>
           <div class="approved-card-location">New York, USA</div>
         </div>
-      </div>
+      </a>
 
       <!-- Card 6 -->
-      <div class="approved-card">
+      <a href="index.html?view=exp&id=ap-06" class="approved-card" style="text-decoration:none;">
         <div class="approved-card-photo" style="background-image:url('')" data-slot='card-6'></div>
         <div class="approved-card-overlay"></div>
         <div class="approved-card-tag">Ski Chalet</div>
@@ -2026,7 +2026,7 @@
           <div class="approved-card-name">Chalet Edelweiss</div>
           <div class="approved-card-location">Courchevel 1850, France</div>
         </div>
-      </div>
+      </a>
 
     </div>
   </section>
@@ -3466,8 +3466,157 @@
           ]
         },
       };
+      // Approved partner entries
+      const APPROVED_EXP = {
+        /* ── APPROVED PARTNERS ── */
+        'ap-01': {
+          tag: 'Yacht Charter',
+          title: 'Serenity — 90ft Private Superyacht',
+          overviewTitle: 'An Unparalleled <em>Yacht Experience</em>',
+          desc: 'Serenity is one of the most sought-after private superyachts in the Mediterranean. At 90 feet, she accommodates up to 10 guests across five staterooms, with a full professional crew including a Michelin-trained private chef. Available May through October across the Western Mediterranean.',
+          highlights: [
+            { icon: '⚓', label: 'Vessel Length', val: '90ft luxury superyacht' },
+            { icon: '📍', label: 'Location', val: 'Mediterranean' },
+            { icon: '👥', label: 'Guests', val: 'Up to 10 guests' },
+            { icon: '✦', label: 'Included', val: 'Full crew, private chef, all meals' },
+          ],
+          price: 'Price on request',
+          priceSub: 'weekly charter rate',
+          meta: [
+            { key: 'Best Season', val: 'May – October' },
+            { key: 'Home Port', val: 'Monaco' },
+            { key: 'Status', val: 'Experiences Guide Approved' },
+          ],
+          photos: [
+            'https://images.unsplash.com/photo-1506929562872-bb421503ef21?w=1400&q=80',
+            'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=1400&q=80',
+            'https://images.unsplash.com/photo-1540946485063-a40da27545f8?w=1400&q=80',
+          ]
+        },
+        'ap-02': {
+          tag: 'Private Villa',
+          title: 'Villa Calanque',
+          overviewTitle: 'A Private Estate on the <em>Côte d\'Azur</em>',
+          desc: 'Villa Calanque sits on a private headland above the Côte d\'Azur, accessible only by private road or sea. Six bedrooms, a 22-metre infinity pool, and a dedicated concierge team. One of fewer than a dozen properties on the French Riviera that we classify as truly private — no neighbours, no noise, no compromise.',
+          highlights: [
+            { icon: '📍', label: 'Location', val: 'Côte d\'Azur, France' },
+            { icon: '🛏', label: 'Bedrooms', val: '6 suites, up to 12 guests' },
+            { icon: '🏊', label: 'Facilities', val: '22m infinity pool, spa, helipad' },
+            { icon: '✦', label: 'Staff', val: 'Full concierge team included' },
+          ],
+          price: 'Price on request',
+          priceSub: 'per week, sole occupancy',
+          meta: [
+            { key: 'Best Season', val: 'May – September' },
+            { key: 'Nearest Airport', val: 'Nice Côte d\'Azur (30 min)' },
+            { key: 'Status', val: 'Experiences Guide Approved' },
+          ],
+          photos: [
+            'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=1400&q=80',
+            'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=1400&q=80',
+            'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1400&q=80',
+          ]
+        },
+        'ap-03': {
+          tag: 'Wellness Retreat',
+          title: 'Amanjiwo Resort',
+          overviewTitle: 'Stillness in the <em>Heart of Java</em>',
+          desc: 'Amanjiwo — meaning "peaceful soul" — is set among rice paddies in Central Java with unobstructed views of the Borobudur temple complex. An Aman property in the truest sense: 36 suites, no clocks, and a pace that belongs entirely to you. We arrange private temple access, traditional Javanese healing rituals, and the kind of silence that cities no longer offer.',
+          highlights: [
+            { icon: '📍', label: 'Location', val: 'Central Java, Indonesia' },
+            { icon: '🏛', label: 'Setting', val: 'Adjacent to Borobudur temple' },
+            { icon: '🧘', label: 'Wellness', val: 'Javanese healing, yoga, meditation' },
+            { icon: '✦', label: 'Brand', val: 'Aman Resorts' },
+          ],
+          price: 'Price on request',
+          priceSub: 'per suite per night',
+          meta: [
+            { key: 'Best Season', val: 'May – September' },
+            { key: 'Nearest Airport', val: 'Yogyakarta (45 min)' },
+            { key: 'Status', val: 'Experiences Guide Approved' },
+          ],
+          photos: [
+            'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=1400&q=80',
+            'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1400&q=80',
+            'https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1400&q=80',
+          ]
+        },
+        'ap-04': {
+          tag: 'Safari Lodge',
+          title: 'Singita Grumeti',
+          overviewTitle: 'The Serengeti at its Most <em>Exclusive</em>',
+          desc: 'Singita Grumeti covers 350,000 acres of private concession within the Serengeti ecosystem — an area larger than many national parks, shared with no one. The great wildebeest migration passes directly through the concession each year. Guests stay in lodges of extraordinary refinement, guided by trackers who have spent decades reading this landscape.',
+          highlights: [
+            { icon: '🦁', label: 'Location', val: 'Serengeti, Tanzania' },
+            { icon: '🌍', label: 'Concession', val: '350,000 private acres' },
+            { icon: '🌅', label: 'Activities', val: 'Private game drives, walking safaris' },
+            { icon: '✦', label: 'Brand', val: 'Singita' },
+          ],
+          price: 'Price on request',
+          priceSub: 'per person, all-inclusive',
+          meta: [
+            { key: 'Best Season', val: 'June – October' },
+            { key: 'Access', val: 'Private airstrip on concession' },
+            { key: 'Status', val: 'Experiences Guide Approved' },
+          ],
+          photos: [
+            'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=1400&q=80',
+            'https://images.unsplash.com/photo-1535941339077-2dd1c7963098?w=1400&q=80',
+            'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=1400&q=80',
+          ]
+        },
+        'ap-05': {
+          tag: 'Fine Dining',
+          title: 'Le Bernardin — Private Table',
+          overviewTitle: 'New York\'s Most <em>Celebrated Table</em>',
+          desc: 'Le Bernardin has held four stars from the New York Times and three Michelin stars for decades — the benchmark against which all serious seafood restaurants measure themselves. We arrange exclusive private dining experiences within the restaurant\'s inner sanctum, including chef\'s table access and bespoke tasting menus built around your preferences in conversation with Chef Eric Ripert\'s team.',
+          highlights: [
+            { icon: '⭐', label: 'Awards', val: '3 Michelin stars, 4 NYT stars' },
+            { icon: '📍', label: 'Location', val: 'Midtown Manhattan, New York' },
+            { icon: '🍽', label: 'Format', val: 'Private dining, chef\'s table' },
+            { icon: '✦', label: 'Access', val: 'Exclusive via Experiences Guide' },
+          ],
+          price: 'Price on request',
+          priceSub: 'per person, private booking',
+          meta: [
+            { key: 'Cuisine', val: 'Contemporary French seafood' },
+            { key: 'Notice Required', val: 'Minimum 4 weeks' },
+            { key: 'Status', val: 'Experiences Guide Approved' },
+          ],
+          photos: [
+            'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1400&q=80',
+            'https://images.unsplash.com/photo-1600565193348-f74bd3c7ccdf?w=1400&q=80',
+            'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=1400&q=80',
+          ]
+        },
+        'ap-06': {
+          tag: 'Ski Chalet',
+          title: 'Chalet Edelweiss',
+          overviewTitle: 'Courchevel at its Most <em>Rarefied</em>',
+          desc: 'Chalet Edelweiss is among the most coveted private ski residences in the Alps — a 1850-altitude property sleeping 14, with direct piste access, a 15-metre indoor pool, cinema, wine cellar, and a resident chef whose background spans two Michelin-starred kitchens. In Courchevel, everything is about access. Edelweiss gives you all of it.',
+          highlights: [
+            { icon: '🏔', label: 'Location', val: 'Courchevel 1850, France' },
+            { icon: '🛏', label: 'Capacity', val: '7 suites, up to 14 guests' },
+            { icon: '🎿', label: 'Access', val: 'Ski-in / ski-out, direct piste' },
+            { icon: '✦', label: 'Included', val: 'Resident chef, chalet staff' },
+          ],
+          price: 'Price on request',
+          priceSub: 'per week, full chalet',
+          meta: [
+            { key: 'Best Season', val: 'December – March' },
+            { key: 'Nearest Airport', val: 'Chambéry or private helipad' },
+            { key: 'Status', val: 'Experiences Guide Approved' },
+          ],
+          photos: [
+            'https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=1400&q=80',
+            'https://images.unsplash.com/photo-1548625149-fc4a29cf7092?w=1400&q=80',
+            'https://images.unsplash.com/photo-1519681393784-d120267933ba?w=1400&q=80',
+          ]
+        },
+      };
+
       // Merge with main data
-      Object.assign(EXP_DATA, CONT_EXP);
+      Object.assign(EXP_DATA, CONT_EXP, APPROVED_EXP);
 
       const exp = EXP_DATA[id];
       if(!exp) return;
