@@ -46,20 +46,31 @@
 
     /* CURSOR */
     #cursor-dot {
-      position: fixed; top: 0; left: 0; z-index: 9999;
+      position: fixed; top: -40px; left: -40px; z-index: 9999;
       width: 8px; height: 8px; background: var(--brass-bright);
       border-radius: 50%; pointer-events: none;
-      transform: translate(-50%,-50%); transition: transform 0.08s;
+      transform: translate(-50%,-50%);
+      transition: transform 0.08s, opacity 0.2s;
+      mix-blend-mode: normal;
     }
     #cursor-ring {
-      position: fixed; top: 0; left: 0; z-index: 9998;
-      width: 36px; height: 36px; border: 1px solid rgba(203,169,110,0.5);
+      position: fixed; top: -40px; left: -40px; z-index: 9998;
+      width: 36px; height: 36px;
+      border: 1.5px solid rgba(226,196,122,0.7);
       border-radius: 50%; pointer-events: none;
       transform: translate(-50%,-50%);
-      transition: transform 0.25s var(--ease-out), width 0.3s, height 0.3s;
+      transition: transform 0.22s var(--ease-out), width 0.3s, height 0.3s, border-color 0.3s, opacity 0.2s;
+      backdrop-filter: none;
     }
-    body.cursor-hover #cursor-ring { width: 58px; height: 58px; border-color: var(--brass-bright); }
-    body.cursor-hover #cursor-dot  { transform: translate(-50%,-50%) scale(1.5); }
+    body.cursor-hover #cursor-ring {
+      width: 52px; height: 52px;
+      border-color: var(--brass-bright);
+      border-width: 2px;
+    }
+    body.cursor-hover #cursor-dot { transform: translate(-50%,-50%) scale(1.8); }
+    /* Force hide native cursor everywhere */
+    html, body, * { cursor: none !important; }
+    /* Re-enable on mobile (handled by media query below) */
 
     /* GRAIN */
     .grain::after {
@@ -1185,7 +1196,7 @@
       .testimonial-grid { grid-template-columns: 1fr; }
       .contact-inner { grid-template-columns: 1fr; gap: 50px; }
       .footer-top { grid-template-columns: 1fr 1fr; gap: 32px; }
-      #cursor-dot,#cursor-ring { display: none; } body { cursor: auto; }
+      #cursor-dot,#cursor-ring { display: none !important; } html, body, * { cursor: auto !important; }
       .form-submit,.nav-cta,.btn-primary { cursor: pointer; }
       .continent-back { margin-bottom: 16px; }
     }
@@ -2668,16 +2679,35 @@
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const dot=document.getElementById('cursor-dot'), ring=document.getElementById('cursor-ring');
-    let mx=0,my=0,rx=0,ry=0;
-    document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;});
-    document.querySelectorAll('a,button,.exp-card,.dest-item').forEach(el=>{
+    let mx=-40,my=-40,rx=-40,ry=-40,cursorVisible=false;
+
+    document.addEventListener('mousemove',e=>{
+      mx=e.clientX; my=e.clientY;
+      if(!cursorVisible){
+        cursorVisible=true;
+        dot.style.opacity='1'; ring.style.opacity='1';
+      }
+    });
+
+    /* Hide cursor when it leaves the window */
+    document.addEventListener('mouseleave',()=>{
+      dot.style.opacity='0'; ring.style.opacity='0';
+      cursorVisible=false;
+    });
+    document.addEventListener('mouseenter',()=>{
+      dot.style.opacity='1'; ring.style.opacity='1';
+      cursorVisible=true;
+    });
+
+    document.querySelectorAll('a,button,.exp-card,.dest-item,.approved-card,.continent-card,.dlp-card').forEach(el=>{
       el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
       el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
     });
+
     (function anim(){
-      dot.style.left=mx+'px';dot.style.top=my+'px';
-      rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
-      ring.style.left=rx+'px';ring.style.top=ry+'px';
+      dot.style.left=mx+'px'; dot.style.top=my+'px';
+      rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+      ring.style.left=rx+'px'; ring.style.top=ry+'px';
       requestAnimationFrame(anim);
     })();
 
