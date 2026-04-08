@@ -1806,6 +1806,142 @@
       #exp-map-section { padding: 80px 28px; }
       #eg-map { height: 380px; }
     }
+
+    /* ═══════════════════════════════════════════════════
+       MOBILE OPTIMISATION  ≤ 768px
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      /* NAV */
+      nav { padding: 14px 20px !important; }
+      nav.scrolled { padding: 12px 20px !important; }
+      .nav-right { display: none !important; }
+      .nav-hamburger { display: flex !important; }
+
+      /* SECTIONS — tighter padding + anchor scroll clears nav */
+      section { padding: 64px 20px !important; scroll-margin-top: 76px; }
+
+      /* VIEW PANELS — push content below fixed nav (~70px tall) */
+      #view-continents,
+      #view-continent { padding: 80px 20px 48px !important; }
+      #view-exp,
+      #view-dest { padding: 0 !important; }
+
+      /* BACK BUTTONS inside view panels */
+      .exp-lp-back { top: 80px !important; left: 20px !important; }
+      .dlp-back    { top: 80px !important; left: 20px !important; }
+
+      /* HERO */
+      .hero-content { padding: 0 20px 80px !important; }
+      .hero-title { font-size: clamp(2.4rem, 9vw, 3.8rem) !important; }
+      .hero-actions { flex-direction: column; align-items: flex-start; gap: 14px !important; }
+      .btn-primary { width: 100%; text-align: center; box-sizing: border-box; }
+      .hero-stats, .hero-corner { display: none !important; }
+
+      /* FORMS — font-size ≥ 16px prevents iOS auto-zoom */
+      input, select, textarea { font-size: 1rem !important; }
+      .form-row { grid-template-columns: 1fr !important; gap: 18px !important; }
+      .form-submit { width: 100%; justify-content: center; }
+
+      /* TOUCH TARGETS */
+      .nav-drawer-trigger,
+      .nav-drawer-panel a,
+      .nav-drawer-book { min-height: 44px; }
+      .btn-primary, .btn-secondary, .nav-book,
+      .exp-lp-book-btn, .dlp-cta-btn { min-height: 48px; display: flex; align-items: center; justify-content: center; }
+
+      /* STATS STRIP — 2-column */
+      .stats-strip { grid-template-columns: repeat(2,1fr) !important; padding: 40px 20px !important; }
+      .stat-block { border-right: none !important; }
+
+      /* FOOTER */
+      footer { padding: 60px 20px 32px !important; }
+      .footer-top { grid-template-columns: 1fr !important; gap: 36px !important; }
+      .footer-bottom { flex-direction: column; gap: 14px; text-align: center; }
+
+      /* MAP */
+      #exp-map-section { padding: 64px 20px !important; }
+      #eg-map { height: 300px !important; }
+
+      /* DESTINATIONS — unstick panel on mobile */
+      .dest-panel { position: static !important; top: auto !important; }
+      .dest-layout { gap: 32px !important; }
+
+      /* PROCESS */
+      .process-steps { grid-template-columns: 1fr !important; }
+
+      /* TESTIMONIALS */
+      .testimonial-grid { grid-template-columns: 1fr !important; }
+
+      /* CONTACT */
+      .contact-inner { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+      /* PHILOSOPHY */
+      .phil-inner { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+      /* APPROVED GRID */
+      .approved-grid { grid-template-columns: 1fr !important; }
+
+      /* EXP LANDING PAGE */
+      .exp-lp-hero { height: 52vh !important; min-height: 340px !important; }
+      .exp-lp-hero-content { padding: 0 20px 36px !important; flex-direction: column; align-items: flex-start; gap: 16px; }
+      .exp-lp-arrows { right: 20px !important; bottom: 36px !important; }
+      .exp-lp-strip { height: 80px !important; }
+      .exp-lp-body { grid-template-columns: 1fr !important; gap: 40px !important; padding: 88px 20px 80px !important; }
+      .exp-lp-book-card { position: static !important; top: auto !important; }
+      .exp-lp-book-card-header { padding: 24px 24px !important; }
+      .exp-lp-book-body { padding: 20px 24px 28px !important; }
+      .exp-lp-highlights { grid-template-columns: 1fr 1fr !important; }
+
+      /* DESTINATION LANDING PAGE */
+      .dlp-hero { height: 52vh !important; min-height: 320px !important; }
+      .dlp-hero-content { padding: 0 20px 36px !important; }
+      .dlp-body { padding: 48px 20px 80px !important; }
+      .dlp-count-badge { right: 20px !important; }
+      .dlp-intro { grid-template-columns: 1fr !important; gap: 32px !important; }
+      .dlp-grid { grid-template-columns: 1fr !important; }
+      .dlp-cta-bar { flex-direction: column; align-items: flex-start !important; padding: 24px 20px !important; gap: 20px !important; }
+      .dlp-cta-btn { width: 100%; text-align: center; }
+
+      /* CONCIERGE */
+      #concierge-btn { cursor: pointer !important; }
+    }
+
+    /* ═══════════════════════════════════════════════════
+       SMALL PHONES  ≤ 480px
+    ═══════════════════════════════════════════════════ */
+    @media (max-width: 480px) {
+      nav { padding: 12px 16px !important; }
+      nav.scrolled { padding: 10px 16px !important; }
+      section { padding: 48px 16px !important; }
+
+      #view-continents,
+      #view-continent { padding: 76px 16px 40px !important; }
+      .exp-lp-back { top: 76px !important; left: 16px !important; }
+      .dlp-back    { top: 76px !important; left: 16px !important; }
+
+      .hero-title { font-size: clamp(2rem, 10vw, 3rem) !important; }
+      .nav-logo { font-size: 1.1rem !important; }
+
+      footer { padding: 48px 16px 28px !important; }
+
+      #eg-map { height: 260px !important; }
+
+      .exp-lp-hero { height: 45vh !important; min-height: 280px !important; }
+      .exp-lp-strip { height: 64px !important; }
+      .exp-lp-body { padding: 84px 16px 64px !important; }
+      .exp-lp-highlights { grid-template-columns: 1fr !important; }
+      .exp-lp-book-card-header { padding: 20px 20px !important; }
+      .exp-lp-book-body { padding: 16px 20px 24px !important; }
+
+      .dlp-hero { height: 45vh !important; min-height: 260px !important; }
+      .dlp-body { padding: 40px 16px 64px !important; }
+
+      .stats-strip { padding: 32px 16px !important; }
+      .contact-inner { gap: 32px !important; }
+
+      #concierge-btn { right: 16px !important; bottom: 20px !important; width: 54px !important; height: 54px !important; }
+      #concierge-panel { width: calc(100vw - 20px) !important; right: 10px !important; }
+    }
   </style>
 </head>
 <body class="grain">
