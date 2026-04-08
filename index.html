@@ -2147,8 +2147,12 @@
               <input type="email" placeholder="your@email.com" id="exp-book-email" />
             </div>
             <div class="exp-lp-form-field">
-              <label>Preferred Travel Date</label>
-              <input type="text" placeholder="e.g. July 2025" id="exp-book-date" />
+              <label>Preferred Travel Dates</label>
+              <button type="button" id="exp-date-trigger" class="exp-date-trigger">
+                <span id="exp-date-text">Select dates</span>
+              </button>
+              <input type="hidden" id="exp-book-date-start" name="trip_start" />
+              <input type="hidden" id="exp-book-date-end"   name="trip_end"   />
             </div>
             <div class="exp-lp-form-field">
               <label>Number of Guests</label>
@@ -3548,7 +3552,9 @@
     function expBookSubmit(btn){
       var name  = document.getElementById('exp-book-name');
       var email = document.getElementById('exp-book-email');
-      var date  = document.getElementById('exp-book-date');
+      var dateStart = document.getElementById('exp-book-date-start');
+      var dateEnd   = document.getElementById('exp-book-date-end');
+      var date  = dateStart; // for legacy compat
       if(!name || !email || !btn) return;
       if(!name.value.trim() || !email.value.trim()){
         if(name) name.style.borderColor = !name.value.trim() ? 'rgba(176,141,87,0.6)' : '';
@@ -3563,7 +3569,7 @@
         experience:      expTitle ? expTitle.textContent : '',
         from_name:       name.value,
         reply_to:        email.value,
-        preferred_date:  date ? date.value : '',
+        preferred_date:  (dateStart && dateStart.value) ? dateStart.value + (dateEnd && dateEnd.value ? ' to ' + dateEnd.value : '') : '',
         guests:          guests ? guests.value : '',
         message:         notes ? notes.value : '',
       };
@@ -4292,6 +4298,221 @@
       overlay.addEventListener('click', function(){ closeCalendar(); });
       window.addEventListener('resize', function(){ if(popup.style.display !== 'none') positionPopup(); });
 
+    })();
+
+
+    // ── EXPERIENCE BOOKING CALENDAR ──
+    (function(){
+      var MONTHS    = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+      var MON_SHORT = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+      var DAYS      = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+
+      var today = new Date(); today.setHours(0,0,0,0);
+      var viewYear  = today.getFullYear();
+      var viewMonth = today.getMonth();
+      var startDate = null, endDate = null, hoverDate = null;
+      var picking   = 'start';
+
+      var trigger  = document.getElementById('exp-date-trigger');
+      var textEl   = document.getElementById('exp-date-text');
+      var hidStart = document.getElementById('exp-book-date-start');
+      var hidEnd   = document.getElementById('exp-book-date-end');
+      if(!trigger || !textEl) return;
+
+      // Build popup (reuse same CSS classes as main calendar)
+      var overlay2 = document.createElement('div');
+      overlay2.id = 'exp-cal-overlay';
+      overlay2.style.cssText = 'position:fixed;inset:0;z-index:8998;background:transparent;display:none;';
+
+      var popup2 = document.createElement('div');
+      popup2.id = 'exp-cal-popup';
+      popup2.style.display = 'none';
+
+      var topBar = document.createElement('div'); topBar.className = 'cp-top';
+      var btnPrev = document.createElement('button'); btnPrev.type='button'; btnPrev.className='cp-nav'; btnPrev.innerHTML='&#8249;';
+      var tabsRow = document.createElement('div'); tabsRow.className='cp-month-row'; tabsRow.id='exp-cp-tabs';
+      var btnNext = document.createElement('button'); btnNext.type='button'; btnNext.className='cp-nav'; btnNext.innerHTML='&#8250;';
+      topBar.appendChild(btnPrev); topBar.appendChild(tabsRow); topBar.appendChild(btnNext);
+
+      var gridWrap = document.createElement('div'); gridWrap.className='cp-grid-wrap';
+      var labelEl  = document.createElement('div'); labelEl.className='cp-label'; labelEl.id='exp-cp-label';
+      var gridEl   = document.createElement('div'); gridEl.className='cp-grid';   gridEl.id='exp-cp-grid';
+      gridWrap.appendChild(labelEl); gridWrap.appendChild(gridEl);
+
+      var foot     = document.createElement('div');  foot.className='cp-foot';
+      var hintEl   = document.createElement('span'); hintEl.className='cp-hint'; hintEl.textContent='Select arrival date';
+      var clearBtn = document.createElement('button'); clearBtn.type='button'; clearBtn.className='cp-clear'; clearBtn.textContent='Clear';
+      foot.appendChild(hintEl); foot.appendChild(clearBtn);
+
+      popup2.appendChild(topBar); popup2.appendChild(gridWrap); popup2.appendChild(foot);
+      document.body.appendChild(overlay2);
+      document.body.appendChild(popup2);
+
+      function fmt(d){ return d ? d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'}) : ''; }
+      function fmtISO(d){ if(!d) return ''; var m=d.getMonth()+1; var dd=d.getDate(); return d.getFullYear()+'-'+(m<10?'0'+m:m)+'-'+(dd<10?'0'+dd:dd); }
+      function sameDay(a,b){ return a && b && a.getTime()===b.getTime(); }
+
+      function updateText(){
+        if(startDate && endDate){
+          var nights = Math.round((endDate - startDate)/86400000);
+          textEl.textContent = fmt(startDate) + ' - ' + fmt(endDate) + ' (' + nights + ' night' + (nights!==1?'s':'') + ')';
+          textEl.classList.add('has-dates');
+        } else if(startDate){
+          textEl.textContent = fmt(startDate) + ' — select departure';
+          textEl.classList.add('has-dates');
+        } else {
+          textEl.textContent = 'Select dates';
+          textEl.classList.remove('has-dates');
+        }
+        if(hidStart) hidStart.value = fmtISO(startDate);
+        if(hidEnd)   hidEnd.value   = fmtISO(endDate);
+      }
+
+      function refreshHighlights(){
+        var cells = gridEl.querySelectorAll('.cp-day:not(.cp-empty):not(.cp-past)');
+        cells.forEach(function(el){
+          var date = new Date(parseInt(el.getAttribute('data-time'), 10));
+          el.classList.remove('cp-start','cp-end','cp-range');
+          if(sameDay(date, startDate)) el.classList.add('cp-start');
+          if(sameDay(date, endDate))   el.classList.add('cp-end');
+          if(startDate && endDate && date > startDate && date < endDate) el.classList.add('cp-range');
+          if(startDate && !endDate && hoverDate && date > startDate && date <= hoverDate) el.classList.add('cp-range');
+        });
+      }
+
+      function buildTabs(){
+        tabsRow.innerHTML = '';
+        for(var i = 0; i < 12; i++){
+          var m = (today.getMonth() + i) % 12;
+          var y = today.getFullYear() + Math.floor((today.getMonth() + i) / 12);
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'cp-mtab' + (m === viewMonth && y === viewYear ? ' active' : '');
+          btn.textContent = MON_SHORT[m] + (m === 0 || i === 0 ? ' ' + y : '');
+          (function(mm,yy){
+            btn.addEventListener('click', function(e){
+              e.stopPropagation();
+              viewMonth = mm; viewYear = yy;
+              buildGrid(); buildTabs(); updateHint();
+            });
+          })(m, y);
+          tabsRow.appendChild(btn);
+        }
+      }
+
+      function buildGrid(){
+        labelEl.textContent = MONTHS[viewMonth] + ', ' + viewYear;
+        gridEl.innerHTML = '';
+        DAYS.forEach(function(d){
+          var h = document.createElement('div'); h.className='cp-dh'; h.textContent=d; gridEl.appendChild(h);
+        });
+        var firstDay    = new Date(viewYear, viewMonth, 1).getDay();
+        var daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
+        for(var i = 0; i < firstDay; i++){
+          var blank = document.createElement('div'); blank.className='cp-day cp-empty'; gridEl.appendChild(blank);
+        }
+        for(var day = 1; day <= daysInMonth; day++){
+          var date = new Date(viewYear, viewMonth, day);
+          var el   = document.createElement('div');
+          el.className   = 'cp-day';
+          el.textContent = day;
+          el.setAttribute('data-time', date.getTime());
+          if(date < today){
+            el.classList.add('cp-past');
+          } else {
+            if(sameDay(date, startDate)) el.classList.add('cp-start');
+            if(sameDay(date, endDate))   el.classList.add('cp-end');
+            if(startDate && endDate && date > startDate && date < endDate) el.classList.add('cp-range');
+            el.addEventListener('mouseenter', (function(dt){ return function(){
+              hoverDate = dt; refreshHighlights();
+            };})(date));
+            el.addEventListener('mouseleave', function(){
+              hoverDate = null; refreshHighlights();
+            });
+            el.addEventListener('click', (function(dt){ return function(ev){
+              ev.stopPropagation();
+              if(picking === 'start'){
+                startDate = dt; endDate = null; hoverDate = null; picking = 'end';
+              } else {
+                if(dt.getTime() <= startDate.getTime()){
+                  startDate = dt; endDate = null; hoverDate = null; picking = 'end';
+                } else {
+                  endDate = dt; picking = 'start';
+                }
+              }
+              updateText(); refreshHighlights(); updateHint();
+              if(startDate && endDate){ setTimeout(function(){ closeCalendar(); }, 450); }
+            };})(date));
+          }
+          gridEl.appendChild(el);
+        }
+      }
+
+      function updateHint(){
+        if(!startDate)    hintEl.textContent = 'Select arrival date';
+        else if(!endDate) hintEl.textContent = 'Now select departure date';
+        else              hintEl.textContent = fmt(startDate) + ' - ' + fmt(endDate);
+      }
+
+      function fullRender(){ buildGrid(); buildTabs(); updateHint(); }
+
+      btnPrev.addEventListener('click', function(e){
+        e.stopPropagation();
+        viewMonth--;
+        if(viewMonth < 0){ viewMonth = 11; viewYear--; }
+        if(viewYear < today.getFullYear() || (viewYear === today.getFullYear() && viewMonth < today.getMonth())){
+          viewYear = today.getFullYear(); viewMonth = today.getMonth();
+        }
+        fullRender();
+      });
+
+      btnNext.addEventListener('click', function(e){
+        e.stopPropagation();
+        viewMonth++; if(viewMonth > 11){ viewMonth = 0; viewYear++; }
+        fullRender();
+      });
+
+      clearBtn.addEventListener('click', function(e){
+        e.stopPropagation();
+        startDate = null; endDate = null; hoverDate = null; picking = 'start';
+        updateText(); fullRender();
+      });
+
+      function positionPopup(){
+        var r  = trigger.getBoundingClientRect();
+        var pw = 280, ph = 360;
+        var left = r.left, top = r.bottom + 6;
+        var vw = window.innerWidth, vh = window.innerHeight;
+        if(left + pw > vw - 8) left = vw - pw - 8;
+        if(left < 8) left = 8;
+        if(top + ph > vh - 8) top = r.top - ph - 6;
+        if(top < 8) top = 8;
+        popup2.style.left = left + 'px';
+        popup2.style.top  = top  + 'px';
+      }
+
+      function openCalendar(){
+        picking = (startDate && !endDate) ? 'end' : 'start';
+        viewYear  = today.getFullYear(); viewMonth = today.getMonth();
+        if(startDate){ viewYear = startDate.getFullYear(); viewMonth = startDate.getMonth(); }
+        fullRender(); positionPopup();
+        popup2.style.display   = 'block';
+        overlay2.style.display = 'block';
+        trigger.classList.add('active');
+      }
+
+      function closeCalendar(){
+        popup2.style.display   = 'none';
+        overlay2.style.display = 'none';
+        trigger.classList.remove('active');
+      }
+
+      trigger.addEventListener('click', function(e){
+        e.stopPropagation();
+        popup2.style.display === 'none' ? openCalendar() : closeCalendar();
+      });
+      overlay2.addEventListener('click', function(){ closeCalendar(); });
+      window.addEventListener('resize', function(){ if(popup2.style.display !== 'none') positionPopup(); });
     })();
 
 
