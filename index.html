@@ -3588,13 +3588,7 @@
         experience_type:  expTitle ? expTitle.textContent : '',
         trip_start:       dateStart ? dateStart.value : '',
         trip_end:         dateEnd   ? dateEnd.value   : '',
-        message:          'Experience: ' + (expTitle ? expTitle.textContent : '') + '
-'
-                        + 'Dates: ' + tripDates + '
-'
-                        + 'Guests: ' + (guests ? guests.value : 'Not specified') + '
-'
-                        + 'Notes: ' + (notes ? notes.value : ''),
+        message:          '[EXPERIENCE BOOKING] ' + (expTitle ? expTitle.textContent : '') + ' | Dates: ' + tripDates + ' | Guests: ' + (guests ? guests.value : 'Not specified') + ' | Notes: ' + (notes ? notes.value : ''),
       };
       if(typeof emailjs !== 'undefined'){
         btn.textContent = 'Sending…';
@@ -4055,7 +4049,7 @@
       const form=document.getElementById('contact-form');
       // Tag as general enquiry
       var msgField = form.querySelector('[name=message]');
-      if(msgField && !msgField.value.startsWith('[GENERAL ENQUIRY]')) msgField.value = '[GENERAL ENQUIRY]\n' + msgField.value;
+      if(msgField && !msgField.value.startsWith('[GENERAL ENQUIRY]')) msgField.value = '[GENERAL ENQUIRY] ' + msgField.value;
       emailjs.sendForm('service_ciey0u8', 'template_ryst689', form)
         .then(()=>{
           btn.textContent='✓ Inquiry Received';
